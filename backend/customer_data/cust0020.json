@@ -1,0 +1,162 @@
+{
+    "id": "cust0020",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Charlie",
+        "last_name": "Brown",
+        "date_of_birth": "1975-12-19",
+        "age": 50,
+        "nationality": "Pakistani",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "88 Queen Street",
+            "city": "Sheffield",
+            "postcode": "SE10 3HZ",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "charlie.brown@email.com",
+            "phone": "+44 7271846678"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-03-23"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-03-16"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Business Owner",
+        "annual_income": 52739,
+        "monthly_income": 4394.92,
+        "monthly_expenses": 1414,
+        "disposable_income": 2980.92,
+        "debt_obligations": [
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 870,
+                "outstanding_balance": 11803
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 445,
+                "outstanding_balance": 31457
+            }
+        ],
+        "total_monthly_debt_payments": 1315,
+        "disposable_income_after_debts": 1665.92,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 35540,
+            "average_monthly_spending": 1380,
+            "average_monthly_saving": 310.97,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 795
+                },
+                {
+                    "category": "Rent",
+                    "amount": 292
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 95
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 198
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1354.95
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 1,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Income",
+        "timeline": "Short-term",
+        "desired_retirement_age": 62,
+        "expected_retirement_income": 27913,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 360275,
+            "current_progress": 1166586
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Banking",
+            "Phone",
+            "Video Conferencing",
+            "Mail",
+            "Mobile App",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Fixed Rate Bonds"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA233"
+            },
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA735"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 22284,
+            "lifetime_allowance_remaining": 674957
+        },
+        "lisa_eligibility": false
+    }
+}

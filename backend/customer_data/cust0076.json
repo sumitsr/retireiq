@@ -1,0 +1,159 @@
+{
+    "id": "cust0076",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Fiona",
+        "last_name": "Kumar",
+        "date_of_birth": "2004-04-16",
+        "age": 21,
+        "nationality": "Bangladeshi",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "135 Victoria Street",
+            "city": "Newcastle",
+            "postcode": "SW14 3PT",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "fiona.kumar@email.com",
+            "phone": "+44 7202121939"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2030-11-15"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-03-05"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Temporary",
+        "annual_income": 36481,
+        "monthly_income": 3040.08,
+        "monthly_expenses": 1388,
+        "disposable_income": 1652.08,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 369,
+                "outstanding_balance": 28075
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 567,
+                "outstanding_balance": 20995
+            }
+        ],
+        "total_monthly_debt_payments": 936,
+        "disposable_income_after_debts": 716.08,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 33311,
+            "average_monthly_spending": 752,
+            "average_monthly_saving": 216.71,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 424
+                },
+                {
+                    "category": "Rent",
+                    "amount": 88
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 132
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 66
+                },
+                {
+                    "category": "Travel",
+                    "amount": 42
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 499.37
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 5,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Planning",
+        "timeline": "Long-term",
+        "desired_retirement_age": 70,
+        "expected_retirement_income": 45085,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 173756,
+            "current_progress": 377187
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Mobile App",
+            "Phone",
+            "Visual Dashboards",
+            "Online Banking",
+            "Mail",
+            "Online Chat",
+            "Video Conferencing"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Savings Account"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Critical Illness Cover",
+            "Income Protection Insurance"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 23817,
+            "lifetime_allowance_remaining": 528069
+        },
+        "lisa_eligibility": true
+    }
+}

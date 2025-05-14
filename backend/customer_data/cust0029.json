@@ -1,0 +1,145 @@
+{
+    "id": "cust0029",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "George",
+        "last_name": "Miller",
+        "date_of_birth": "1976-07-06",
+        "age": 49,
+        "nationality": "Indian",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "101 London Road",
+            "city": "Liverpool",
+            "postcode": "OX2 8LL",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "george.miller@email.com",
+            "phone": "+44 7813533627"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2028-03-05"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-06-10"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 68922,
+        "monthly_income": 5743.5,
+        "monthly_expenses": 1581,
+        "disposable_income": 4162.5,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 232,
+                "outstanding_balance": 47713
+            }
+        ],
+        "total_monthly_debt_payments": 232,
+        "disposable_income_after_debts": 3930.5,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 59679,
+            "average_monthly_spending": 1479,
+            "average_monthly_saving": 1776.03,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 800
+                },
+                {
+                    "category": "Rent",
+                    "amount": 506
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 173
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2154.47
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 3,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Lifetime ISA"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Wealth Accumulation",
+        "timeline": "Long-term",
+        "desired_retirement_age": 63,
+        "expected_retirement_income": 23720,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 415917,
+            "current_progress": 126148
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Mail",
+            "Online Chat",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Stocks and Shares ISA"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Lifetime ISA",
+                "account_number": "ISA396"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 17889,
+            "lifetime_allowance_remaining": 817031
+        },
+        "lisa_eligibility": false
+    }
+}

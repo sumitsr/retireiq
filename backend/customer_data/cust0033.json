@@ -1,0 +1,148 @@
+{
+    "id": "cust0033",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Fiona",
+        "last_name": "Singh",
+        "date_of_birth": "1984-03-03",
+        "age": 41,
+        "nationality": "Indian",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "52 Park Lane",
+            "city": "Edinburgh",
+            "postcode": "G6 2PK",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "fiona.singh@email.com",
+            "phone": "+44 7471069436"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2028-05-07"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-04-13"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Freelancer",
+        "annual_income": 52667,
+        "monthly_income": 4388.92,
+        "monthly_expenses": 1257,
+        "disposable_income": 3131.92,
+        "debt_obligations": [
+            {
+                "type": "Student Loan",
+                "monthly_payment": 666,
+                "outstanding_balance": 34105
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 142,
+                "outstanding_balance": 14922
+            }
+        ],
+        "total_monthly_debt_payments": 808,
+        "disposable_income_after_debts": 2323.92,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 31279,
+            "average_monthly_spending": 1157,
+            "average_monthly_saving": 1092.58,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 703
+                },
+                {
+                    "category": "Rent",
+                    "amount": 65
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 389
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1231.34
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Early Retirement",
+        "timeline": "Long-term",
+        "desired_retirement_age": 65,
+        "expected_retirement_income": 79181,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 713199,
+            "current_progress": 54570
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Visual Dashboards",
+            "Video Conferencing",
+            "Phone",
+            "Mail"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Pension",
+            "Stocks and Shares ISA",
+            "Savings Account"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 26268,
+            "lifetime_allowance_remaining": 361229
+        },
+        "lisa_eligibility": false
+    }
+}

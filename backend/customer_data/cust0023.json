@@ -1,0 +1,136 @@
+{
+    "id": "cust0023",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Charlie",
+        "last_name": "Williams",
+        "date_of_birth": "2006-09-16",
+        "age": 19,
+        "nationality": "Bangladeshi",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "95 High Street",
+            "city": "Birmingham",
+            "postcode": "CB7 4WY",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "charlie.williams@email.com",
+            "phone": "+44 7553784676"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2033-03-30"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-05-19"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Contractor",
+        "annual_income": 48480,
+        "monthly_income": 4040.0,
+        "monthly_expenses": 1691,
+        "disposable_income": 2349.0,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 2349.0,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 43133,
+            "average_monthly_spending": 1158,
+            "average_monthly_saving": 1030.45,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 723
+                },
+                {
+                    "category": "Rent",
+                    "amount": 294
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 68
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 73
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1318.55
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 6,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Accounts",
+                "Bonds"
+            ],
+            "savings_patterns": "Steady income drawdown"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Early Retirement",
+        "timeline": "Long-term",
+        "desired_retirement_age": 70,
+        "expected_retirement_income": 31356,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1255979,
+            "current_progress": 519026
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Mobile App",
+            "Phone",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 44779,
+            "lifetime_allowance_remaining": 685434
+        },
+        "lisa_eligibility": true
+    }
+}

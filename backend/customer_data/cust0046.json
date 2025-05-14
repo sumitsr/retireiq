@@ -1,0 +1,138 @@
+{
+    "id": "cust0046",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Emily",
+        "last_name": "Williams",
+        "date_of_birth": "1988-12-04",
+        "age": 37,
+        "nationality": "Bangladeshi",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "196 Church Road",
+            "city": "Oxford",
+            "postcode": "EH13 9XP",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "emily.williams@email.com",
+            "phone": "+44 7345027492"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2034-07-16"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-11-28"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Business Owner",
+        "annual_income": 69120,
+        "monthly_income": 5760.0,
+        "monthly_expenses": 4296,
+        "disposable_income": 1464.0,
+        "debt_obligations": [
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 237,
+                "outstanding_balance": 11854
+            }
+        ],
+        "total_monthly_debt_payments": 237,
+        "disposable_income_after_debts": 1227.0,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 4558,
+            "average_monthly_spending": 2392,
+            "average_monthly_saving": 201.68,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 880
+                },
+                {
+                    "category": "Rent",
+                    "amount": 1512
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1025.32
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 2,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Regular monthly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Wealth Accumulation",
+        "timeline": "Long-term",
+        "desired_retirement_age": 62,
+        "expected_retirement_income": 33859,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 916209,
+            "current_progress": 353756
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Mail",
+            "Visual Dashboards",
+            "Mobile App"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Critical Illness Cover",
+            "Income Protection Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 6481,
+            "lifetime_allowance_remaining": 514853
+        },
+        "lisa_eligibility": true
+    }
+}

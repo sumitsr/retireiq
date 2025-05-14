@@ -1,0 +1,144 @@
+{
+    "id": "cust0088",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "William",
+        "last_name": "Murphy",
+        "date_of_birth": "1978-05-03",
+        "age": 47,
+        "nationality": "Polish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "118 Church Road",
+            "city": "Bristol",
+            "postcode": "W13 8AA",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "william.murphy@email.com",
+            "phone": "+44 7646201006"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2033-03-25"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-11-16"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 57823,
+        "monthly_income": 4818.58,
+        "monthly_expenses": 1133,
+        "disposable_income": 3685.58,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 3685.58,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 15708,
+            "average_monthly_spending": 841,
+            "average_monthly_saving": 758.28,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 379
+                },
+                {
+                    "category": "Rent",
+                    "amount": 302
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 160
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2927.3
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 4,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Junior ISA"
+            ],
+            "savings_patterns": "Steady income drawdown"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Home Purchase",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 68,
+        "expected_retirement_income": 45555,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 760336,
+            "current_progress": 1253537
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Banking",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Fixed Rate Bonds"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "Income Protection Insurance",
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA563"
+            },
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA423"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 33549,
+            "lifetime_allowance_remaining": 790360
+        },
+        "lisa_eligibility": false
+    }
+}

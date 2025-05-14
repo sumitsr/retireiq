@@ -1,0 +1,160 @@
+{
+    "id": "cust0051",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "James",
+        "last_name": "Singh",
+        "date_of_birth": "1958-12-22",
+        "age": 67,
+        "nationality": "Polish",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "113 Main Street",
+            "city": "Cambridge",
+            "postcode": "WC5 5YP",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "james.singh@email.com",
+            "phone": "+44 7650406915"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2026-08-18"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-07-14"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Temporary",
+        "annual_income": 89818,
+        "monthly_income": 7484.83,
+        "monthly_expenses": 1659,
+        "disposable_income": 5825.83,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 388,
+                "outstanding_balance": 14793
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 750,
+                "outstanding_balance": 23389
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 398,
+                "outstanding_balance": 33517
+            }
+        ],
+        "total_monthly_debt_payments": 1536,
+        "disposable_income_after_debts": 4289.83,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 32346,
+            "average_monthly_spending": 851,
+            "average_monthly_saving": 1462.46,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 67
+                },
+                {
+                    "category": "Rent",
+                    "amount": 235
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 173
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 71
+                },
+                {
+                    "category": "Travel",
+                    "amount": 305
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2827.37
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 8,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Planning",
+        "timeline": "Long-term",
+        "desired_retirement_age": 55,
+        "expected_retirement_income": 62447,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 863722,
+            "current_progress": 312947
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Chat",
+            "Online Banking"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA",
+            "Pension",
+            "General Investment Account"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 42169,
+            "lifetime_allowance_remaining": 526007
+        },
+        "lisa_eligibility": false
+    }
+}

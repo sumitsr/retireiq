@@ -1,0 +1,147 @@
+{
+    "id": "cust0013",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Emily",
+        "last_name": "Patel",
+        "date_of_birth": "1977-03-12",
+        "age": 48,
+        "nationality": "British",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "8 London Road",
+            "city": "Bristol",
+            "postcode": "EC5 0PD",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "emily.patel@email.com",
+            "phone": "+44 7552887700"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2033-07-31"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2024-03-27"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 44628,
+        "monthly_income": 3719.0,
+        "monthly_expenses": 2615,
+        "disposable_income": 1104.0,
+        "debt_obligations": [
+            {
+                "type": "Student Loan",
+                "monthly_payment": 273,
+                "outstanding_balance": 36285
+            }
+        ],
+        "total_monthly_debt_payments": 273,
+        "disposable_income_after_debts": 831.0,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 18328,
+            "average_monthly_spending": 2095,
+            "average_monthly_saving": 288.54,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1616
+                },
+                {
+                    "category": "Rent",
+                    "amount": 201
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 99
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 179
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 542.46
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Account"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Early Retirement",
+        "timeline": "Long-term",
+        "desired_retirement_age": 67,
+        "expected_retirement_income": 40527,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 866504,
+            "current_progress": 481096
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Phone",
+            "Mobile App",
+            "Online Chat",
+            "Video Conferencing",
+            "Mail",
+            "Visual Dashboards",
+            "Online Banking"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Savings Account"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 7419,
+            "lifetime_allowance_remaining": 233708
+        },
+        "lisa_eligibility": false
+    }
+}

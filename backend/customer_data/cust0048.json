@@ -1,0 +1,147 @@
+{
+    "id": "cust0048",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "James",
+        "last_name": "Ali",
+        "date_of_birth": "1988-10-05",
+        "age": 37,
+        "nationality": "Nigerian",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "27 King Street",
+            "city": "Leeds",
+            "postcode": "N7 7CS",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "james.ali@email.com",
+            "phone": "+44 7822815999"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2031-10-29"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2024-04-21"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Freelancer",
+        "annual_income": 69553,
+        "monthly_income": 5796.08,
+        "monthly_expenses": 3135,
+        "disposable_income": 2661.08,
+        "debt_obligations": [
+            {
+                "type": "Mortgage",
+                "monthly_payment": 288,
+                "outstanding_balance": 36657
+            }
+        ],
+        "total_monthly_debt_payments": 288,
+        "disposable_income_after_debts": 2373.08,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 29684,
+            "average_monthly_spending": 1743,
+            "average_monthly_saving": 308.4,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1060
+                },
+                {
+                    "category": "Rent",
+                    "amount": 325
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 358
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2064.68
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 5,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Account"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Education Savings",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 62,
+        "expected_retirement_income": 36176,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 1914515,
+            "current_progress": 657894
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Stocks and Shares ISA",
+            "General Investment Account",
+            "Fixed Rate Bonds"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "SIPP + Critical Illness Cover"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA182"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 38667,
+            "lifetime_allowance_remaining": 611977
+        },
+        "lisa_eligibility": true
+    }
+}

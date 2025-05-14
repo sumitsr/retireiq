@@ -1,0 +1,158 @@
+{
+    "id": "cust0053",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Sarah",
+        "last_name": "Williams",
+        "date_of_birth": "1998-01-17",
+        "age": 27,
+        "nationality": "British",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "4 London Road",
+            "city": "Cambridge",
+            "postcode": "S13 7MH",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "sarah.williams@email.com",
+            "phone": "+44 7744125149"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2035-01-18"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-10-06"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "PAYE",
+        "annual_income": 51102,
+        "monthly_income": 4258.5,
+        "monthly_expenses": 1789,
+        "disposable_income": 2469.5,
+        "debt_obligations": [
+            {
+                "type": "Mortgage",
+                "monthly_payment": 679,
+                "outstanding_balance": 17702
+            },
+            {
+                "type": "Car Loan",
+                "monthly_payment": 564,
+                "outstanding_balance": 33999
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 747,
+                "outstanding_balance": 3993
+            }
+        ],
+        "total_monthly_debt_payments": 1990,
+        "disposable_income_after_debts": 479.5,
+        "minimum_income_threshold_met": false,
+        "open_banking_data": {
+            "account_balance": 19261,
+            "average_monthly_spending": 1659,
+            "average_monthly_saving": 221.53,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 434
+                },
+                {
+                    "category": "Rent",
+                    "amount": 906
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 319
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 257.97
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 5,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Pension"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Education Savings",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 65,
+        "expected_retirement_income": 44640,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1175284,
+            "current_progress": 120009
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Mail",
+            "Visual Dashboards",
+            "Online Banking",
+            "Phone",
+            "Mobile App"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA821"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 26884,
+            "lifetime_allowance_remaining": 383021
+        },
+        "lisa_eligibility": true
+    }
+}

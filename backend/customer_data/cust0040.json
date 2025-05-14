@@ -1,0 +1,146 @@
+{
+    "id": "cust0040",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Alice",
+        "last_name": "Patel",
+        "date_of_birth": "1955-11-18",
+        "age": 70,
+        "nationality": "Chinese",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "45 Queen Street",
+            "city": "Edinburgh",
+            "postcode": "G5 1GD",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "alice.patel@email.com",
+            "phone": "+44 7429176332"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2027-11-19"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2024-01-17"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 62253,
+        "monthly_income": 5187.75,
+        "monthly_expenses": 1858,
+        "disposable_income": 3329.75,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 150,
+                "outstanding_balance": 28636
+            }
+        ],
+        "total_monthly_debt_payments": 150,
+        "disposable_income_after_debts": 3179.75,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 42408,
+            "average_monthly_spending": 1423,
+            "average_monthly_saving": 496.95,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 587
+                },
+                {
+                    "category": "Rent",
+                    "amount": 143
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 327
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 366
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2682.8
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Fixed Rate Bonds",
+                "Index Funds"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Debt Repayment",
+        "timeline": "Short-term",
+        "desired_retirement_age": 63,
+        "expected_retirement_income": 77008,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1035409,
+            "current_progress": 633789
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Online Banking",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Bonds"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "Business Loan"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 12410,
+            "lifetime_allowance_remaining": 739469
+        },
+        "lisa_eligibility": false
+    }
+}

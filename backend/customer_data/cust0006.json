@@ -1,0 +1,142 @@
+{
+    "id": "cust0006",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "William",
+        "last_name": "Davis",
+        "date_of_birth": "1967-03-19",
+        "age": 58,
+        "nationality": "Polish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "167 Queen Street",
+            "city": "Edinburgh",
+            "postcode": "EH1 8JB",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "william.davis@email.com",
+            "phone": "+44 7569729648"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2032-10-11"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-08-29"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 29529,
+        "monthly_income": 2460.75,
+        "monthly_expenses": 1432,
+        "disposable_income": 1028.75,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 1028.75,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 29259,
+            "average_monthly_spending": 1236,
+            "average_monthly_saving": 128.52,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 263
+                },
+                {
+                    "category": "Rent",
+                    "amount": 128
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 568
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 202
+                },
+                {
+                    "category": "Travel",
+                    "amount": 75
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 900.23
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Limited",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Junior ISA"
+            ],
+            "savings_patterns": "Steady income drawdown"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Business Expansion",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 67,
+        "expected_retirement_income": 32264,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 332353,
+            "current_progress": 418970
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Chat",
+            "Video Conferencing",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "Business Loan",
+            "Income Protection Insurance"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 28413,
+            "lifetime_allowance_remaining": 874970
+        },
+        "lisa_eligibility": false
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "id": "cust0066",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Charlie",
+        "last_name": "Williams",
+        "date_of_birth": "1984-04-25",
+        "age": 41,
+        "nationality": "Irish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "99 Park Lane",
+            "city": "Cambridge",
+            "postcode": "EH9 8JJ",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "charlie.williams@email.com",
+            "phone": "+44 7258251310"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-01-25"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2024-01-01"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 101115,
+        "monthly_income": 8426.25,
+        "monthly_expenses": 5097,
+        "disposable_income": 3329.25,
+        "debt_obligations": [
+            {
+                "type": "Car Loan",
+                "monthly_payment": 438,
+                "outstanding_balance": 14721
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 554,
+                "outstanding_balance": 38521
+            }
+        ],
+        "total_monthly_debt_payments": 992,
+        "disposable_income_after_debts": 2337.25,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 80750,
+            "average_monthly_spending": 4813,
+            "average_monthly_saving": 925.85,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1352
+                },
+                {
+                    "category": "Rent",
+                    "amount": 512
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 2949
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1411.4
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 2,
+        "investment_experience": "Limited",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Lifetime ISA"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Holiday Savings",
+        "timeline": "Short-term",
+        "desired_retirement_age": 59,
+        "expected_retirement_income": 33225,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 812344,
+            "current_progress": 123528
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Mail",
+            "Online Chat",
+            "Video Conferencing",
+            "Mobile App",
+            "Online Banking"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Pension"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA239"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 23585,
+            "lifetime_allowance_remaining": 646711
+        },
+        "lisa_eligibility": false
+    }
+}

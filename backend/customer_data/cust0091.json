@@ -1,0 +1,156 @@
+{
+    "id": "cust0091",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Olivia",
+        "last_name": "Singh",
+        "date_of_birth": "1975-06-22",
+        "age": 50,
+        "nationality": "Nigerian",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "155 Queen Street",
+            "city": "Sheffield",
+            "postcode": "OX14 4EG",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "olivia.singh@email.com",
+            "phone": "+44 7217904492"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-02-22"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-04-03"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 48858,
+        "monthly_income": 4071.5,
+        "monthly_expenses": 1652,
+        "disposable_income": 2419.5,
+        "debt_obligations": [
+            {
+                "type": "Mortgage",
+                "monthly_payment": 152,
+                "outstanding_balance": 18796
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 182,
+                "outstanding_balance": 14289
+            },
+            {
+                "type": "Car Loan",
+                "monthly_payment": 275,
+                "outstanding_balance": 18593
+            }
+        ],
+        "total_monthly_debt_payments": 609,
+        "disposable_income_after_debts": 1810.5,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 5197,
+            "average_monthly_spending": 1055,
+            "average_monthly_saving": 547.12,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 789
+                },
+                {
+                    "category": "Rent",
+                    "amount": 98
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 168
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1263.38
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 1,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Lifetime ISA"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Wealth Accumulation",
+        "timeline": "Long-term",
+        "desired_retirement_age": 59,
+        "expected_retirement_income": 28069,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 1407252,
+            "current_progress": 497784
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Chat",
+            "Visual Dashboards",
+            "Phone",
+            "Mobile App",
+            "Online Banking",
+            "Mail",
+            "Video Conferencing"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Lifetime ISA",
+                "account_number": "ISA229"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 12207,
+            "lifetime_allowance_remaining": 469290
+        },
+        "lisa_eligibility": false
+    }
+}

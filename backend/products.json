@@ -1,0 +1,1335 @@
+[
+    {
+        "productId": "INV001",
+        "productName": "Stocks & Shares ISA",
+        "productType": "ISA (Individual Savings Account)",
+        "description": "A tax-efficient savings account that allows you to invest in stocks and shares with the benefit of tax-free returns.",
+        "features": [
+            "Tax-free investment returns",
+            "Access to a wide range of investment options",
+            "Flexible withdrawals",
+            "No capital gains tax on returns"
+        ],
+        "fees": {
+            "managementFee": "0.50%",
+            "transactionFee": "£5 per trade",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [
+            "UK Stocks",
+            "Global Equities",
+            "Bonds",
+            "ETFs",
+            "Investment Trusts"
+        ],
+        "minimumInvestment": "£500",
+        "riskLevel": "Medium",
+        "suggestedFor": "Customers looking for medium-risk long-term growth opportunities",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "None, but recommended to have disposable income",
+            "notCurrentlyHoldingSameISA": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Medium", "High"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Employed", "Self-Employed", "Freelancer", "Gig Economy"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "£20,000",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Long-term wealth accumulation",
+            "Supplementing retirement income",
+            "Building investment portfolio"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Execution-only or Guidance"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponWithdrawal": "No penalties, but reinvestment allowance reset annually",
+            "uponExceedingAnnualLimit": "No further contributions accepted until next tax year"
+        }
+    },
+    {
+        "productId": "RET002",
+        "productName": "Self-Invested Personal Pension (SIPP)",
+        "productType": "Pension",
+        "description": "A personal pension plan that gives you control over your retirement savings and investment decisions.",
+        "features": [
+            "Tax relief on contributions",
+            "Wide range of investment options",
+            "Flexible access from age 55 (rising to 57 in 2028)",
+            "Option to take a tax-free lump sum"
+        ],
+        "fees": {
+            "managementFee": "0.75%",
+            "transactionFee": "£7.50 per trade",
+            "accountMaintenanceFee": "£100 per year"
+        },
+        "investmentOptions": [
+            "Stocks",
+            "Bonds",
+            "Funds",
+            "Commercial Property",
+            "Alternative Investments"
+        ],
+        "minimumInvestment": "£1,000",
+        "riskLevel": "Medium to High",
+        "suggestedFor": "Individuals seeking control over their retirement investments and comfortable with investment risk.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "Earned income to receive full tax relief",
+            "notCurrentlyContributingToAnotherSIPP": false
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Medium", "High"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": true,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Employed", "Self-Employed", "High Net Worth Individuals"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "£60,000 (tapered for high earners)",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Long-term retirement savings",
+            "Building a substantial pension pot",
+            "Flexible retirement income"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": false,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Advisory"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponRetirement": "Access from age 55 (rising to 57 in 2028), subject to pension rules",
+            "uponDeath": "Funds passed to beneficiaries, may be subject to inheritance tax"
+        }
+    },
+    {
+        "productId": "SAV003",
+        "productName": "Fixed Rate Savings Bond",
+        "productType": "Savings Account",
+        "description": "A savings account that offers a fixed interest rate for a specific period.",
+        "features": [
+            "Guaranteed interest rate",
+            "Fixed term deposit",
+            "Lower risk than investments",
+            "Choice of terms"
+        ],
+        "fees": {
+            "managementFee": "£0",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [],
+        "minimumInvestment": "£1,000",
+        "riskLevel": "Low",
+        "suggestedFor": "Savers looking for a safe and predictable return on their savings.",
+        "eligibilityCriteria": {
+            "minimumAge": 16,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "notCurrentlyHoldingMultipleBonds": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Low"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["All"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Varies based on income",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Short-term savings goals",
+            "Saving for a specific purpose",
+            "Building an emergency fund"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponMaturity": "Full amount returned with interest",
+            "uponEarlyWithdrawal": "May incur penalties"
+        }
+    },
+    {
+        "productId": "ISA004",
+        "productName": "Cash ISA",
+        "productType": "ISA (Individual Savings Account)",
+        "description": "A tax-efficient savings account where interest earned is tax-free.",
+        "features": [
+            "Tax-free interest",
+            "Easy access to funds",
+            "Low risk",
+            "Annual allowance"
+        ],
+        "fees": {
+            "managementFee": "£0",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [],
+        "minimumInvestment": "£1",
+        "riskLevel": "Very Low",
+        "suggestedFor": "Individuals seeking a safe, tax-free way to save cash.",
+        "eligibilityCriteria": {
+            "minimumAge": 16,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "notCurrentlyHoldingSameISA": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Low"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["All"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "£20,000",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Short-term savings",
+            "Emergency fund",
+            "Saving for a deposit"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponWithdrawal": "Immediate access to funds",
+            "uponClosure": "Account closed"
+        }
+    },
+    {
+        "productId": "INV005",
+        "productName": "Junior ISA",
+        "productType": "ISA (Individual Savings Account)",
+        "description": "A long-term, tax-efficient savings account for children.",
+        "features": [
+            "Tax-free savings for children",
+            "Government contributions possible",
+            "Funds locked until age 18",
+            "Choice of cash or stocks and shares"
+        ],
+        "fees": {
+            "managementFee": "0.50% (for stocks and shares)",
+            "transactionFee": "£5 per trade (for stocks and shares)",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [
+            "Cash",
+            "Stocks and Shares"
+        ],
+        "minimumInvestment": "£10",
+        "riskLevel": "Low to High (depending on investment choice)",
+        "suggestedFor": "Parents or guardians saving for a child's future.",
+        "eligibilityCriteria": {
+            "minimumAge": 0,
+            "residency": "UK resident child",
+            "incomeRequirement": "None",
+            "notCurrentlyHoldingAnotherJuniorISA": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Low", "Medium", "High"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Parents", "Guardians"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "£9,000",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Long-term savings for children",
+            "Funding education",
+            "Helping with first home purchase"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only or Guidance"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponChildTurning18": "Account becomes an adult ISA",
+            "uponDeathOfChild": "Funds passed to estate"
+        }
+    },
+    {
+        "productId": "RET006",
+        "productName": "Workplace Pension Scheme",
+        "productType": "Pension",
+        "description": "A pension scheme set up by an employer for their employees.",
+        "features": [
+            "Employer contributions",
+            "Tax relief on contributions",
+            "Investment growth over time",
+            "Automatic enrolment"
+        ],
+        "fees": {
+            "managementFee": "0.50%",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£0 (typically covered by employer)"
+        },
+        "investmentOptions": [
+            "Default Investment Fund",
+            "Choice of funds (depending on scheme)"
+        ],
+        "minimumInvestment": "Varies (employee and employer contributions)",
+        "riskLevel": "Medium",
+        "suggestedFor": "Employees saving for retirement through their workplace.",
+        "eligibilityCriteria": {
+            "minimumAge": 22,
+            "residency": "UK resident",
+            "incomeRequirement": "Meets auto-enrolment earnings threshold",
+            "employedByParticipatingEmployer": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Medium"],
+        "suitabilityCheck": {
+            "requiresKYC": false,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Employed"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "£60,000 (tapered for high earners)",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Long-term retirement savings",
+            "Building a secure retirement income",
+            "Benefiting from employer contributions"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponRetirement": "Access from age 55 (rising to 57 in 2028), subject to pension rules",
+            "uponLeavingEmployment": "Option to transfer to another pension scheme"
+        }
+    },
+    {
+        "productId": "SAV007",
+        "productName": "Regular Savings Account",
+        "productType": "Savings Account",
+        "description": "A savings account that encourages regular saving with a potentially higher interest rate.",
+        "features": [
+            "Higher interest rate than instant access",
+            "Requires regular monthly deposits",
+            "Limited withdrawals",
+            "Fixed term (usually 12 months)"
+        ],
+        "fees": {
+            "managementFee": "£0",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [],
+        "minimumInvestment": "£25 per month",
+        "riskLevel": "Low",
+        "suggestedFor": "Individuals who want to build a savings habit and earn a better return.",
+        "eligibilityCriteria": {
+            "minimumAge": 16,
+            "residency": "UK resident",
+            "incomeRequirement": "Regular income to support monthly deposits",
+            "noMoreThanOneRegularSavingsAccount": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Low"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Employed", "Self-Employed"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Varies based on income",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Building savings over time",
+            "Saving for a specific goal (e.g., holiday, car)",
+            "Developing a savings habit"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponMaturity": "Account matures after 12 months",
+            "uponEarlyWithdrawal": "May incur significant penalties or account closure"
+        }
+    },
+    {
+        "productId": "INV008",
+        "productName": "Lifetime ISA (LISA)",
+        "productType": "ISA (Individual Savings Account)",
+        "description": "A tax-efficient account to help people save for their first home or retirement, with government bonuses.",
+        "features": [
+            "Government bonus of 25%",
+            "Can be used for first home purchase or retirement",
+            "Tax-free growth",
+            "Annual allowance"
+        ],
+        "fees": {
+            "managementFee": "0.50% (for stocks and shares)",
+            "transactionFee": "£5 per trade (for stocks and shares)",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [
+            "Cash",
+            "Stocks and Shares"
+        ],
+        "minimumInvestment": "£1",
+        "riskLevel": "Low to High (depending on investment choice)",
+        "suggestedFor": "Individuals aged 18-39 saving for their first home or retirement.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "maximumAge": 39,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "notCurrentlyHoldingAnotherLISA": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Low", "Medium", "High"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Employed", "Self-Employed", "First-time buyers"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "£4,000",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Saving for a first home",
+            "Long-term retirement savings",
+            "Maximizing government bonuses"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only or Guidance"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponFirstHomePurchase": "Funds can be withdrawn tax-free for a qualifying purchase",
+            "uponRetirement": "Funds can be withdrawn tax-free from age 60",
+            "uponEarlyWithdrawal": "May incur a 25% withdrawal charge"
+        }
+    },
+    {
+        "productId": "RET009",
+        "productName": "Annuity",
+        "productType": "Retirement Income",
+        "description": "A financial product that provides a guaranteed income for life in retirement.",
+        "features": [
+            "Guaranteed income for life",
+            "Choice of income level",
+            "Protection against longevity risk",
+            "Optional features (e.g., inflation protection, spouse's pension)"
+        ],
+        "fees": {
+            "managementFee": "N/A (one-time purchase)",
+            "transactionFee": "N/A",
+            "accountMaintenanceFee": "N/A"
+        },
+        "investmentOptions": [],
+        "minimumInvestment": "Varies (purchase price)",
+        "riskLevel": "Low",
+        "suggestedFor": "Retirees seeking a secure and guaranteed income stream.",
+        "eligibilityCriteria": {
+            "minimumAge": 55,
+            "residency": "UK resident",
+            "incomeRequirement": "Sufficient pension pot to purchase an annuity",
+            "requiresPensionFund": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Low"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Retirees"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "25% of pension pot can be taken tax-free",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Providing a guaranteed retirement income",
+            "Managing longevity risk",
+            "Securing income for life"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": false,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Advisory"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": false,
+            "mobileAppSupport": false,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponDeath": "May provide income to spouse/beneficiaries depending on options chosen",
+            "uponPurchase": "Irreversible decision"
+        }
+    },
+    {
+        "productId": "INV010",
+        "productName": "Investment Bonds",
+        "productType": "Investment",
+        "description": "A medium to long-term investment that offers a fixed or variable return over a set period.",
+        "features": [
+            "Fixed or variable interest rate",
+            "Choice of investment term",
+            "Potential for capital growth",
+            "Lower risk than stocks"
+        ],
+        "fees": {
+            "managementFee": "0.75%",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£50 per year"
+        },
+        "investmentOptions": [
+            "Corporate Bonds",
+            "Government Bonds (Gilts)",
+            "Index-Linked Bonds"
+        ],
+        "minimumInvestment": "£5,000",
+        "riskLevel": "Low to Medium",
+        "suggestedFor": "Investors seeking a balance of income and capital growth with a lower risk profile than stocks.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "notCurrentlyHoldingExcessiveBondAllocation": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Low", "Medium"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Savers", "Investors", "Retirees"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Varies based on income and ISA allowance",
+            "capitalGainsTaxApplicable": true,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Income generation",
+            "Capital preservation",
+            "Diversification of investment portfolio"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only or Guidance"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponMaturity": "Full amount returned with interest",
+            "uponEarlyWithdrawal": "May incur penalties"
+        }
+    },
+    {
+        "productId": "RET011",
+        "productName": "Pension Drawdown",
+        "productType": "Retirement Income",
+        "description": "A flexible way to access your pension pot, allowing you to take an income while the rest remains invested.",
+        "features": [
+            "Flexible income withdrawals",
+            "Pension pot remains invested",
+            "Control over investment strategy",
+            "Potential for continued growth"
+        ],
+        "fees": {
+            "managementFee": "0.75%",
+            "transactionFee": "Varies depending on investments",
+            "accountMaintenanceFee": "£150 per year"
+        },
+        "investmentOptions": [
+            "Stocks",
+            "Bonds",
+            "Funds",
+            "Drawdown-specific funds"
+        ],
+        "minimumInvestment": "Varies (size of pension pot)",
+        "riskLevel": "Medium to High",
+        "suggestedFor": "Retirees who want flexible access to their pension and are comfortable with investment risk.",
+        "eligibilityCriteria": {
+            "minimumAge": 55,
+            "residency": "UK resident",
+            "incomeRequirement": "Sufficient pension pot",
+            "requiresPensionFund": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Medium", "High"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": true,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Retirees"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "25% of pension pot can be taken tax-free",
+            "capitalGainsTaxApplicable": true,
+            "dividendTaxApplicable": true
+        },
+        "goalSuitability": [
+            "Providing flexible retirement income",
+            "Managing retirement income over time",
+            "Potential for continued pension growth"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": false,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Advisory"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponDepletionOfFunds": "Income ceases",
+            "uponDeath": "Remaining funds passed to beneficiaries, may be subject to inheritance tax"
+        }
+    },
+    {
+        "productId": "SAV012",
+        "productName": "Help to Buy ISA",
+        "productType": "Savings Account",
+        "description": "A savings account designed to help first-time buyers save for a deposit on their first home.  *Note: Closed to new applicants as of 30 November 2019, but existing accounts continue.*",
+        "features": [
+            "Government bonus of 25% (up to £3,000)",
+            "Tax-free interest",
+            "For first-time buyers only",
+            "Monthly contribution limits"
+        ],
+        "fees": {
+            "managementFee": "£0",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [],
+        "minimumInvestment": "£1",
+        "riskLevel": "Very Low",
+        "suggestedFor": "First-time buyers saving for a deposit. *Note: No longer available to new customers.*",
+        "eligibilityCriteria": {
+            "minimumAge": 16,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "firstTimeBuyer": true,
+            "accountOpenedBeforeNov2019": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Low"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["First-time buyers"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Interest is tax-free",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Saving for a first home deposit",
+            "Maximizing government bonus"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponFirstHomePurchase": "Bonus paid upon completion of purchase",
+            "uponClosure": "Account closed, bonus may be lost if not used for qualifying purchase"
+        }
+    },
+    {
+        "productId": "INV013",
+        "productName": "Index Funds",
+        "productType": "Investment",
+        "description": "A type of investment fund that tracks a specific market index, such as the FTSE 100.",
+        "features": [
+            "Diversification across a market index",
+            "Low management fees",
+            "Passive investment strategy",
+            "Long-term growth potential"
+        ],
+        "fees": {
+            "managementFee": "0.10%",
+            "transactionFee": "£2 per trade",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [
+            "FTSE 100 Tracker",
+            "S&P 500 Tracker",
+            "Global Index Tracker"
+        ],
+        "minimumInvestment": "£100",
+        "riskLevel": "Medium",
+        "suggestedFor": "Investors seeking low-cost, diversified market exposure.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "noExcessiveIndexFundAllocation": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Medium"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Investors", "Long-term savers"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Varies based on investment wrapper (e.g., ISA)",
+            "capitalGainsTaxApplicable": true,
+            "dividendTaxApplicable": true
+        },
+        "goalSuitability": [
+            "Long-term capital growth",
+            "Diversification of portfolio",
+            "Passive investment strategy"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Execution-only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponSale": "Funds can be sold at prevailing market price",
+            "uponAccountClosure": "Funds returned to customer"
+        }
+    },
+    {
+        "productId": "RET014",
+        "productName": "Stakeholder Pension",
+        "productType": "Pension",
+        "description": "A flexible and low-cost pension, designed for those on lower incomes or who are self-employed.",
+        "features": [
+            "Low charges",
+            "Flexible contributions",
+            "Portable between employers",
+            "Basic investment options"
+        ],
+        "fees": {
+            "managementFee": "1.00%",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [
+            "Default Investment Fund",
+            "Limited fund choices"
+        ],
+        "minimumInvestment": "£20 per month",
+        "riskLevel": "Medium",
+        "suggestedFor": "Individuals with low or irregular income, and self-employed.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "Any",
+            "selfEmployedOrLowIncome": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Low", "Medium"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Employed", "Self-Employed", "Unemployed"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "£60,000 (tapered for high earners)",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Long-term retirement savings",
+            "Affordable pension option",
+            "Flexible contributions"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponRetirement": "Access from age 55 (rising to 57 in 2028), subject to pension rules",
+            "uponDeath": "Funds passed to beneficiaries, may be subject to inheritance tax"
+        }
+    },
+    {
+        "productId": "SAV015",
+        "productName": "Notice Savings Account",
+        "productType": "Savings Account",
+        "description": "A savings account that requires you to give notice before withdrawing your funds, often offering a higher interest rate.",
+        "features": [
+            "Higher interest rate than instant access",
+            "Requires notice before withdrawal",
+            "Lower risk than investments",
+            "Flexible notice periods"
+        ],
+        "fees": {
+            "managementFee": "£0",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [],
+        "minimumInvestment": "£500",
+        "riskLevel": "Low",
+        "suggestedFor": "Savers who want a better return and are willing to give notice before accessing their funds.",
+        "eligibilityCriteria": {
+            "minimumAge": 16,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "noMoreThanTwoNoticeAccounts": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Low"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Savers", "Retirees"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Varies based on income",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Medium-term savings goals",
+            "Saving for planned expenses",
+            "Building savings with higher interest"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponWithdrawal": "Funds released after notice period",
+            "uponClosure": "Account closed"
+        }
+    },
+    {
+        "productId": "INV016",
+        "productName": "Exchange Traded Funds (ETFs)",
+        "productType": "Investment",
+        "description": "Funds traded on a stock exchange, similar to stocks, offering diversified investment in a specific index, sector, or asset class.",
+        "features": [
+            "Diversification",
+            "Liquidity",
+            "Low expense ratios",
+            "Transparency"
+        ],
+        "fees": {
+            "managementFee": "0.20%",
+            "transactionFee": "£5-£10 per trade (broker dependent)",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [
+            "Index Tracking ETFs",
+            "Sector-Specific ETFs",
+            "Commodity ETFs",
+            "Bond ETFs"
+        ],
+        "minimumInvestment": "Varies (share price dependent)",
+        "riskLevel": "Medium",
+        "suggestedFor": "Investors seeking diversified exposure with low costs and trading flexibility.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "None",
+            "understandsTradingMechanics": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Medium"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": true,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Active traders", "Long-term investors"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Varies based on investment wrapper (e.g., ISA)",
+            "capitalGainsTaxApplicable": true,
+            "dividendTaxApplicable": true 
+        },
+        "goalSuitability": [
+            "Portfolio diversification",
+            "Efficient market exposure",
+            "Lower cost investing"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Execution-only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponSale": "Sold at prevailing market price",
+            "uponAccountClosure": "Funds returned after sales"
+        }
+    },
+    {
+        "productId": "RET017",
+        "productName": "SIPP Drawdown",
+        "productType": "Retirement Income",
+        "description": "Drawdown specifically within a Self-Invested Personal Pension, offering more control over income and investments in retirement.",
+        "features": [
+            "Flexible, adjustable income",
+            "Continued investment growth potential",
+            "Full control over investments",
+            "Tax-free cash withdrawal"
+        ],
+        "fees": {
+            "managementFee": "0.75% - 1.00% (platform dependent)",
+            "transactionFee": "Varies",
+            "accountMaintenanceFee": "£100 - £200 per year"
+        },
+        "investmentOptions": [
+            "Wide range, including stocks, bonds, funds"
+        ],
+        "minimumInvestment": "£Varies (SIPP value)",
+        "riskLevel": "Medium to High",
+        "suggestedFor": "Experienced investors wanting control in retirement.",
+        "eligibilityCriteria": {
+            "minimumAge": 55,
+            "residency": "UK resident",
+            "requiresSIPPAccount": true,
+            "sufficientFunds": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Medium", "High"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": true,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Retirees", "High Net Worth"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "25% of pension pot",
+            "capitalGainsTaxApplicable": true,
+            "dividendTaxApplicable": true
+        },
+        "goalSuitability": [
+            "Flexible retirement income",
+            "Long-term pension management",
+            "Estate planning"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": false,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Advisory, ongoing"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponFundExhaustion": "Income stops",
+            "uponDeath": "Funds to beneficiaries"
+        }
+    },
+    {
+        "productId": "SAV018",
+        "productName": "High Interest Current Account",
+        "productType": "Current Account",
+        "description": "A current account that offers a higher interest rate on balances, often with conditions.",
+        "features": [
+            "Higher interest than standard current account",
+            "Monthly deposit requirements",
+            "Direct debit conditions",
+            "Limited maximum balance for interest"
+        ],
+        "fees": {
+            "managementFee": "£0",
+            "transactionFee": "Standard current account fees",
+            "accountMaintenanceFee": "£0 - £5 (if conditions not met)"
+        },
+        "investmentOptions": [],
+        "minimumInvestment": "£0 (account opening)",
+        "riskLevel": "Very Low",
+        "suggestedFor": "Customers who actively manage their finances and can meet the account conditions.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "£750+ per month",
+            "meetsConditions": true
+        },
+        "riskAssessmentRequired": false,
+        "requiredRiskTolerance": ["Low"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": false,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": false
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Employed", "Financially active"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Personal Savings Allowance applies",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Earning interest on everyday balances",
+            "Managing monthly income and outgoings",
+            "Regular savings within a current account"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Information only"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponAccountClosure": "Standard current account closure",
+            "uponNotMeetingConditions": "Interest rate may revert to standard rate"
+        }
+    },
+    {
+        "productId": "INV019",
+        "productName": "Property Investment Fund",
+        "productType": "Investment",
+        "description": "A fund that invests in a portfolio of properties, offering potential rental income and capital appreciation.",
+        "features": [
+            "Diversified property portfolio",
+            "Potential for rental income",
+            "Long-term capital growth potential",
+            "Professional property management"
+        ],
+        "fees": {
+            "managementFee": "1.00%",
+            "transactionFee": "Up to 5% initial charge",
+            "accountMaintenanceFee": "£0"
+        },
+        "investmentOptions": [
+            "Commercial Property Fund",
+            "Residential Property Fund",
+            "Mixed Property Fund"
+        ],
+        "minimumInvestment": "£25,000",
+        "riskLevel": "Medium",
+        "suggestedFor": "Investors seeking property exposure without direct property ownership.",
+        "eligibilityCriteria": {
+            "minimumAge": 18,
+            "residency": "UK resident",
+            "incomeRequirement": "£50,000+",
+            "experiencedInvestor": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Medium"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": true,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Investors", "Property investors"],
+            "openBankingRequired": true,
+            "compatibleWithOpenBankingInsights": true
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "Varies based on investment wrapper",
+            "capitalGainsTaxApplicable": true,
+            "dividendTaxApplicable": true 
+        },
+        "goalSuitability": [
+            "Long-term capital appreciation",
+            "Income from property rentals",
+            "Diversification of investment portfolio"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": false,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Advisory"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": false,
+            "visualInsights": true
+        },
+        "terminationConditions": {
+            "uponSaleOfUnits": "Subject to fund liquidity",
+            "uponFundClosure": "Pro rata distribution of assets"
+        }
+    },
+    {
+        "productId": "RET020",
+        "productName": "Lifetime Pension",
+        "productType": "Pension",
+        "description": "A pension product designed to provide a regular income throughout retirement, with a focus on stability.",
+        "features": [
+            "Regular, guaranteed income",
+            "Lower investment risk",
+            "Long-term income security",
+            "Options for inflation protection"
+        ],
+        "fees": {
+            "managementFee": "0.60%",
+            "transactionFee": "£0",
+            "accountMaintenanceFee": "£75 per year"
+        },
+        "investmentOptions": [
+            "Low-risk bond funds",
+            "Balanced managed funds"
+        ],
+        "minimumInvestment": "£10,000",
+        "riskLevel": "Low to Medium",
+        "suggestedFor": "Retirees prioritizing a steady, reliable income stream.",
+        "eligibilityCriteria": {
+            "minimumAge": 55,
+            "residency": "UK resident",
+            "incomeRequirement": "Sufficient pension savings",
+            "requiresRetirementDeclaration": true
+        },
+        "riskAssessmentRequired": true,
+        "requiredRiskTolerance": ["Low", "Medium"],
+        "suitabilityCheck": {
+            "requiresKYC": true,
+            "requiresFCACompliantSuitabilityAssessment": true,
+            "requiresInvestmentExperienceDeclaration": false,
+            "mifidIIApplicable": true
+        },
+        "applicabilityRules": {
+            "applicableCustomerTypes": ["Retirees"],
+            "openBankingRequired": false,
+            "compatibleWithOpenBankingInsights": false
+        },
+        "taxConsiderations": {
+            "taxFreeAllowancePerYear": "25% of pension pot",
+            "capitalGainsTaxApplicable": false,
+            "dividendTaxApplicable": false
+        },
+        "goalSuitability": [
+            "Providing a stable retirement income",
+            "Long-term income security",
+            "Avoiding investment risk in retirement"
+        ],
+        "supportOptions": {
+            "automatedAdvisorAvailable": true,
+            "humanAdvisorAvailable": true,
+            "adviceLevel": "Guidance"
+        },
+        "digitalAccess": {
+            "dashboardEnabled": true,
+            "mobileAppSupport": true,
+            "visualInsights": false
+        },
+        "terminationConditions": {
+            "uponDeath": "Income may continue for a spouse, depending on options",
+            "uponAccountClosure": "Funds converted to income stream"
+        }
+    }
+]

@@ -1,0 +1,145 @@
+{
+    "id": "cust0093",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Alice",
+        "last_name": "Miller",
+        "date_of_birth": "1962-05-12",
+        "age": 63,
+        "nationality": "Indian",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "171 King Street",
+            "city": "Sheffield",
+            "postcode": "B5 3NZ",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "alice.miller@email.com",
+            "phone": "+44 7294847682"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2026-03-29"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-07-19"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 74710,
+        "monthly_income": 6225.83,
+        "monthly_expenses": 3363,
+        "disposable_income": 2862.83,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 2862.83,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 18108,
+            "average_monthly_spending": 3112,
+            "average_monthly_saving": 1276.19,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1018
+                },
+                {
+                    "category": "Rent",
+                    "amount": 2094
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1586.64
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 5,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Home Purchase",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 62,
+        "expected_retirement_income": 55605,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 1387091,
+            "current_progress": 597629
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Mail",
+            "Online Chat",
+            "Visual Dashboards",
+            "Phone",
+            "Online Banking",
+            "Mobile App",
+            "Video Conferencing"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Savings Account"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "Business Loan",
+            "Income Protection Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA594"
+            },
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA623"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 29289,
+            "lifetime_allowance_remaining": 386793
+        },
+        "lisa_eligibility": false
+    }
+}

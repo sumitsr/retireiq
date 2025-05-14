@@ -1,0 +1,136 @@
+{
+    "id": "cust0047",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Ethan",
+        "last_name": "Kumar",
+        "date_of_birth": "1993-02-06",
+        "age": 32,
+        "nationality": "Chinese",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "171 Queen Street",
+            "city": "London",
+            "postcode": "NW1 5YH",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "ethan.kumar@email.com",
+            "phone": "+44 7276569948"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2033-10-29"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-06-12"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Temporary",
+        "annual_income": 92110,
+        "monthly_income": 7675.83,
+        "monthly_expenses": 5555,
+        "disposable_income": 2120.83,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 2120.83,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 71264,
+            "average_monthly_spending": 4476,
+            "average_monthly_saving": 529.68,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 2351
+                },
+                {
+                    "category": "Rent",
+                    "amount": 2125
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1591.15
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 3,
+        "investment_experience": "Limited",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Steady income drawdown"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Income",
+        "timeline": "Short-term",
+        "desired_retirement_age": 56,
+        "expected_retirement_income": 83855,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1283661,
+            "current_progress": 587627
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Banking",
+            "Online Chat",
+            "Phone",
+            "Mail",
+            "Visual Dashboards",
+            "Mobile App"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA676"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 10726,
+            "lifetime_allowance_remaining": 222062
+        },
+        "lisa_eligibility": true
+    }
+}

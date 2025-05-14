@@ -1,0 +1,142 @@
+{
+    "id": "cust0042",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Bob",
+        "last_name": "Davis",
+        "date_of_birth": "2003-09-21",
+        "age": 22,
+        "nationality": "British",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "57 London Road",
+            "city": "Sheffield",
+            "postcode": "N20 7YS",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "bob.davis@email.com",
+            "phone": "+44 7451874054"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-04-11"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-02-16"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 112937,
+        "monthly_income": 9411.42,
+        "monthly_expenses": 3556,
+        "disposable_income": 5855.42,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 5855.42,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 40679,
+            "average_monthly_spending": 3164,
+            "average_monthly_saving": 652.84,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 2173
+                },
+                {
+                    "category": "Rent",
+                    "amount": 431
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 374
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 186
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 5202.58
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Junior ISA"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Debt Repayment",
+        "timeline": "Short-term",
+        "desired_retirement_age": 66,
+        "expected_retirement_income": 39152,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 795765,
+            "current_progress": 19659
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Online Banking",
+            "Video Conferencing"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA",
+            "Bonds"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA882"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 22524,
+            "lifetime_allowance_remaining": 199208
+        },
+        "lisa_eligibility": true
+    }
+}

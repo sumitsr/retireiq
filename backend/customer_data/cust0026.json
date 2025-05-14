@@ -1,0 +1,158 @@
+{
+    "id": "cust0026",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Hannah",
+        "last_name": "Smith",
+        "date_of_birth": "1995-11-29",
+        "age": 30,
+        "nationality": "Indian",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "42 Queen Street",
+            "city": "Newcastle",
+            "postcode": "SE18 0WP",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "hannah.smith@email.com",
+            "phone": "+44 7639965253"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2027-03-12"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-12-22"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Contractor",
+        "annual_income": 80956,
+        "monthly_income": 6746.33,
+        "monthly_expenses": 2181,
+        "disposable_income": 4565.33,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 576,
+                "outstanding_balance": 18430
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 611,
+                "outstanding_balance": 15519
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 453,
+                "outstanding_balance": 36635
+            }
+        ],
+        "total_monthly_debt_payments": 1640,
+        "disposable_income_after_debts": 2925.33,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 85984,
+            "average_monthly_spending": 2342,
+            "average_monthly_saving": 1384.35,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 582
+                },
+                {
+                    "category": "Rent",
+                    "amount": 1760
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1540.98
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 8,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Pension"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Early Retirement",
+        "timeline": "Long-term",
+        "desired_retirement_age": 65,
+        "expected_retirement_income": 56342,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 719438,
+            "current_progress": 676379
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Phone",
+            "Mail",
+            "Mobile App",
+            "Video Conferencing",
+            "Online Banking",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA",
+            "Junior ISA",
+            "Fixed Rate Bonds"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "Business Loan",
+            "Income Protection Insurance"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA567"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 14620,
+            "lifetime_allowance_remaining": 784861
+        },
+        "lisa_eligibility": true
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "id": "cust0067",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "William",
+        "last_name": "Ahmed",
+        "date_of_birth": "1982-07-31",
+        "age": 43,
+        "nationality": "Irish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "149 Main Street",
+            "city": "Leeds",
+            "postcode": "N17 2HW",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "william.ahmed@email.com",
+            "phone": "+44 7810810191"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2034-02-06"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-11-18"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Business Owner",
+        "annual_income": 116348,
+        "monthly_income": 9695.67,
+        "monthly_expenses": 1366,
+        "disposable_income": 8329.67,
+        "debt_obligations": [
+            {
+                "type": "Student Loan",
+                "monthly_payment": 473,
+                "outstanding_balance": 25142
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 673,
+                "outstanding_balance": 23516
+            }
+        ],
+        "total_monthly_debt_payments": 1146,
+        "disposable_income_after_debts": 7183.67,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 111845,
+            "average_monthly_spending": 1299,
+            "average_monthly_saving": 2909.66,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 107
+                },
+                {
+                    "category": "Rent",
+                    "amount": 476
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 423
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 293
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 4274.01
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 9,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "General Investment Account"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Planning",
+        "timeline": "Long-term",
+        "desired_retirement_age": 70,
+        "expected_retirement_income": 57827,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 501126,
+            "current_progress": 182668
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Visual Dashboards",
+            "Phone",
+            "Video Conferencing",
+            "Online Chat",
+            "Online Banking"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA",
+            "Savings Account"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 40684,
+            "lifetime_allowance_remaining": 494808
+        },
+        "lisa_eligibility": false
+    }
+}

@@ -1,0 +1,65 @@
+# Ignore macOS system files
+.DS_Store
+
+# Ignore node_modules
+node_modules/
+
+# Ignore Python cache and environment
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+venv/
+env/
+
+# Ignore logs
+*.log
+
+# Ignore OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore build files
+dist/
+build/
+*.egg-info/
+
+# Ignore package lock files (optional depending on team workflow)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore test coverage
+coverage/
+*.cover
+*.coverage
+.nyc_output/
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.bak
+
+# Ignore compiled files
+*.class
+*.o
+*.so
+
+# Ignore archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Ignore dotenv environment files
+.env.*
+!.env.example
+

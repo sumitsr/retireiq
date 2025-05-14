@@ -1,0 +1,160 @@
+{
+    "id": "cust0095",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Fiona",
+        "last_name": "Kumar",
+        "date_of_birth": "2001-01-30",
+        "age": 24,
+        "nationality": "Polish",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "173 Park Lane",
+            "city": "Edinburgh",
+            "postcode": "W7 3WM",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "fiona.kumar@email.com",
+            "phone": "+44 7906767867"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-01-14"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-11-15"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Freelancer",
+        "annual_income": 40459,
+        "monthly_income": 3371.58,
+        "monthly_expenses": 2069,
+        "disposable_income": 1302.58,
+        "debt_obligations": [
+            {
+                "type": "Car Loan",
+                "monthly_payment": 119,
+                "outstanding_balance": 21443
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 169,
+                "outstanding_balance": 15923
+            }
+        ],
+        "total_monthly_debt_payments": 288,
+        "disposable_income_after_debts": 1014.58,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 36303,
+            "average_monthly_spending": 1590,
+            "average_monthly_saving": 114.26,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1126
+                },
+                {
+                    "category": "Rent",
+                    "amount": 58
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 171
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 62
+                },
+                {
+                    "category": "Travel",
+                    "amount": 173
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 900.32
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Early Retirement",
+        "timeline": "Long-term",
+        "desired_retirement_age": 68,
+        "expected_retirement_income": 70471,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 1030862,
+            "current_progress": 789248
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Phone",
+            "Mobile App",
+            "Video Conferencing",
+            "Mail"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "Business Loan",
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA317"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 25106,
+            "lifetime_allowance_remaining": 266459
+        },
+        "lisa_eligibility": true
+    }
+}

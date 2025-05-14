@@ -1,0 +1,155 @@
+{
+    "id": "cust0082",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Sophia",
+        "last_name": "Ali",
+        "date_of_birth": "1957-10-23",
+        "age": 68,
+        "nationality": "Chinese",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "186 High Street",
+            "city": "Leeds",
+            "postcode": "G3 0XW",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "sophia.ali@email.com",
+            "phone": "+44 7712467428"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2025-04-20"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-09-18"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Contractor",
+        "annual_income": 42583,
+        "monthly_income": 3548.58,
+        "monthly_expenses": 1925,
+        "disposable_income": 1623.58,
+        "debt_obligations": [
+            {
+                "type": "Car Loan",
+                "monthly_payment": 490,
+                "outstanding_balance": 45465
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 202,
+                "outstanding_balance": 9359
+            }
+        ],
+        "total_monthly_debt_payments": 692,
+        "disposable_income_after_debts": 931.58,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 16646,
+            "average_monthly_spending": 1956,
+            "average_monthly_saving": 107.44,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1071
+                },
+                {
+                    "category": "Rent",
+                    "amount": 705
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 180
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 824.14
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 9,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Account"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Early Retirement",
+        "timeline": "Long-term",
+        "desired_retirement_age": 63,
+        "expected_retirement_income": 58530,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 752282,
+            "current_progress": 454029
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Banking",
+            "Mobile App",
+            "Phone"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Bonds",
+            "Savings Account",
+            "Lifetime ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA192"
+            },
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA395"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 22990,
+            "lifetime_allowance_remaining": 581320
+        },
+        "lisa_eligibility": false
+    }
+}

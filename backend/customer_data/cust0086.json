@@ -1,0 +1,157 @@
+{
+    "id": "cust0086",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Sophia",
+        "last_name": "Khan",
+        "date_of_birth": "1988-06-11",
+        "age": 37,
+        "nationality": "Chinese",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "37 Park Lane",
+            "city": "Glasgow",
+            "postcode": "NE2 9LX",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "sophia.khan@email.com",
+            "phone": "+44 7941198907"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2034-08-02"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-10-14"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 89834,
+        "monthly_income": 7486.17,
+        "monthly_expenses": 2868,
+        "disposable_income": 4618.17,
+        "debt_obligations": [
+            {
+                "type": "Student Loan",
+                "monthly_payment": 608,
+                "outstanding_balance": 11010
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 344,
+                "outstanding_balance": 9309
+            },
+            {
+                "type": "Credit Card",
+                "monthly_payment": 324,
+                "outstanding_balance": 22687
+            }
+        ],
+        "total_monthly_debt_payments": 1276,
+        "disposable_income_after_debts": 3342.17,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 7192,
+            "average_monthly_spending": 2417,
+            "average_monthly_saving": 405.9,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 281
+                },
+                {
+                    "category": "Rent",
+                    "amount": 1674
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 462
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2936.27
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 2,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Account"
+            ],
+            "savings_patterns": "Regular monthly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Home Purchase",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 65,
+        "expected_retirement_income": 53410,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1146480,
+            "current_progress": 240462
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Mobile App",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Critical Illness Cover"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA767"
+            },
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA464"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 32200,
+            "lifetime_allowance_remaining": 522527
+        },
+        "lisa_eligibility": true
+    }
+}

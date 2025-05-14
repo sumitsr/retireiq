@@ -1,0 +1,142 @@
+{
+    "id": "cust0049",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Sophia",
+        "last_name": "Patel",
+        "date_of_birth": "1962-07-05",
+        "age": 63,
+        "nationality": "Bangladeshi",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "105 Main Street",
+            "city": "Liverpool",
+            "postcode": "N12 9XJ",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "sophia.patel@email.com",
+            "phone": "+44 7750784049"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2027-10-05"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-07-08"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 51821,
+        "monthly_income": 4318.42,
+        "monthly_expenses": 1092,
+        "disposable_income": 3226.42,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 713,
+                "outstanding_balance": 16523
+            }
+        ],
+        "total_monthly_debt_payments": 713,
+        "disposable_income_after_debts": 2513.42,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 27700,
+            "average_monthly_spending": 1030,
+            "average_monthly_saving": 845.75,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 539
+                },
+                {
+                    "category": "Rent",
+                    "amount": 491
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1667.67
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 5,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Lifetime ISA"
+            ],
+            "savings_patterns": "Regular monthly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Income",
+        "timeline": "Short-term",
+        "desired_retirement_age": 58,
+        "expected_retirement_income": 38291,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 789844,
+            "current_progress": 1440914
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Banking",
+            "Online Chat",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Lifetime ISA",
+                "account_number": "ISA643"
+            },
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA972"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 43263,
+            "lifetime_allowance_remaining": 785404
+        },
+        "lisa_eligibility": false
+    }
+}

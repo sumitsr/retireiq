@@ -1,0 +1,145 @@
+{
+    "id": "cust0084",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Fiona",
+        "last_name": "Wilson",
+        "date_of_birth": "2004-05-08",
+        "age": 21,
+        "nationality": "Indian",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "112 Main Street",
+            "city": "London",
+            "postcode": "BS9 2XX",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "fiona.wilson@email.com",
+            "phone": "+44 7132160764"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2027-04-01"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2024-06-10"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 63222,
+        "monthly_income": 5268.5,
+        "monthly_expenses": 3142,
+        "disposable_income": 2126.5,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 2126.5,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 32415,
+            "average_monthly_spending": 2807,
+            "average_monthly_saving": 1009.71,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 541
+                },
+                {
+                    "category": "Rent",
+                    "amount": 910
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 834
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 522
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1116.79
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 5,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "General Investment Account"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Holiday Savings",
+        "timeline": "Short-term",
+        "desired_retirement_age": 62,
+        "expected_retirement_income": 50746,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 1717532,
+            "current_progress": 222951
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Mail",
+            "Mobile App",
+            "Video Conferencing",
+            "Online Banking",
+            "Phone",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "General Investment Account"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA130"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 34555,
+            "lifetime_allowance_remaining": 563909
+        },
+        "lisa_eligibility": true
+    }
+}

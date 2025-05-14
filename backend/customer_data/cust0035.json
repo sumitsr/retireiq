@@ -1,0 +1,153 @@
+{
+    "id": "cust0035",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "David",
+        "last_name": "Wilson",
+        "date_of_birth": "1983-04-22",
+        "age": 42,
+        "nationality": "Irish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "126 Victoria Street",
+            "city": "Bristol",
+            "postcode": "E14 1CP",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "david.wilson@email.com",
+            "phone": "+44 7724355252"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2035-07-31"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-03-12"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Contractor",
+        "annual_income": 34221,
+        "monthly_income": 2851.75,
+        "monthly_expenses": 1594,
+        "disposable_income": 1257.75,
+        "debt_obligations": [
+            {
+                "type": "Car Loan",
+                "monthly_payment": 440,
+                "outstanding_balance": 37901
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 926,
+                "outstanding_balance": 5400
+            }
+        ],
+        "total_monthly_debt_payments": 1366,
+        "disposable_income_after_debts": -108.25,
+        "minimum_income_threshold_met": false,
+        "open_banking_data": {
+            "account_balance": 29335,
+            "average_monthly_spending": 626,
+            "average_monthly_saving": -47.47,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 387
+                },
+                {
+                    "category": "Rent",
+                    "amount": 81
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 104
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 54
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": true,
+            "unutilized_disposable_income": -60.78
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Holiday Savings",
+        "timeline": "Short-term",
+        "desired_retirement_age": 67,
+        "expected_retirement_income": 60622,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 1035588,
+            "current_progress": 173688
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Phone"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Bonds"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Critical Illness Cover"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA664"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 32588,
+            "lifetime_allowance_remaining": 489473
+        },
+        "lisa_eligibility": false
+    }
+}

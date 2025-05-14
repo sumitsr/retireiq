@@ -1,0 +1,135 @@
+{
+    "id": "cust0083",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Olivia",
+        "last_name": "Singh",
+        "date_of_birth": "1958-04-10",
+        "age": 67,
+        "nationality": "Bangladeshi",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "190 Queen Street",
+            "city": "London",
+            "postcode": "EH11 5SB",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "olivia.singh@email.com",
+            "phone": "+44 7204822967"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2034-10-23"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-02-08"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 24372,
+        "monthly_income": 2031.0,
+        "monthly_expenses": 1613,
+        "disposable_income": 418.0,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 418.0,
+        "minimum_income_threshold_met": false,
+        "open_banking_data": {
+            "account_balance": 14477,
+            "average_monthly_spending": 1644,
+            "average_monthly_saving": 49.48,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 903
+                },
+                {
+                    "category": "Rent",
+                    "amount": 461
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 109
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 171
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": true,
+            "unutilized_disposable_income": 368.52
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 3,
+        "investment_experience": "Limited",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "General Investment Account"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Wealth Accumulation",
+        "timeline": "Long-term",
+        "desired_retirement_age": 61,
+        "expected_retirement_income": 70148,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 714323,
+            "current_progress": 690790
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Mobile App",
+            "Online Banking"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 37074,
+            "lifetime_allowance_remaining": 590834
+        },
+        "lisa_eligibility": false
+    }
+}

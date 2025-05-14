@@ -1,0 +1,168 @@
+{
+    "id": "cust0077",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "William",
+        "last_name": "Kumar",
+        "date_of_birth": "2005-09-20",
+        "age": 20,
+        "nationality": "Pakistani",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "140 London Road",
+            "city": "Birmingham",
+            "postcode": "CB4 6PA",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "william.kumar@email.com",
+            "phone": "+44 7847425988"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2025-02-17"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-02-25"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "PAYE",
+        "annual_income": 84238,
+        "monthly_income": 7019.83,
+        "monthly_expenses": 1076,
+        "disposable_income": 5943.83,
+        "debt_obligations": [
+            {
+                "type": "Student Loan",
+                "monthly_payment": 540,
+                "outstanding_balance": 4884
+            },
+            {
+                "type": "Car Loan",
+                "monthly_payment": 529,
+                "outstanding_balance": 23401
+            },
+            {
+                "type": "Car Loan",
+                "monthly_payment": 489,
+                "outstanding_balance": 22662
+            }
+        ],
+        "total_monthly_debt_payments": 1558,
+        "disposable_income_after_debts": 4385.83,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 85871,
+            "average_monthly_spending": 1163,
+            "average_monthly_saving": 692.3,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 642
+                },
+                {
+                    "category": "Rent",
+                    "amount": 270
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 180
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 55
+                },
+                {
+                    "category": "Travel",
+                    "amount": 16
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 3693.53
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 4,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "General Investment Account"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Planning",
+        "timeline": "Long-term",
+        "desired_retirement_age": 59,
+        "expected_retirement_income": 56477,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 374131,
+            "current_progress": 182965
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Mail",
+            "Visual Dashboards",
+            "Online Chat",
+            "Video Conferencing",
+            "Mobile App",
+            "Online Banking",
+            "Phone"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Bonds"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA550"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 27821,
+            "lifetime_allowance_remaining": 721067
+        },
+        "lisa_eligibility": true
+    }
+}

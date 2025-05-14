@@ -1,0 +1,142 @@
+{
+    "id": "cust0057",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Ethan",
+        "last_name": "Ali",
+        "date_of_birth": "1974-01-27",
+        "age": 51,
+        "nationality": "British",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "51 Church Road",
+            "city": "Manchester",
+            "postcode": "S3 0BJ",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "ethan.ali@email.com",
+            "phone": "+44 7915647600"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-12-04"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-10-11"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 75393,
+        "monthly_income": 6282.75,
+        "monthly_expenses": 1192,
+        "disposable_income": 5090.75,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 669,
+                "outstanding_balance": 9234
+            }
+        ],
+        "total_monthly_debt_payments": 669,
+        "disposable_income_after_debts": 4421.75,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 12653,
+            "average_monthly_spending": 965,
+            "average_monthly_saving": 852.72,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 236
+                },
+                {
+                    "category": "Rent",
+                    "amount": 729
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 3569.03
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 6,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Regular monthly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Home Purchase",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 55,
+        "expected_retirement_income": 34913,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 876453,
+            "current_progress": 28554
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Banking",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Pension"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Critical Illness Cover",
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA563"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 29729,
+            "lifetime_allowance_remaining": 272667
+        },
+        "lisa_eligibility": false
+    }
+}

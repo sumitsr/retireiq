@@ -1,0 +1,155 @@
+{
+    "id": "cust0008",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Fiona",
+        "last_name": "Wilson",
+        "date_of_birth": "1980-04-05",
+        "age": 45,
+        "nationality": "Bangladeshi",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "34 High Street",
+            "city": "Manchester",
+            "postcode": "CB10 5HA",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "fiona.wilson@email.com",
+            "phone": "+44 7473094488"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2027-05-03"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-05-23"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 75814,
+        "monthly_income": 6317.83,
+        "monthly_expenses": 3269,
+        "disposable_income": 3048.83,
+        "debt_obligations": [
+            {
+                "type": "Car Loan",
+                "monthly_payment": 298,
+                "outstanding_balance": 23667
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 412,
+                "outstanding_balance": 7584
+            }
+        ],
+        "total_monthly_debt_payments": 710,
+        "disposable_income_after_debts": 2338.83,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 37789,
+            "average_monthly_spending": 3021,
+            "average_monthly_saving": 327.23,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1188
+                },
+                {
+                    "category": "Rent",
+                    "amount": 1833
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2011.6
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 4,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Junior ISA"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Education Savings",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 58,
+        "expected_retirement_income": 64753,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 321781,
+            "current_progress": 1470730
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Mail",
+            "Visual Dashboards",
+            "Phone",
+            "Online Banking",
+            "Video Conferencing"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Savings Account",
+            "Fixed Rate Bonds",
+            "Stocks and Shares ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "SIPP + Critical Illness Cover"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA739"
+            },
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA892"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 17386,
+            "lifetime_allowance_remaining": 837212
+        },
+        "lisa_eligibility": false
+    }
+}

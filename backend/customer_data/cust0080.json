@@ -1,0 +1,154 @@
+{
+    "id": "cust0080",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Isabella",
+        "last_name": "Smith",
+        "date_of_birth": "1962-04-07",
+        "age": 63,
+        "nationality": "Polish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "152 High Street",
+            "city": "Glasgow",
+            "postcode": "BS9 7HZ",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "isabella.smith@email.com",
+            "phone": "+44 7708632205"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2032-05-21"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2024-03-27"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 64120,
+        "monthly_income": 5343.33,
+        "monthly_expenses": 2443,
+        "disposable_income": 2900.33,
+        "debt_obligations": [
+            {
+                "type": "Student Loan",
+                "monthly_payment": 545,
+                "outstanding_balance": 3888
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 725,
+                "outstanding_balance": 33415
+            }
+        ],
+        "total_monthly_debt_payments": 1270,
+        "disposable_income_after_debts": 1630.33,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 11807,
+            "average_monthly_spending": 1437,
+            "average_monthly_saving": 795.98,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 493
+                },
+                {
+                    "category": "Rent",
+                    "amount": 944
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 834.35
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 2,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Pension"
+            ],
+            "savings_patterns": "Steady income drawdown"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Business Expansion",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 58,
+        "expected_retirement_income": 58340,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1411563,
+            "current_progress": 1165591
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Phone",
+            "Video Conferencing",
+            "Mail",
+            "Visual Dashboards",
+            "Online Chat",
+            "Mobile App"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA",
+            "Junior ISA",
+            "Stocks and Shares ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA407"
+            },
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA592"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 36161,
+            "lifetime_allowance_remaining": 765509
+        },
+        "lisa_eligibility": false
+    }
+}

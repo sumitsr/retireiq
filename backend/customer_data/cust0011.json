@@ -1,0 +1,143 @@
+{
+    "id": "cust0011",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Alice",
+        "last_name": "Kumar",
+        "date_of_birth": "1960-11-15",
+        "age": 65,
+        "nationality": "Irish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "8 London Road",
+            "city": "Newcastle",
+            "postcode": "CB18 9XY",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "alice.kumar@email.com",
+            "phone": "+44 7925271629"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2033-06-14"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-09-20"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 78427,
+        "monthly_income": 6535.58,
+        "monthly_expenses": 2973,
+        "disposable_income": 3562.58,
+        "debt_obligations": [
+            {
+                "type": "Student Loan",
+                "monthly_payment": 362,
+                "outstanding_balance": 23218
+            }
+        ],
+        "total_monthly_debt_payments": 362,
+        "disposable_income_after_debts": 3200.58,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 17160,
+            "average_monthly_spending": 2516,
+            "average_monthly_saving": 1297.28,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1075
+                },
+                {
+                    "category": "Rent",
+                    "amount": 1441
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1903.3
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 9,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Junior ISA"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Debt Repayment",
+        "timeline": "Short-term",
+        "desired_retirement_age": 57,
+        "expected_retirement_income": 67142,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1202486,
+            "current_progress": 440894
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Pension",
+            "Junior ISA",
+            "General Investment Account"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "SIPP + Critical Illness Cover"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA688"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 29647,
+            "lifetime_allowance_remaining": 704815
+        },
+        "lisa_eligibility": false
+    }
+}

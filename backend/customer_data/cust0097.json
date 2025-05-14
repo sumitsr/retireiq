@@ -1,0 +1,166 @@
+{
+    "id": "cust0097",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Bob",
+        "last_name": "Ali",
+        "date_of_birth": "1993-09-17",
+        "age": 32,
+        "nationality": "Indian",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "35 London Road",
+            "city": "Cambridge",
+            "postcode": "B7 2TY",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "bob.ali@email.com",
+            "phone": "+44 7136654005"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2033-01-01"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-12-07"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Temporary",
+        "annual_income": 37156,
+        "monthly_income": 3096.33,
+        "monthly_expenses": 1845,
+        "disposable_income": 1251.33,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 384,
+                "outstanding_balance": 23905
+            },
+            {
+                "type": "Car Loan",
+                "monthly_payment": 262,
+                "outstanding_balance": 37036
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 461,
+                "outstanding_balance": 26955
+            }
+        ],
+        "total_monthly_debt_payments": 1107,
+        "disposable_income_after_debts": 144.33,
+        "minimum_income_threshold_met": false,
+        "open_banking_data": {
+            "account_balance": 25429,
+            "average_monthly_spending": 1024,
+            "average_monthly_saving": 70.92,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 800
+                },
+                {
+                    "category": "Rent",
+                    "amount": 163
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 49
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 12
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": true,
+            "unutilized_disposable_income": 73.41
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 1,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Fixed Rate Bonds",
+                "Index Funds"
+            ],
+            "savings_patterns": "Regular monthly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Planning",
+        "timeline": "Long-term",
+        "desired_retirement_age": 57,
+        "expected_retirement_income": 87364,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 821975,
+            "current_progress": 45195
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Phone",
+            "Online Banking",
+            "Visual Dashboards",
+            "Mobile App",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Fixed Rate Bonds"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA788"
+            },
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA174"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 49862,
+            "lifetime_allowance_remaining": 912402
+        },
+        "lisa_eligibility": true
+    }
+}

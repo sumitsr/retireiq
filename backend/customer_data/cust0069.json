@@ -1,0 +1,160 @@
+{
+    "id": "cust0069",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Sarah",
+        "last_name": "Ali",
+        "date_of_birth": "1959-10-22",
+        "age": 66,
+        "nationality": "Chinese",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "121 High Street",
+            "city": "Oxford",
+            "postcode": "B20 1PS",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "sarah.ali@email.com",
+            "phone": "+44 7508041035"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2030-09-02"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-01-19"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 42726,
+        "monthly_income": 3560.5,
+        "monthly_expenses": 2087,
+        "disposable_income": 1473.5,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 293,
+                "outstanding_balance": 27066
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 503,
+                "outstanding_balance": 43047
+            },
+            {
+                "type": "Credit Card",
+                "monthly_payment": 532,
+                "outstanding_balance": 9900
+            }
+        ],
+        "total_monthly_debt_payments": 1328,
+        "disposable_income_after_debts": 145.5,
+        "minimum_income_threshold_met": false,
+        "open_banking_data": {
+            "account_balance": 48805,
+            "average_monthly_spending": 2225,
+            "average_monthly_saving": 56.67,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1737
+                },
+                {
+                    "category": "Rent",
+                    "amount": 488
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": true,
+            "unutilized_disposable_income": 88.83
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 9,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Accounts",
+                "Bonds"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Planning",
+        "timeline": "Long-term",
+        "desired_retirement_age": 57,
+        "expected_retirement_income": 76221,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1028659,
+            "current_progress": 125216
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Online Banking",
+            "Phone",
+            "Video Conferencing",
+            "Online Chat",
+            "Mobile App"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Junior ISA"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "SIPP + Critical Illness Cover"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA390"
+            },
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA864"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 36659,
+            "lifetime_allowance_remaining": 424408
+        },
+        "lisa_eligibility": false
+    }
+}

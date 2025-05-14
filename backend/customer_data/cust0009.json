@@ -1,0 +1,150 @@
+{
+    "id": "cust0009",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Ethan",
+        "last_name": "Patel",
+        "date_of_birth": "1970-10-05",
+        "age": 55,
+        "nationality": "British",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "199 Queen Street",
+            "city": "Cambridge",
+            "postcode": "W8 4DH",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "ethan.patel@email.com",
+            "phone": "+44 7492701843"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2027-12-09"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2024-05-28"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Self-Employed",
+        "annual_income": 78796,
+        "monthly_income": 6566.33,
+        "monthly_expenses": 3353,
+        "disposable_income": 3213.33,
+        "debt_obligations": [
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 809,
+                "outstanding_balance": 13470
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 277,
+                "outstanding_balance": 25495
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 567,
+                "outstanding_balance": 16599
+            }
+        ],
+        "total_monthly_debt_payments": 1653,
+        "disposable_income_after_debts": 1560.33,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 24194,
+            "average_monthly_spending": 2621,
+            "average_monthly_saving": 487.68,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 181
+                },
+                {
+                    "category": "Rent",
+                    "amount": 2440
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1072.65
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Regular monthly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Business Expansion",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 69,
+        "expected_retirement_income": 51376,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 1068323,
+            "current_progress": 565199
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Phone",
+            "Video Conferencing",
+            "Online Chat",
+            "Mail",
+            "Mobile App"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Stocks and Shares ISA",
+            "Savings Account",
+            "Lifetime ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 33190,
+            "lifetime_allowance_remaining": 726860
+        },
+        "lisa_eligibility": false
+    }
+}

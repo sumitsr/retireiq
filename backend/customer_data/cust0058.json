@@ -1,0 +1,163 @@
+{
+    "id": "cust0058",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Fiona",
+        "last_name": "Jones",
+        "date_of_birth": "1991-01-14",
+        "age": 34,
+        "nationality": "Chinese",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "83 Park Lane",
+            "city": "Glasgow",
+            "postcode": "LS4 0XL",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "fiona.jones@email.com",
+            "phone": "+44 7363720799"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2030-04-17"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-05-14"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "PAYE",
+        "annual_income": 101848,
+        "monthly_income": 8487.33,
+        "monthly_expenses": 1665,
+        "disposable_income": 6822.33,
+        "debt_obligations": [
+            {
+                "type": "Car Loan",
+                "monthly_payment": 213,
+                "outstanding_balance": 18484
+            },
+            {
+                "type": "Student Loan",
+                "monthly_payment": 490,
+                "outstanding_balance": 14532
+            },
+            {
+                "type": "Car Loan",
+                "monthly_payment": 263,
+                "outstanding_balance": 28248
+            }
+        ],
+        "total_monthly_debt_payments": 966,
+        "disposable_income_after_debts": 5856.33,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 56531,
+            "average_monthly_spending": 1209,
+            "average_monthly_saving": 1850.53,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 511
+                },
+                {
+                    "category": "Rent",
+                    "amount": 158
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 540
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 4005.8
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 2,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Wealth Accumulation",
+        "timeline": "Long-term",
+        "desired_retirement_age": 59,
+        "expected_retirement_income": 40742,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 1593460,
+            "current_progress": 84532
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Mobile App",
+            "Mail",
+            "Phone"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Stocks and Shares ISA",
+            "Savings Account",
+            "Lifetime ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "Business Loan"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA726"
+            },
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA226"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 52398,
+            "lifetime_allowance_remaining": 519877
+        },
+        "lisa_eligibility": true
+    }
+}

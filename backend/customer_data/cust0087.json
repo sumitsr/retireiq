@@ -1,0 +1,140 @@
+{
+    "id": "cust0087",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Fiona",
+        "last_name": "Ahmed",
+        "date_of_birth": "1982-08-17",
+        "age": 43,
+        "nationality": "Chinese",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "38 Victoria Street",
+            "city": "Bristol",
+            "postcode": "EH20 6EB",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "fiona.ahmed@email.com",
+            "phone": "+44 7441191675"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2026-06-11"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-04-22"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 50742,
+        "monthly_income": 4228.5,
+        "monthly_expenses": 1467,
+        "disposable_income": 2761.5,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 325,
+                "outstanding_balance": 15418
+            }
+        ],
+        "total_monthly_debt_payments": 325,
+        "disposable_income_after_debts": 2436.5,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 28937,
+            "average_monthly_spending": 1336,
+            "average_monthly_saving": 820.44,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1004
+                },
+                {
+                    "category": "Rent",
+                    "amount": 332
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1616.06
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Account"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Education Savings",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 56,
+        "expected_retirement_income": 62519,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 647434,
+            "current_progress": 424683
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Phone",
+            "Visual Dashboards",
+            "Video Conferencing",
+            "Mobile App",
+            "Online Banking",
+            "Mail",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "Income Protection Insurance",
+            "SIPP + Critical Illness Cover"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 37006,
+            "lifetime_allowance_remaining": 462393
+        },
+        "lisa_eligibility": false
+    }
+}

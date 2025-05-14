@@ -1,0 +1,164 @@
+{
+    "id": "cust0098",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "George",
+        "last_name": "Khan",
+        "date_of_birth": "1978-08-04",
+        "age": 47,
+        "nationality": "Irish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "181 Victoria Street",
+            "city": "Edinburgh",
+            "postcode": "M5 0LY",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "george.khan@email.com",
+            "phone": "+44 7629673299"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2032-01-22"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2023-02-17"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 80288,
+        "monthly_income": 6690.67,
+        "monthly_expenses": 4156,
+        "disposable_income": 2534.67,
+        "debt_obligations": [
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 670,
+                "outstanding_balance": 12999
+            },
+            {
+                "type": "Car Loan",
+                "monthly_payment": 176,
+                "outstanding_balance": 9292
+            }
+        ],
+        "total_monthly_debt_payments": 846,
+        "disposable_income_after_debts": 1688.67,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 10068,
+            "average_monthly_spending": 576,
+            "average_monthly_saving": 598.91,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 242
+                },
+                {
+                    "category": "Rent",
+                    "amount": 141
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 128
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 50
+                },
+                {
+                    "category": "Travel",
+                    "amount": 15
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1089.76
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Debt Repayment",
+        "timeline": "Short-term",
+        "desired_retirement_age": 57,
+        "expected_retirement_income": 39319,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 420071,
+            "current_progress": 402384
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Phone",
+            "Mail",
+            "Visual Dashboards",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Savings Account",
+            "Junior ISA",
+            "Lifetime ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "Business Loan"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA346"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 41802,
+            "lifetime_allowance_remaining": 642418
+        },
+        "lisa_eligibility": false
+    }
+}

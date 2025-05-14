@@ -1,0 +1,150 @@
+{
+    "id": "cust0044",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "James",
+        "last_name": "Williams",
+        "date_of_birth": "1986-08-02",
+        "age": 39,
+        "nationality": "Nigerian",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "151 Queen Street",
+            "city": "Oxford",
+            "postcode": "M15 7BW",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "james.williams@email.com",
+            "phone": "+44 7153240614"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2035-09-23"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-01-16"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 90537,
+        "monthly_income": 7544.75,
+        "monthly_expenses": 2789,
+        "disposable_income": 4755.75,
+        "debt_obligations": [
+            {
+                "type": "Credit Card",
+                "monthly_payment": 419,
+                "outstanding_balance": 11924
+            }
+        ],
+        "total_monthly_debt_payments": 419,
+        "disposable_income_after_debts": 4336.75,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 29855,
+            "average_monthly_spending": 2193,
+            "average_monthly_saving": 1338.01,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1625
+                },
+                {
+                    "category": "Rent",
+                    "amount": 395
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 124
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 48
+                },
+                {
+                    "category": "Travel",
+                    "amount": 1
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2998.74
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 4,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "General Investment Account"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Income",
+        "timeline": "Short-term",
+        "desired_retirement_age": 57,
+        "expected_retirement_income": 42716,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 456580,
+            "current_progress": 34723
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Online Chat",
+            "Mail",
+            "Online Banking",
+            "Visual Dashboards",
+            "Mobile App",
+            "Video Conferencing"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 46004,
+            "lifetime_allowance_remaining": 579083
+        },
+        "lisa_eligibility": true
+    }
+}

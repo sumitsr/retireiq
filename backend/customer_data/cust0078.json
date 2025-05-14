@@ -1,0 +1,133 @@
+{
+    "id": "cust0078",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "George",
+        "last_name": "Williams",
+        "date_of_birth": "2000-02-26",
+        "age": 25,
+        "nationality": "Bangladeshi",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "169 Park Lane",
+            "city": "Oxford",
+            "postcode": "S1 3JE",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "george.williams@email.com",
+            "phone": "+44 7638788646"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2035-01-20"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-01-31"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Employed",
+        "employment_type": "Contractor",
+        "annual_income": 94956,
+        "monthly_income": 7913.0,
+        "monthly_expenses": 1739,
+        "disposable_income": 6174.0,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 6174.0,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 115925,
+            "average_monthly_spending": 1722,
+            "average_monthly_saving": 1277.86,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 1231
+                },
+                {
+                    "category": "Rent",
+                    "amount": 491
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 4896.14
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 4,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "General Investment Account"
+            ],
+            "savings_patterns": "Regular monthly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Debt Repayment",
+        "timeline": "Short-term",
+        "desired_retirement_age": 67,
+        "expected_retirement_income": 41454,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 1338744,
+            "current_progress": 28486
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Visual Dashboards",
+            "Online Banking"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Stocks and Shares ISA",
+            "Savings Account",
+            "Lifetime ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "Business Loan"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 44879,
+            "lifetime_allowance_remaining": 390409
+        },
+        "lisa_eligibility": true
+    }
+}

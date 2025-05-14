@@ -1,0 +1,142 @@
+{
+    "id": "cust0030",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "George",
+        "last_name": "Khan",
+        "date_of_birth": "1961-11-09",
+        "age": 64,
+        "nationality": "Polish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "139 Park Lane",
+            "city": "Liverpool",
+            "postcode": "W13 5AK",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "george.khan@email.com",
+            "phone": "+44 7240147086"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2032-07-21"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-07-17"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 40693,
+        "monthly_income": 3391.08,
+        "monthly_expenses": 1922,
+        "disposable_income": 1469.08,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 1469.08,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 14103,
+            "average_monthly_spending": 1159,
+            "average_monthly_saving": 181.84,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 275
+                },
+                {
+                    "category": "Rent",
+                    "amount": 373
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 293
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 218
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1287.24
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 3,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Fixed Rate Bonds",
+                "Index Funds"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Income",
+        "timeline": "Short-term",
+        "desired_retirement_age": 67,
+        "expected_retirement_income": 36344,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 1249632,
+            "current_progress": 466594
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Online Banking",
+            "Phone",
+            "Visual Dashboards",
+            "Mail"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Critical Illness Cover",
+            "Business Loan"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 28471,
+            "lifetime_allowance_remaining": 637851
+        },
+        "lisa_eligibility": false
+    }
+}

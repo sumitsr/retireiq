@@ -1,0 +1,152 @@
+{
+    "id": "cust0071",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Isabella",
+        "last_name": "Singh",
+        "date_of_birth": "1978-12-04",
+        "age": 47,
+        "nationality": "Irish",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "181 Main Street",
+            "city": "Glasgow",
+            "postcode": "WC3 8FM",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "isabella.singh@email.com",
+            "phone": "+44 7565828868"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-11-16"
+                },
+                {
+                    "type": "Utility Bill",
+                    "date_issued": "2023-11-19"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 63655,
+        "monthly_income": 5304.58,
+        "monthly_expenses": 1840,
+        "disposable_income": 3464.58,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 3464.58,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 10557,
+            "average_monthly_spending": 1441,
+            "average_monthly_saving": 1101.35,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 994
+                },
+                {
+                    "category": "Rent",
+                    "amount": 199
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 173
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 75
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2363.23
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 8,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Quarterly contributions"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Income",
+        "timeline": "Short-term",
+        "desired_retirement_age": 66,
+        "expected_retirement_income": 63012,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 493906,
+            "current_progress": 209902
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Online Chat",
+            "Visual Dashboards",
+            "Video Conferencing",
+            "Phone",
+            "Mail",
+            "Online Banking",
+            "Mobile App"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Junior ISA",
+            "General Investment Account",
+            "Savings Account"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "Income Protection Insurance"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Innovative Finance ISA",
+                "account_number": "ISA112"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 22053,
+            "lifetime_allowance_remaining": 509883
+        },
+        "lisa_eligibility": false
+    }
+}

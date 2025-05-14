@@ -1,0 +1,142 @@
+{
+    "id": "cust0050",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "James",
+        "last_name": "Ali",
+        "date_of_birth": "2005-02-11",
+        "age": 20,
+        "nationality": "Pakistani",
+        "residency_status": "UK Resident",
+        "address": {
+            "street": "52 Church Road",
+            "city": "Liverpool",
+            "postcode": "NE6 2GX",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "james.ali@email.com",
+            "phone": "+44 7623840878"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2031-07-12"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-01-10"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 92295,
+        "monthly_income": 7691.25,
+        "monthly_expenses": 4795,
+        "disposable_income": 2896.25,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 2896.25,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 66283,
+            "average_monthly_spending": 1483,
+            "average_monthly_saving": 1230.53,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 945
+                },
+                {
+                    "category": "Rent",
+                    "amount": 340
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 154
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 47
+                },
+                {
+                    "category": "Travel",
+                    "amount": -3
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1665.72
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 3,
+        "investment_experience": "Some",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Pension"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Wealth Accumulation",
+        "timeline": "Long-term",
+        "desired_retirement_age": 64,
+        "expected_retirement_income": 32816,
+        "contribution_flexibility": "Low",
+        "goal_details": {
+            "target_amount": 168376,
+            "current_progress": 1126514
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Personal Pension Plan",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Medium",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Mail"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "General Investment Account",
+            "Junior ISA",
+            "Stocks and Shares ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 50340,
+            "lifetime_allowance_remaining": 435294
+        },
+        "lisa_eligibility": true
+    }
+}

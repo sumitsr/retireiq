@@ -1,0 +1,149 @@
+{
+    "id": "cust0036",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Ethan",
+        "last_name": "Davis",
+        "date_of_birth": "1972-04-26",
+        "age": 53,
+        "nationality": "Nigerian",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "65 Queen Street",
+            "city": "Manchester",
+            "postcode": "G14 4JP",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "ethan.davis@email.com",
+            "phone": "+44 7762804684"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2026-07-17"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2024-04-16"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 63313,
+        "monthly_income": 5276.08,
+        "monthly_expenses": 1322,
+        "disposable_income": 3954.08,
+        "debt_obligations": [
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 186,
+                "outstanding_balance": 7117
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 293,
+                "outstanding_balance": 13868
+            }
+        ],
+        "total_monthly_debt_payments": 479,
+        "disposable_income_after_debts": 3475.08,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 18788,
+            "average_monthly_spending": 969,
+            "average_monthly_saving": 1483.37,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 303
+                },
+                {
+                    "category": "Rent",
+                    "amount": 666
+                }
+            ],
+            "saving_habits": "Regular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 1991.71
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 9,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Fixed Rate Bonds",
+                "Index Funds"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Business Expansion",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 66,
+        "expected_retirement_income": 49371,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 336335,
+            "current_progress": 251357
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Visual Dashboards",
+            "Phone",
+            "Mail"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Stocks and Shares ISA"
+        ],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "Income Protection Insurance"
+        ],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Lifetime ISA",
+                "account_number": "ISA247"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 52334,
+            "lifetime_allowance_remaining": 758272
+        },
+        "lisa_eligibility": false
+    }
+}

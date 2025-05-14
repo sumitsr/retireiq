@@ -1,0 +1,149 @@
+{
+    "id": "cust0039",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "David",
+        "last_name": "Wilson",
+        "date_of_birth": "1984-08-28",
+        "age": 41,
+        "nationality": "Bangladeshi",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "29 Queen Street",
+            "city": "Cambridge",
+            "postcode": "W8 5BL",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "david.wilson@email.com",
+            "phone": "+44 7777983912"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2031-11-21"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-09-18"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Unemployed",
+        "employment_type": "Unemployed",
+        "annual_income": 27596,
+        "monthly_income": 2299.67,
+        "monthly_expenses": 1186,
+        "disposable_income": 1113.67,
+        "debt_obligations": [
+            {
+                "type": "Mortgage",
+                "monthly_payment": 171,
+                "outstanding_balance": 17879
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 171,
+                "outstanding_balance": 40933
+            }
+        ],
+        "total_monthly_debt_payments": 342,
+        "disposable_income_after_debts": 771.67,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 8967,
+            "average_monthly_spending": 753,
+            "average_monthly_saving": 349.68,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 121
+                },
+                {
+                    "category": "Rent",
+                    "amount": 632
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 421.99
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Medium",
+        "risk_score": 4,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Retirement Planning",
+        "timeline": "Long-term",
+        "desired_retirement_age": 58,
+        "expected_retirement_income": 41274,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 1713888,
+            "current_progress": 146796
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": false,
+        "minimum_investment_met": true,
+        "pension_status": "Not Enrolled",
+        "already_enrolled_in_nest": true
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Mobile App",
+            "Online Chat",
+            "Phone",
+            "Visual Dashboards",
+            "Mail",
+            "Video Conferencing"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "Lifetime ISA",
+            "General Investment Account"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA583"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 8088,
+            "lifetime_allowance_remaining": 421950
+        },
+        "lisa_eligibility": false
+    }
+}

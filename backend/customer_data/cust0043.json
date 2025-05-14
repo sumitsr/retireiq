@@ -1,0 +1,140 @@
+{
+    "id": "cust0043",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Emily",
+        "last_name": "Kumar",
+        "date_of_birth": "1955-06-02",
+        "age": 70,
+        "nationality": "Polish",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "61 Park Lane",
+            "city": "Newcastle",
+            "postcode": "WC14 6TD",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "emily.kumar@email.com",
+            "phone": "+44 7542219974"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2029-02-28"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-02-20"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 52471,
+        "monthly_income": 4372.58,
+        "monthly_expenses": 2914,
+        "disposable_income": 1458.58,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 1458.58,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 14137,
+            "average_monthly_spending": 2763,
+            "average_monthly_saving": 683.86,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 2037
+                },
+                {
+                    "category": "Rent",
+                    "amount": 535
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 191
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 774.72
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 3,
+        "investment_experience": "None",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Savings Account"
+            ],
+            "savings_patterns": "Lump sum"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Early Retirement",
+        "timeline": "Long-term",
+        "desired_retirement_age": 69,
+        "expected_retirement_income": 56006,
+        "contribution_flexibility": "Medium",
+        "goal_details": {
+            "target_amount": 774465,
+            "current_progress": 252101
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": false
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Visual Dashboards",
+            "Online Banking",
+            "Mail",
+            "Phone",
+            "Mobile App",
+            "Online Chat"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [],
+        "promotions_eligible": false
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Lifetime ISA",
+                "account_number": "ISA534"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 38179,
+            "lifetime_allowance_remaining": 836462
+        },
+        "lisa_eligibility": false
+    }
+}

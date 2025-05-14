@@ -1,0 +1,158 @@
+{
+    "id": "cust0015",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Sophia",
+        "last_name": "Smith",
+        "date_of_birth": "1977-06-08",
+        "age": 48,
+        "nationality": "Chinese",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "119 Park Lane",
+            "city": "Edinburgh",
+            "postcode": "E3 5SZ",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "sophia.smith@email.com",
+            "phone": "+44 7317635744"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2028-03-17"
+                },
+                {
+                    "type": "Bank Statement",
+                    "date_issued": "2023-04-06"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Self-Employed",
+        "employment_type": "Freelancer",
+        "annual_income": 92655,
+        "monthly_income": 7721.25,
+        "monthly_expenses": 2272,
+        "disposable_income": 5449.25,
+        "debt_obligations": [
+            {
+                "type": "Mortgage",
+                "monthly_payment": 290,
+                "outstanding_balance": 13346
+            },
+            {
+                "type": "Mortgage",
+                "monthly_payment": 889,
+                "outstanding_balance": 15912
+            },
+            {
+                "type": "Personal Loan",
+                "monthly_payment": 378,
+                "outstanding_balance": 5684
+            }
+        ],
+        "total_monthly_debt_payments": 1557,
+        "disposable_income_after_debts": 3892.25,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 63347,
+            "average_monthly_spending": 1347,
+            "average_monthly_saving": 1713.4,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 134
+                },
+                {
+                    "category": "Rent",
+                    "amount": 274
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 939
+                }
+            ],
+            "saving_habits": "Sporadic",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 2178.85
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "Low",
+        "risk_score": 3,
+        "investment_experience": "Significant",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Business Savings Account",
+                "Stocks and Shares ISA"
+            ],
+            "savings_patterns": "Steady income drawdown"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Home Purchase",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 56,
+        "expected_retirement_income": 34988,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 459703,
+            "current_progress": 187419
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Not Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "Low",
+        "advisory_support_needed": true,
+        "communication_preferences": [
+            "Video Conferencing",
+            "Mobile App",
+            "Mail",
+            "Visual Dashboards",
+            "Online Chat",
+            "Online Banking",
+            "Phone"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [
+            "General Investment Account",
+            "Lifetime ISA",
+            "Junior ISA"
+        ],
+        "product_duplication_check": true,
+        "bundle_offers_eligible": [
+            "Business Loan"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 10870,
+            "lifetime_allowance_remaining": 877814
+        },
+        "lisa_eligibility": false
+    }
+}

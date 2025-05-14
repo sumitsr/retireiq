@@ -1,0 +1,154 @@
+{
+    "id": "cust0056",
+    "password": "scrypt:32768:8:1$8GJu8UW4npJffcwl$3687a100ba07ed8e3023311d7b30540e81aeea4c9c8eefb31595db5bb7a633171ab853e80eacebaf2ce114ce45010aa0c48a89da7ae9730e9534b298e302872f",
+    "personal_details": {
+        "first_name": "Ethan",
+        "last_name": "Ali",
+        "date_of_birth": "1986-06-13",
+        "age": 39,
+        "nationality": "Chinese",
+        "residency_status": "Non-UK Resident",
+        "address": {
+            "street": "134 Queen Street",
+            "city": "Cambridge",
+            "postcode": "EC20 0WK",
+            "country": "UK"
+        },
+        "contact_details": {
+            "email": "ethan.ali@email.com",
+            "phone": "+44 7742632574"
+        },
+        "kyc_status": {
+            "identity_verified": true,
+            "identity_documents": [
+                {
+                    "type": "Passport",
+                    "expiry_date": "2028-07-24"
+                },
+                {
+                    "type": "Driving Licence",
+                    "date_issued": "2024-06-08"
+                }
+            ],
+            "uk_resident": true
+        }
+    },
+    "financial_profile": {
+        "employment_status": "Retired",
+        "employment_type": "Pension",
+        "annual_income": 33791,
+        "monthly_income": 2815.92,
+        "monthly_expenses": 1352,
+        "disposable_income": 1463.92,
+        "debt_obligations": [],
+        "total_monthly_debt_payments": 0,
+        "disposable_income_after_debts": 1463.92,
+        "minimum_income_threshold_met": true,
+        "open_banking_data": {
+            "account_balance": 5064,
+            "average_monthly_spending": 895,
+            "average_monthly_saving": 575.37,
+            "spending_patterns": [
+                {
+                    "category": "Groceries",
+                    "amount": 152
+                },
+                {
+                    "category": "Rent",
+                    "amount": 427
+                },
+                {
+                    "category": "Utilities",
+                    "amount": 98
+                },
+                {
+                    "category": "Entertainment",
+                    "amount": 77
+                },
+                {
+                    "category": "Travel",
+                    "amount": 141
+                }
+            ],
+            "saving_habits": "Irregular",
+            "insufficient_saving_habits_flag": false,
+            "unutilized_disposable_income": 888.55
+        }
+    },
+    "risk_profile": {
+        "risk_tolerance": "High",
+        "risk_score": 7,
+        "investment_experience": "Moderate",
+        "product_alignment": true,
+        "behavioral_indicators": {
+            "previous_product_preferences": [
+                "Pension"
+            ],
+            "savings_patterns": "Irregular"
+        }
+    },
+    "financial_goals": {
+        "goal_type": "Education Savings",
+        "timeline": "Medium-term",
+        "desired_retirement_age": 65,
+        "expected_retirement_income": 52723,
+        "contribution_flexibility": "High",
+        "goal_details": {
+            "target_amount": 541538,
+            "current_progress": 191687
+        }
+    },
+    "product_eligibility": {
+        "age_eligibility_met": true,
+        "employment_type_eligibility": true,
+        "minimum_investment_met": true,
+        "pension_status": "Workplace Pension Scheme",
+        "already_enrolled_in_nest": false
+    },
+    "regulatory_compliance": {
+        "fca_suitability_assessment": true,
+        "mifid_ii_compliance": true,
+        "aml_checks_passed": true,
+        "fatca_crs_status": "Applicable",
+        "marketing_opt_in": true
+    },
+    "cognitive_digital_accessibility": {
+        "digital_savviness": "High",
+        "advisory_support_needed": false,
+        "communication_preferences": [
+            "Mobile App",
+            "Mail",
+            "Online Banking",
+            "Video Conferencing",
+            "Online Chat",
+            "Visual Dashboards"
+        ]
+    },
+    "product_offerings": {
+        "existing_products": [],
+        "product_duplication_check": false,
+        "bundle_offers_eligible": [
+            "SIPP + Life Insurance",
+            "Business Loan"
+        ],
+        "promotions_eligible": true
+    },
+    "tax_efficiency": {
+        "active_isas": [
+            {
+                "type": "Stocks and Shares ISA",
+                "account_number": "ISA239"
+            },
+            {
+                "type": "Cash ISA",
+                "account_number": "ISA318"
+            }
+        ],
+        "isa_limit_exceeded": false,
+        "pension_contribution_limits": {
+            "annual_allowance_remaining": 38990,
+            "lifetime_allowance_remaining": 296393
+        },
+        "lisa_eligibility": true
+    }
+}
