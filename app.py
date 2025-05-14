@@ -728,11 +728,12 @@ if __name__ == '__main__':
     print("=" * 80)
     print("RetireIQ Python Backend API")
     print("=" * 80)
-    print("API is running at http://localhost:5000/api")
-    print("To use with OpenAI, set the OPENAI_API_KEY environment variable")
-    print("To use with Anthropic, set the ANTHROPIC_API_KEY environment variable")
-    print("For production, change the JWT_SECRET_KEY environment variable")
+    # print("API is running at http://localhost:5000/api")
+    # print("To use with OpenAI, set the OPENAI_API_KEY environment variable")
+    # print("To use with Anthropic, set the ANTHROPIC_API_KEY environment variable")
+    # print("For production, change the JWT_SECRET_KEY environment variable")
+    port = int(os.environ.get('PORT', 5000))
     print("=" * 80)
 
     # Run the Flask app
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=port)
