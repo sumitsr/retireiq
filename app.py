@@ -7,6 +7,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import json
 from dotenv import load_dotenv
+import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+import browser_cookie3
+import re
 
 # Load environment variables from .env file
 load_dotenv()
@@ -237,34 +247,19 @@ def token_required(f):
 
 def build_system_prompt(user_profile=None):
     """Builds the system prompt based on the user profile."""
-    system_prompt = """
-        You are a helpful and professional retirement planning assistant for a UK-based bank. Your goal is to start a short, natural conversation with an existing customer to identify:
-         
-        1. The customer's **primary intent** (e.g., starting a pension, reviewing existing retirement plans, planning early retirement, optimising investments, tax-saving)
-        2. The **sub-intent** (e.g., desired retirement age, lifestyle expectations, risk appetite, dependants, healthcare concerns, income type preference, interest in tax efficiency, etc.)
-         
-        Instructions:
-        - Begin with a polite welcome and ask the customer what brings them in today regarding retirement.
-        - Ask only the **minimum number of questions needed** to confidently identify both the intent and sub-intent.
-        - Keep questions open-ended and natural, aligned with UK financial context. Use UK terminology such as pensions, ISAs, SIPPs, Lifetime ISA, annuities, and GBP (£).
-        - If the customer mentions their goals clearly, do not probe further unnecessarily.
-        - Once both **intent and sub-intent are confidently identified**, STOP the conversation immediately.
-        - Do NOT ask for financial data or product preferences yet — your job ends once intent and sub-intent are known.
-        - Then, output your understanding in the following **structured JSON format**:
-         
-        {
-          "intent": "<detected primary intent>",
-          "sub_intent": "<detected sub-intent details>",
-          "summary": "<short natural-language summary of what the customer wants>"
-        }
-        """
-    # if user_profile and user_profile.get("financial_profile"):
-    #     system_prompt += f"The user is {user_profile['personal_details'].get('age', 'unknown age')} years old, "
-    #     system_prompt += f"planning to retire at {user_profile['financial_profile'].get('retirementAge', 'unknown')}. "
-    #     system_prompt += f"They currently have ${user_profile['financial_profile'].get('currentSavings', 0):,} in savings "
-    #     system_prompt += f"and are saving ${user_profile['financial_profile'].get('monthlySavings', 0):,} per month. "
-    #     system_prompt += f"Their risk tolerance is {user_profile['risk_profile'].get('riskTolerance', 'unknown')}. "
-    # system_prompt += "Provide clear, personalized retirement advice."
+    system_prompt = f"""
+    As RetireIQ, a retirement agent chatbot with access to the customer's structured personal and financial data in JSON format, begin a short, personalized conversation to guide the customer toward the sub-intent "Choose retirement investments." First, extract the customer's first name from the field personal_details.first_name and use it naturally to address them throughout the interaction. Acknowledge their current financial stage without repeating known details. Ask if they’re currently more focused on growing long-term retirement savings or keeping flexibility for short-term needs. Based on their response, follow up to understand whether they prefer a hands-on investment style or an automated, guided approach. If needed, ask if they have specific preferences or exclusions (e.g., ESG, sectors to avoid). Keep the conversation friendly and concise, ask only relevant questions (up to five), and stop once enough information is gathered to recommend suitable retirement investment options tailored to their goals and preferences.
+
+    Once intent and sub-intent are known, output your understanding in the following structured JSON format only and don't add any other text anywhere in response:
+    {{
+        "intent": "<detected primary intent>",
+        "sub_intent": "<detected sub-intent details>",
+        "summary": "<short natural-language summary of what the customer wants>"
+    }}
+
+    User Profile Data: {user_profile}
+    """
+    print(f"system_prompt: {system_prompt}")
     return system_prompt
 
 def prepare_openai_messages(system_prompt, conversation_history, message):
@@ -431,11 +426,145 @@ def generate_ai_response(message, user_profile=None, conversation_history=None, 
         return call_openai_api(messages, model, temperature)
     elif provider == "azure_openai":
         prompt = prepare_azure_openai_messages(system_prompt, conversation_history, message)
-        return call_azure_openai_api_with_key(prompt, model, temperature)
+        ai_response = call_azure_openai_api_with_key(prompt, model, temperature)
+        print(f"AI Response: {ai_response}")
+        extrectedAIResponse = extract_json(ai_response)
+        print('------extrectedAIResponse------')
+        print(f"{extrectedAIResponse}")
+        if validate_intent_response(extrectedAIResponse):
+            print(f"Intent and sub-intent identfied, calling agent: {extrectedAIResponse}")
+            final_res = call_agent_api(extrectedAIResponse, user_profile['id'])
+            print(f"-----------Final output---------: {final_res}")
+            return final_res
+        else:
+            print('-----else part-----')
+            return ai_response
     else:
         return "I'm sorry, the configured AI provider is not available. Please check your settings."
 
 
+def validate_intent_response(api_response):
+    if isinstance(api_response, dict):
+        # Already a dictionary, so it's valid JSON
+        return True
+    elif isinstance(api_response, str):
+        try:
+            # Try correcting single quotes to double quotes (best effort)
+            corrected_str = api_response.replace("'", '"')
+            json_obj = json.loads(corrected_str)
+            return True
+        except json.JSONDecodeError as e:
+            return False
+    else:
+        return False
+
+def extract_json(input_text):
+    print(f"--------input_text input print")
+    print(f"{input_text}")
+    # Regex to find JSON object (starting with { and ending with })
+    match = re.search(r'\{.*\}', input_text, re.DOTALL)
+    if match:
+        try:
+            # Load JSON to ensure it's valid
+            extracted_json = json.loads(match.group())
+            print(f"--------No JSON object found in the input text.")
+            print(f"{extracted_json}")
+            return extracted_json
+        except json.JSONDecodeError:
+            print("---------Found JSON-like text, but it's not valid JSON.")
+            return input_text
+    else:
+        print("----------No JSON object found in the input text.")
+        return input_text
+
+
+# def call_agent_api(intent="", user_id=""):
+
+def generateAgentAPIToken():
+    # Replace 'example.com' with your target domain
+    target_domain = "https://dev.lionis.ai/error/500?status=success"
+    # Try to load cookies from Chrome
+    cookies = browser_cookie3.load(domain_name=target_domain)  
+    # Print cookie names and values
+    for cookie in cookies:
+        print(f"{cookie.name} = {cookie.value}")
+
+def call_agent_api(intent="", user_id=""):
+    # user = users_db.get(current_user['id'])
+
+    # Endpoint URL
+    agentUrl = 'https://dev.lionis.ai/api/v1/agents/68259fbd69d8809665943d87/query'
+    # Headers
+    headers = {
+        'x-client-id': '7b4e7797-1bdf-40a0-908f-4827041f4b99',
+        'x-project-id': 'e317e372-b9a8-43c1-bfbb-0bf9e472a49d',
+        'x-workspace-id': '8e4e13b7-41bf-4f51-a797-652c6f32d176',
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Il9GcnhmUVZTbFBVbHZHWjVIdmRrTlN1Z1FzeXJkbjB1cWxXSkdJTVlfWXcifQ.eyJ0eXBlIjoiYXQiLCJjbGllbnRJZCI6IjEyNmJjNDU0LTJjZDYtNDlmZS05Y2RmLTJjZjdlZjNhOWNlNyIsImlkcCI6Im1zZnQiLCJpc3MiOiJodHRwczovL2Rldi5saW9uaXMuYWkiLCJyb2xlcyI6WyJzdXBlcl91c2VyIl0sImp0aSI6IkVlYU5DUnZiN0oiLCJVc2VySW5mbyI6eyJpZCI6IjEyZDQ1ZmFlLWY3ZGEtNGE0OC1iMWZkLTlhN2Q5YzMyOTgzZCIsImVtYWlsIjoidmlqa2FsZUBwdWJsaWNpc2dyb3VwZS5uZXQiLCJkaXNwbGF5TmFtZSI6IlZpamF5IEthbGUifSwiYXBwS2V5Ijoic2tfZGFlZDk5YzgwODE5OSIsImFwcElkIjoiYjBmMmQ4MmEtZWVjMy00MTBiLWE5ZTQtYWI5NzgzNzcyMWI4Iiwic2VydmljZXMiOlsibGxtIiwicHJvamVjdHMiLCJhc3NldC1hbmFseXplciIsImFzc2V0IiwiYXVkaWVuY2UiLCJzdGF0ZSIsImJvZGhpIiwiZGF0YSIsImludmVudG9yeSIsIm5vdGlmaWNhdGlvbiJdLCJhcHBOYW1lIjoiYXBwLWZyYW1ld29yayIsImluZHVzdHJ5IjoiMDg3YzBmMzMtZGEwMC00MTZlLTk3MDEtY2UyN2YzYWRiY2Q5IiwiaWF0IjoxNzQ3MzE4NTcxLCJleHAiOjE3NDczMjU3NzF9.vGHsI_Uh8NkU7TqzLeHk772fiCkNzB0vKASzAKs8wo9iVv_qFJkvk_IH5VhVyPV3oIoaKkoRrc5-9tqWnDVGIRMFqN3hpxgalwU6e2byW5zuZHmU5lVSR41K5K6t5bk0J6gb7HU2Ouc6lbWwlO1B9_35cVR5853Ny6JiDPXaXi1lKq-hn8-XPD1BWsuN0syVDTXUBrdFOD3KHs3CRdzltWpUnPLCrMHJXFF6JYJJDKKTTM7zNEGNBhVo_LUqOgqnFZen3GWlq9HNRFXkbmkR-k-Fjjv8ciGDSJB01whxwZaKKIw2oHnrEL70fNPAWIT5D49bCNlSZyxPK3KJmIdSrg'
+    }
+    # Payload
+    user_intent = f"intent: {intent['intent']}, sub-intent: {intent['sub_intent']}"
+    data = {
+        "input_params": {
+            "user_intent": user_intent,
+            "user_id": user_id
+        }
+    }
+    print("Agent APi payload")
+    print(json.dumps(data, indent=4))
+    
+    # Make the POST request
+    response = requests.post(agentUrl, headers=headers, json=data)
+
+    # Output the response
+    print(f"Status Code------------: {response.status_code}")
+    print("---------Response Body:----------")
+    print(response.json())
+    if response.status_code == 200:
+        res = response.json()
+        event_res = call_agent_api_get_final_response(res['correlation_id'])
+        print("---------event_res:----------")
+        print(event_res)
+        return event_res
+    else:
+        return 'Something went wrong, Please try again.'
+
+def call_agent_api_get_final_response(correlation_id):
+    # user = users_db.get(current_user['id'])
+
+    # Endpoint URL
+    agentUrl = f'https://dev.lionis.ai/api/v1/events/events?correlationId={correlation_id}'
+    # Headers
+    headers = {
+        'x-client-id': '7b4e7797-1bdf-40a0-908f-4827041f4b99',
+        'x-project-id': 'e317e372-b9a8-43c1-bfbb-0bf9e472a49d',
+        'x-workspace-id': '8e4e13b7-41bf-4f51-a797-652c6f32d176',
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Il9GcnhmUVZTbFBVbHZHWjVIdmRrTlN1Z1FzeXJkbjB1cWxXSkdJTVlfWXcifQ.eyJ0eXBlIjoiYXQiLCJjbGllbnRJZCI6IjEyNmJjNDU0LTJjZDYtNDlmZS05Y2RmLTJjZjdlZjNhOWNlNyIsImlkcCI6Im1zZnQiLCJpc3MiOiJodHRwczovL2Rldi5saW9uaXMuYWkiLCJyb2xlcyI6WyJzdXBlcl91c2VyIl0sImp0aSI6IktuMjZ5Sm9Vbk4iLCJVc2VySW5mbyI6eyJpZCI6IjEyZDQ1ZmFlLWY3ZGEtNGE0OC1iMWZkLTlhN2Q5YzMyOTgzZCIsImVtYWlsIjoidmlqa2FsZUBwdWJsaWNpc2dyb3VwZS5uZXQiLCJkaXNwbGF5TmFtZSI6IlZpamF5IEthbGUifSwiYXBwS2V5Ijoic2tfZGFlZDk5YzgwODE5OSIsImFwcElkIjoiYjBmMmQ4MmEtZWVjMy00MTBiLWE5ZTQtYWI5NzgzNzcyMWI4Iiwic2VydmljZXMiOlsibGxtIiwicHJvamVjdHMiLCJhc3NldC1hbmFseXplciIsImFzc2V0IiwiYXVkaWVuY2UiLCJzdGF0ZSIsImJvZGhpIiwiZGF0YSIsImludmVudG9yeSIsIm5vdGlmaWNhdGlvbiJdLCJhcHBOYW1lIjoiYXBwLWZyYW1ld29yayIsImluZHVzdHJ5IjoiMDg3YzBmMzMtZGEwMC00MTZlLTk3MDEtY2UyN2YzYWRiY2Q5IiwiaWF0IjoxNzQ3MzEwOTQ1LCJleHAiOjE3NDczMTgxNDV9.LFFWUlysMnSBfOX1g905_B7Jbjj7KsvEe8pW_7XB87Gbmx_U-LAIpntLuBnqxBeasVAm9TyMdxui-ccw1igkSxJ6RizZXs-oqVoWLkaGwj7KYzVeCAVJAA5brV5cFtLbaHSKzkoma7H5uVw6Fd_phNm4Afu1Wmnya_E8HqQiO1UcG1Po76K-geotD-wXsbjdD6iDTLZiG0hyUQlWek1m-IAxknf_kSlN80gflcPwJXoeXI8CHAPqvCE8LG_vcFTTnR7qf3LsDw-LRhOv0qKvk0jI5gZq7fu2IRnCV6HDnaY7LIhW3ldQEdiJ_yDif7kg2yw6NQtOM3A6b_tjP0d7gw'
+    }
+
+    # Make the GET request
+    response = requests.get(agentUrl, headers=headers)
+    if response.status_code == 200:
+        # Output the response
+        print(f"Event Status Code------------: {response.status_code}")
+        print("Event Response Body:----------")
+        res = response.json()
+        print(res)
+        print("agentStatus:----------")
+        print(res[0]['agentStatus'])
+
+        if res[0]['agentStatus'] == 'completed':
+            print("output:----------")
+            print(res[0]['output']['response_text'])
+            return res[0]['output']['response_text']
+        else:
+            time.sleep(5)
+            return call_agent_api_get_final_response(correlation_id)
+    else:
+        return 'Something went wrong, Please try again.'
 
 # Generate suggested follow-up questions based on conversation
 def generate_suggested_questions(message, response):
@@ -535,7 +664,8 @@ def get_profile(current_user):
     user = users_db.get(current_user['id'])
     if not user:
         return jsonify({'message': 'User not found'}), 404
-
+    # generateAgentAPIToken()
+    # extract_json('test')
     profile = {
         "personal_details": user.get("personal_details", {}),
         "financial_profile": user.get("financial_profile", {}),
@@ -623,6 +753,19 @@ def recommend(current_user):
     result = recommend_products(user, products_list)
     return jsonify(result)
 
+
+@app.route('/api/unauth/recommend', methods=['GET'])
+def get_recommendation_unauth():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({'message': 'Missing user_id parameter'}), 400
+
+    user = users_db.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    result = recommend_products(user, products_list)
+    return jsonify(result)
 
 @app.route('/api/chat/message', methods=['POST'])
 @token_required
@@ -728,12 +871,11 @@ if __name__ == '__main__':
     print("=" * 80)
     print("RetireIQ Python Backend API")
     print("=" * 80)
-    # print("API is running at http://localhost:5000/api")
-    # print("To use with OpenAI, set the OPENAI_API_KEY environment variable")
-    # print("To use with Anthropic, set the ANTHROPIC_API_KEY environment variable")
-    # print("For production, change the JWT_SECRET_KEY environment variable")
-    port = int(os.environ.get('PORT', 5000))
+    print("API is running at http://localhost:5000/api")
+    print("To use with OpenAI, set the OPENAI_API_KEY environment variable")
+    print("To use with Anthropic, set the ANTHROPIC_API_KEY environment variable")
+    print("For production, change the JWT_SECRET_KEY environment variable")
     print("=" * 80)
 
     # Run the Flask app
-    app.run(debug=False, host='0.0.0.0', port=port)
+    app.run(debug=True)
