@@ -1,52 +1,31 @@
 # RetireIQ Enhancements: Master ToDo Plan
 
-This document tracks the roadmap for evolving RetireIQ from a modular monolith to a "Bank-Grade" agentic AI ecosystem on Google Cloud Platform.
+This document tracks the roadmap for evolving RetireIQ from a modular monolith to a "Bank-Grade" agentic AI ecosystem, beginning with a robust local implementation.
 
-## Phase 0: Local-First "Development Flavor" (Coming Soon)
-- [ ] **Local LLM Integration**: Support for **Ollama** or local HuggingFace models for offline testing.
-- [ ] **Local Discovery**: Docker-Compose setup for running the ChatRouter, PII-proxy, and Vector DB (ChromaDB/PostgreSQL) on a single machine.
-- [ ] **Mocked Security Services**: Simplified local PII redaction using high-performance regex (no Cloud DLP dependency needed for dev).
+## Phase 1: Full-Fledged Local Core (Immediate Focus)
+Goal: A fully functional backend running on high-end local hardware (Mac).
+- [ ] **Local LLM Integration**: Full support for **Ollama** or local HuggingFace models (e.g., Llama 3) for offline agentic reasoning.
+- [ ] **Persistent Local Storage**: Docker-Compose setup for running **PostgreSQL with pgvector** and **ChromaDB**.
+- [ ] **Local PII Proxy**: Implement a robust high-performance regex/NER proxy for data redaction during local testing.
+- [ ] **Agentic Isolation**: Split monolithic logic into distinct **Transaction**, **Portfolio**, **Knowledge** agents running locally.
 
-## Phase 1: Core AI Infrastructure (GCP Foundation)
-- [ ] **Vector Database Provisioning**:
-  - [x] Select between Vertex AI Vector Search (High scale) and Cloud SQL/AlloyDB with `pgvector` (Balanced cost).
-  - [ ] Implement consistent embedding logic (Vertex AI `text-multilingual-embedding-002`).
-- [ ] **Knowledge Base Ingestion**:
-  - [ ] Build a Cloud Storage (GCS) trigger for document ingestion (PDFs/Policy documents).
-  - [ ] Implement a Cloud Dataflow or Cloud Run ingestion pipeline for chunking and upserting to the Vector DB.
-- [ ] **PII Sanitization Gateway**:
-  - [ ] Deploy the "Security Firewall" (Cloud Run proxy).
-  - [ ] Integrate Google Cloud Sensitive Data Protection (DLP) API for complex redaction.
-  - [ ] Implement the ephemeral re-hydration map logic.
+## Phase 2: Premium UI Integration
+Goal: Transform the backend into a premium, interactive user experience.
+- [ ] **Frontend Initialization**: Set up a **Vite/React** or **Next.js** project with a modern dark-mode aesthetic.
+- [ ] **Real-time Chat Interface**: Implement streaming responses (SSE) and robust state management for multi-turn conversations.
+- [ ] **Dashboard Integration**: Build visual components for Portfolio and Transaction summaries.
 
-## Phase 2: Agentic Orchestration & Intelligence
-- [ ] **Intent Resolution Engine**:
-  - [ ] Develop a semantic router (Fast, low-latency) to classify user prompts into agent types.
-  - [ ] Integrate **Gemini 1.5 Flash** as the high-speed classifier.
-- [ ] **Multi-Agent Isolation**:
-  - [ ] **Knowledge Agent**: Dedicated RAG-powered agent for policy queries.
-  - [ ] **Portfolio Agent**: Logic to safely query balances and holdings via the SQLAlchemy ORM.
-  - [ ] **Transaction Agent**: Secure logic for initiating retirement account movements.
-- [ ] **Stateful Conversational Memory**:
-  - [ ] Migrate memory from local state/JSON to **Cloud Firestore** or **Cloud SQL**.
-  - [ ] Evolve memory into a "Learning Profile" that extracts and saves user traits/risk tolerance long-term.
-
-## Phase 3: Enterprise Polish & Production Readiness
-- [ ] **Observability Stack**:
-  - [ ] Configure Cloud Trace across orchestrator and task agents to debug multi-step AI reasoning.
-  - [ ] Set up Cloud Monitoring dashboards for LLM latency, token usage, and cost monitoring.
-- [ ] **Cost Optimization Implementation**:
-  - [ ] Enable **Vertex AI Context Caching** for policy documents to reduce input token overhead.
-  - [ ] Implement the "Hybrid Redaction" logic (Local Regex -> Cloud DLP) to minimize security API costs.
-- [ ] **Security Hardening**:
-  - [ ] Configure **Cloud Armor** WAF rules for the API Gateway.
-  - [ ] Lock down infrastructure using identity-aware proxy (IAP) and VPC Service Controls.
+## Phase 3: Demand-Based GCP Transition (Optional/Future)
+Goal: Migrate to cloud-native infrastructure for enterprise scaling.
+- [ ] **Vertex AI Implementation**: Swap local LLMs for Gemini 1.5 Pro and Vertex AI Vector Search.
+- [ ] **Secure Architecture Deployment**: Move to Cloud Run, Cloud SQL, and Cloud DLP as envisioned in the [GCP Design Doc](system_design_gcp.md).
+- [ ] **Cloud Security Hardening**: Configure Cloud Armor, IAP, and VPC Service Controls.
 
 ## Phase 4: Marketing & Evangelism
-- [ ] **Animated Architecture Reveal**: Convert `gcp_architecture.png` into a ByteByteGo-style animated GIF using Eraser.io for the LinkedIn launch.
-- [ ] **GitHub README Polish**: Create a high-fidelity "Product Tour" GIF showing the local-first flavor in action.
+- [ ] **Animated Architecture Reveal**: Convert `gcp_architecture.png` into a ByteByteGo-style animated GIF for the LinkedIn launch.
+- [ ] **GitHub README Polish**: Create a high-fidelity "Product Tour" GIF showing the local-first application in action.
 
 ---
 
 > [!TIP]
-> This plan is modular. You can start with **Phase 1** to get a functional RAG system before moving to the multi-agent orchestration in **Phase 2**.
+> We are building the local application to be "Infrastructure-Agnostic," making the eventual move to GCP a simple configuration swap rather than a full rewrite.
