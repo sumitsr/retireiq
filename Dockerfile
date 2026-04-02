@@ -5,6 +5,7 @@ WORKDIR /app
 # Ensure we have required system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
@@ -18,10 +19,11 @@ COPY . .
 
 # Set environment variables
 ENV FLASK_APP=run.py
-ENV FLASK_ENV=production
+ENV FLASK_ENV=development
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
 EXPOSE 5000
 
-# Run with gunicorn
-CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:5000", "app:create_app()"]
+# Dev server with hot-reload
+CMD ["python", "run.py"]

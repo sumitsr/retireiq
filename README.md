@@ -9,6 +9,10 @@ The backend has recently been migrated to a modern, production-grade **Flask + S
 - `app/models/`: SQLAlchemy ORM models (`User`, `Product`, `Chat`).
 - `app/routes/`: Flask Blueprints defining modular API endpoints.
 - `app/services/`: Core logic abstractions for LLMs (`llm_service.py`), external agent APIs (`agent_service.py`), and the risk-scoring product engine (`recommender.py`).
+- [Target State Vision](docs/target_state_vision.md)
+- [GCP System Design](docs/system_design_gcp.md)
+- [Leak-Proof Security Strategy](docs/security.md)
+- [Master ToDo Plan](docs/todo_plan.md)
 - `app.db`: A local SQLite database designed to eventually be dropped-in via `DATABASE_URL` with a PostgreSQL server in production environments.
 
 ## Setup Instructions

@@ -15,8 +15,14 @@ format:
 lint:
 	ruff check .
 
-build-docker:
-	docker build -t retireiq-backend .
+up:
+	docker-compose up --build -d
 
-run-docker:
-	docker run -p 5000:5000 --env-file .env retireiq-backend
+down:
+	docker-compose down
+
+logs:
+	docker-compose logs -f app
+
+db-shell:
+	docker exec -it retireiq_db psql -U retireiq_user -d retireiq_db

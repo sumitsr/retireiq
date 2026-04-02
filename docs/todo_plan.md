@@ -6,6 +6,7 @@ This document tracks the roadmap for evolving RetireIQ from a modular monolith t
 Goal: A fully functional backend running on high-end local hardware (Mac).
 - [ ] **Local LLM Integration**: Full support for **Ollama** or local HuggingFace models (e.g., Llama 3) for offline agentic reasoning.
 - [ ] **Persistent Local Storage**: Docker-Compose setup for running **PostgreSQL with pgvector** and **ChromaDB**.
+- [x] **Establish Leak-Proof Secrets Management**: Mandatory environment injection and fail-fast configuration implemented.
 - [ ] **Local PII Proxy**: Implement a robust high-performance regex/NER proxy for data redaction during local testing.
 - [ ] **Agentic Isolation**: Split monolithic logic into distinct **Transaction**, **Portfolio**, **Knowledge** agents running locally.
 

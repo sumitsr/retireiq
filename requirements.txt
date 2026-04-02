@@ -19,3 +19,7 @@ SQLAlchemy==2.0.48
 presidio-analyzer
 presidio-anonymizer
 spacy
+psycopg2-binary>=2.9.9
+pgvector>=0.2.4
+langchain-community>=0.0.10
+sqlalchemy-utils>=0.41.1
