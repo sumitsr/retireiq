@@ -3,7 +3,7 @@
 ## 1. High-Level Architecture (GCP Mapping)
 This architecture maps logical intent-based workflows to native Google Cloud services for enterprise-grade scalability and security.
 
-![GCP GenAI Architecture Diagram](./gcp_architecture.png)
+![GCP GenAI Architecture Diagram](./gcp_architecture_v2.png)
 
 ### Component Mapping
 | Mermaid Logic | GCP Service | Role |

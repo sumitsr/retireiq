@@ -2,7 +2,7 @@
 
 RetireIQ is a modern, high-security conversational intelligence platform designed to revolutionize retirement planning. It bridges the gap between complex financial data and natural language interaction using a "Local-First, Cloud-Scale" architecture.
 
-![RetireIQ System Architecture](docs/gcp_architecture.png)
+![RetireIQ System Architecture](docs/gcp_architecture_v2.png)
 
 ---
 
