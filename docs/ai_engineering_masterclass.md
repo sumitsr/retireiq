@@ -32,9 +32,6 @@ LLMs digest **Tokens**, not words. We use the **Byte-Pair Encoding (BPE)** algor
 ### 1.3 Sampling Parameters: Shaping the Probability Distribution
 When the LLM predicts the next token, it produces **Logits** (raw scores). We use sampling to select the final token from this distribution:
 
-### 1.3 Sampling Parameters: Shaping the Probability Distribution
-When the LLM predicts the next token, it produces **Logits** (raw scores). We use sampling to select the final token from this distribution:
-
 | Parameter | Mathematical Impact | RetireIQ Usage (The Why) |
 | :--- | :--- | :--- |
 | **Temperature ($T$)** | Divides logits before Softmax ($score_i / T$). | **$T=0$ (Greedy)**: Used for intent extraction. **$T=0.7$**: Our "Chat Standard" for human-like dialogue. |
@@ -65,7 +62,7 @@ In RetireIQ, we don't just "pick a number." We align $T$ with the **Cognitive Lo
 ## 🧠 Module 2: The Vector Mind (Geometry vs. Keywords)
 
 ### 2.1 The Case Study: "Pension" vs. "Retirement"
-A standard database search for "Retirement" is literal. If you have a document about "Pension Savings" but not the word "Retirement," a standard search fails. This iswhy RetireIQ uses **Semantic (Geometric) Search**.
+A standard database search for "Retirement" is literal. If you have a document about "Pension Savings" but not the word "Retirement," a standard search fails. This is why RetireIQ uses **Semantic (Geometric) Search**.
 
 ### 2.2 Embeddings & High-Dimensional Space
 We use models like `all-minilm` to transform text into a **high-dimensional vector** (e.g. 384 numbers). 
@@ -89,7 +86,37 @@ In [/knowledge_service.py](../app/services/knowledge_service.py), we handle thes
 
 ---
 
-## 🏗️ Module 3: Multi-Agent Systems (The Collaborative Brain)
+## 🧠 Module 3: The Retrieval Paradox (RAG vs. Long-Context)
+
+With the rise of "Infinite Context" models (like Gemini 1.5 Pro with its 2M context), many ask if RAG is dead. In a "Bank-Grade" system, the answer is a resounding **No**. This module explores why retrieval remains the primary performance and cost lever.
+
+### 3.1 The "Token Tax" (Latency and Cost)
+Processing 1 million tokens every time a user asks a question is computationally expensive and slow. RetireIQ optimizes for **Latency**—RAG retrieves only the 1% of data that matters, keeping response time <2 seconds.
+
+### 3.2 The "Lost in the Middle" Phenomenon
+LLM performance degrades as context length increases. Models excel at identifying information at the very beginning or end of a prompt but often "drift" or fail when the answer is buried in the middle of 500k+ tokens.
+- **Expert Tactic**: Use RAG as a **Spotlight**. By providing a "Curated" context of 10 relevant snippets, we ensure the agent's attention is 100% focused on the correct facts.
+
+### 3.3 Dynamic Policy & Access Control
+Banking regulations change daily. RAG allows us to update one row in [knowledge.py](../app/models/knowledge.py) for instant updates. It also provides **Security** by filtering data at the Retrieval Layer, preventing shared context bleed between users.
+
+### 3.4 The "Hybrid" Strategy Matrix
+The "Expert Standard" is a hybrid architecture:
+
+| Feature | Long-Context Only (2M+) | Hybrid RAG (The RetireIQ Way) |
+| :--- | :--- | :--- |
+| **Cost** | 💸 Exponential with data size | 💰 Linear and predictable |
+| **Speed** | 🐢 Slow (high latency) | ⚡ Fast (pinpoint retrieval) |
+| **Accuracy** | 📉 Drifts in "The Middle" | 🎯 High precision via reranking |
+| **Privacy** | 🔓 Risk of context bleed | 🔒 DB-level boundaries |
+
+> [!IMPORTANT]
+> **Expert Pro-Tip: The Librarian Metaphor**
+> RAG is the **Librarian** who knows where every book is. The Context Window is the **Reading Desk**. Even if you have a massive desk, you still need the librarian to bring you the *right* books, or the desk becomes a cluttered, unusable mess.
+
+---
+
+## 🏗️ Module 4: Multi-Agent Systems (The Collaborative Brain)
 
 Moving beyond a "Single-Bot" architecture is the key to building specialized financial intelligence. We use a **MAS (Multi-Agent System)** to distribute complexity.
 
@@ -111,9 +138,9 @@ When an LLM "calls a tool," it generates a specific JSON output based on a schem
 
 ---
 
-## 🛡️ Module 4: Mission-Critical Security (The PII Proxy)
+## 🛡️ Module 5: Mission-Critical Security (The PII Proxy)
 
-### 4.1 The De-identification Lifecycle (The RetireIQ Firewall)
+### 5.1 The De-identification Lifecycle (The RetireIQ Firewall)
 To ensure zero data leaks to external LLMs (OpenAI/Azure), we solve the "Bank Data Paradox" with a 3-step transformation:
 
 1. **Anonymization (Entry)**: Our proxy uses **NER (Named Entity Recognition)** models and **Custom Regex** to identify identities.
@@ -122,7 +149,7 @@ To ensure zero data leaks to external LLMs (OpenAI/Azure), we solve the "Bank Da
 2. **The Prediction (External)**: The LLM works *only* with surrogate tokens like `[CLIENT_NAME_1]`.
 3. **Re-hydration (Exit)**: Before the response reaches the user, the proxy "swaps" the tokens back using a secure, local mapping.
 
-### 4.2 Local-First Privacy (The Ollama Wall)
+### 5.2 Local-First Privacy (The Ollama Wall)
 By using **Ollama** locally, we create a "Biological Boundary." Data stays on your machine.
 
 **Live Implementation: `pii_sanitizer.py`**
@@ -130,30 +157,30 @@ In [/pii_sanitizer.py](../app/utils/pii_sanitizer.py), we use **Microsoft Presid
 
 ---
 
-## ⚖️ Module 5: Evaluation (The Hallucination Firewall)
+## ⚖️ Module 6: Evaluation (The Hallucination Firewall)
 
-### 5.1 The Hallucination Case Study
+### 6.1 The Hallucination Case Study
 A hallucination is when an LLM confidently states a fact that is false (e.g., *"The fixed income fund yield is 500%"*). In RetireIQ, we use the **RAGAS (RAG Assessment)** framework to measure performance.
 
-### 5.2 Expert Tactic: Fact-Checking Agents
+### 6.2 Expert Tactic: Fact-Checking Agents
 To ensure "Bank-Grade" accuracy, we use a secondary **Validator Agent**. It receives the response and the source documents, then performs a "Cross-Check". 
 
 ---
 
-## 🚀 Module 6: The Path to Enterprise Scale (GCP & Vertex AI)
+## 🚀 Module 7: The Path to Enterprise Scale (GCP & Vertex AI)
 
-### 6.1 Scaling RetireIQ with Vertex AI
+### 7.1 Scaling RetireIQ with Vertex AI
 While we develop locally with **Ollama**, a production system needs the massive scale of **Google Cloud (GCP)**.
 - **Context Caching**: For massive bank policies, we cache the vector state in Vertex AI to reduce latency.
 - **Controlled Output**: We enforce **JSON Schema** to ensure 100% reliable system integration.
 
 ---
 
-## 🧪 Module 7: AI Testing & Evaluation (The Reliability Barrier)
+## 🧪 Module 8: AI Testing & Evaluation (The Reliability Barrier)
 
 Traditional software is **Deterministic**. AI is **Probabilistic**. This is why RetireIQ treats **95% Code Coverage** as a "Hard Requirement" for production.
 
-### 7.1 The Power of Mocking
+### 8.1 The Power of Mocking
 To achieve our high coverage, we use `unittest.mock` to simulate LLM responses. This allows us to test how RetireIQ handles:
 1. **Valid JSON Intent**: Does the system call the right agent?
 2. **Malformed JSON**: Does the system fail gracefully?
@@ -165,4 +192,4 @@ To achieve our high coverage, we use `unittest.mock` to simulate LLM responses. 
 
 ---
 
-*This concludes the core curriculum. RetireIQ is your sandbox to practice these implementations.*
+*This concludes the core curriculum overhaul. RetireIQ is your sandbox to practice these implementations.*
