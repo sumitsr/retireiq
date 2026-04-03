@@ -4,25 +4,19 @@ Welcome to the **RetireIQ Python Masterclass**. This document is designed to tak
 
 ---
 
-## 🏗️ Module 1: The Anatomy of Python (Zero to 1)
+## 🏗️ Module 1: The Anatomy of Python (The Pythonic Way)
 
-In Python, code isn't just about logic—it's about "Elegance." Unlike many languages, Python uses whitespace (indentation) to define block structure.
-
-### 1.1 Variables and Dynamic Typing
-Python is "Dynamically Typed," meaning you don't need to specify if a variable is a string or an integer. 
+### 1.1 Dynamic Typing & Type Hinting (PEP 484)
+While Python is dynamically typed, RetireIQ uses **Type Hinting** to prevent runtime errors.
 
 **Live Example: `config.py`**
 In [config.py](../config.py), we define several variables:
 ```python
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "azure_openai")
+LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "azure_openai")
 ```
-- **Concept**: Python identifies `LLM_PROVIDER` as a string because `os.getenv` returns a string.
-- **Why it matters**: This flexibility allows for rapid, readable configuration management.
+- **The Why**: This flexibility allows for rapid, readable configuration management while maintaining "Contractual Documentation."
 
-### 1.2 Data Structures: The Building Blocks
-Python's power comes from its built-in structures: **Lists** (ordered), **Dictionaries** (Key-Value), and **Sets** (unique).
-
-**Live Example: `seed_db.py`**
+### 1.2 Data Structures: Under the Hood
 In [seed_db.py](../scripts/seed_db.py), we use a List of Dictionaries to model our users:
 ```python
 SAMPLE_POLICIES = [
@@ -32,115 +26,98 @@ SAMPLE_POLICIES = [
     }
 ]
 ```
-- **Concept**: The `[]` defines a list, and `{}` defines a dictionary.
-- **Why it matters**: This format is the universal language of AI prompts and JSON data exchange.
+- **Expert Note**: Dictionaries are **Hash Tables** ($O(1)$ lookup). We use them for JSON data exchange between our agents.
 
 ---
 
-## 🛠️ Module 2: Functional Engineering (The Logic)
+## 🛠️ Module 2: Functional Engineering (Logic & Meta-Programming)
 
-Functions are the "verbs" of our application. They take input, perform logic, and return a result.
+### 2.1 Advanced Decorators & Closures
+In [chat.py](../app/routes/chat.py), the `@bp.route` at the top of functions is a decorator that "wraps" our logic into the Flask ecosystem.
 
-### 2.1 Error Handling with `try-except`
-A "Bank-Grade" system must never crash. We use `try-except` blocks to handle "unexpected" errors (like a network outage).
+### 2.2 Defensive Error Handling
+A "Bank-Grade" system must never crash. We use `try-except` blocks with specific timeouts.
 
 **Live Example: `llm_service.py`**
-In [llm_service.py](../app/services/llm_service.py), look at the API call logic:
 ```python
 try:
     response = requests.post(url, json=payload, timeout=30)
     response.raise_for_status()
 except Exception as e:
-    print(f"Error with API: {e}")
+    logging.error(f"Error with API: {e}")
 ```
-- **Concept**: The `try` block attempts a risky operation. The `except` block catches failures so the app stays alive.
 - **Expert Tip**: Always use a `timeout` when calling an external API—or your app might hang forever!
-
-### 2.2 Decorators (Python's Magic Trick)
-A decorator is a function that "wraps" another function to extend its behavior.
-
-**Live Example: Flask Routes**
-In [chat.py](../app/routes/chat.py), the `@bp.route` at the top of functions is a decorator:
-```python
-@bp.route("/message", methods=["POST"])
-def chat():
-    # ... logic here
-```
-- **Concept**: The `@` symbol tells Flask: *"Take this function and register it as an entry point for the /message URL."*
 
 ---
 
-## 📦 Module 3: Object-Oriented Programming (OOP) & Models
+## 📦 Module 3: Object-Oriented Programming (OOP) & Modeling
 
-In Python, we use **Classes** to represent complex real-world entities. This "Object-Oriented" approach is how we model your financial data.
-
-### 3.1 What is a Class?
-Think of a Class as a "Blueprint" and an Instance as a "House" built from that blueprint.
-
-**Live Example: `KnowledgeChunk`**
+### 3.1 Inheritance: The `KnowledgeChunk` Blueprint
 In [knowledge.py](../app/models/knowledge.py), we define the Blueprint for our AI's knowledge:
 ```python
 class KnowledgeChunk(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
 ```
-- **Concept**: The `KnowledgeChunk` class inherits from `db.Model`, telling SQLAlchemy: *"Create a database table that looks exactly like this Python object."*
-- **Why it matters**: This "ORM" (Object Relational Mapping) pattern allows us to talk to a database using only Python code—no raw SQL required!
+- **The Why**: The `KnowledgeChunk` class inherits from `db.Model`, telling SQLAlchemy: *"Create a database table that looks exactly like this Python object."*
 
-### 3.2 The `__init__` and `self` Paradox
-- **`self`**: Refers to the specific "Instance" of the class. If we have two users, `self` ensures the bot knows which bank account it's looking at.
+### 3.2 Memory Optimization with `__slots__`
+For classes that will have millions of instances (like `Message`), we use `__slots__`.
 
 ---
 
 ## 🏗️ Module 4: System & Environment Mastery
 
-A production Python app doesn't exist in a vacuum. It interacts with the Operating System (OS).
-
 ### 4.1 The Environment Bridge
-We use the `os` module to "talk" to your Mac or the Docker container.
+In [__init__.py](../app/__init__.py), we use the environment to configure the app via `os.environ`. This ensures secrets (keys) are kept in the infrastructure layer, not the code.
 
-**Live Example: `__init__.py`**
-In [__init__.py](../app/__init__.py), we use the environment to configure the app:
-```python
-import os
-app.config.from_object(Config)
-```
-- **Concept**: By using `os.environ`, we keep our secrets (passwords, keys) in the OS environment, not in the code.
-- **Why it matters**: This is the foundation of **Leak-Proof Secrets Management**.
-
-### 4.2 Package Management (The Ecosystem)
-Python's greatest strength is its library ecosystem. We use `pip` to manage these.
-
-**Live Example: `requirements.txt`**
-Look at [requirements.txt](../requirements.txt). It lists everything from `Flask` to `pgvector`.
-- **Expert Tip**: Always pin your versions (e.g. `Flask==2.3.3`) to prevent an update from breaking your "Bank-Grade" system.
+### 4.2 Logging for Observability
+In production, "print" statements are useless. We use the `logging` module to track system health.
 
 ---
 
-## ⚖️ Module 5: Defensive Infrastructure (Zero-Fault Services)
+## ⚖️ Module 5: Defensive Infrastructure (Architectural Patterns)
 
-Python is often used for "Scrappy Scripts," but in RetireIQ, we use it for "Mission-Critical Engineering."
-
-### 5.1 Service-Layer Architecture
-We separate **Logic** from **Routes**. 
-
-**Live Example: `KnowledgeService`**
+### 5.1 The Service Layer Pattern
 In [knowledge_service.py](../app/services/knowledge_service.py), we have a dedicated `KnowledgeService` class:
 ```python
 class KnowledgeService:
     @staticmethod
-    def get_embedding(text):
+    def get_embedding(text: str) -> list:
         # ... logic
 ```
-- **Concept**: The `@staticmethod` means you don't need to create an instance of the class to use the function. 
-- **Why it matters**: It provides a "Clean API" for the rest of the app to interact with the AI logic.
+- **The Why**: It provides a "Clean API" for the rest of the app to interact with the complex vector search logic.
+
+### 5.2 The Repository Pattern
+We abstract data access so the application doesn't care if it's talking to SQLite or Postgres.
 
 ---
 
-## 🚀 Module 6: Testing & Quality
+## 🧪 Module 6: Testing & Quality (The Reliability Wall)
 
-*Coming soon... We will deep-dive into how Pytest ensures every line of code is production-ready.*
+### 6.1 The Art of Mocking
+We use `unittest.mock.patch` to isolate our code during tests.
+
+**Expert Setup: `test_llm_service.py`**
+```python
+@patch("openai.OpenAI")
+def test_call_openai_api_exception(mock_openai):
+    mock_openai.side_effect = Exception("Network Down")
+```
+- **The Why**: We can simulate a total OpenAI outage and ensure RetireIQ handles the crash gracefully.
+
+### 6.2 Code Coverage (Why >95%?)
+During our recent expansion, we refactored [test_memory_service.py](../tests/test_memory_service.py) to reach **98% coverage**. An untested line of code is a "Bug in Waiting."
 
 ---
 
-*This concludes the foundational Python curriculum. RetireIQ is your sandbox to practice these implementations.*
+## 🚀 Module 7: Concurrency & Async (The Performance Layer)
+
+### 7.1 Background Processing
+In [/services/memory_service.py](../app/services/memory_service.py), we handle "Message Fact Summarization" in a background thread. 
+
+**Expert Reason**: We don't want the user to wait for an LLM to "think" about memories before they get their chat response.
+
+---
+
+*This concludes the core curriculum overhaul. RetireIQ is your sandbox to practice these implementations.*
