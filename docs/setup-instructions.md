@@ -23,14 +23,67 @@ cd retireiq
 # Create your .env file
 cp .env.example .env
 ```
-```
 
-## 5. Development Utilities
+Open `.env` and set your local configuration. For Docker usage, use the service name `db` for the database host.
+
+---
+
+## 2. Launching the Local Core
+We use `docker-compose` to spin up the API and the PostgreSQL (with pgvector) database simultaneously.
 
 ```bash
+# Build and start the containers
+make up
+
+# Monitor the logs
+make logs
+```
+*The API will be available at `http://localhost:5000`.*
+
+---
+
+## 3. Local LLM Setup (Ollama)
+To run the agentic logic without cloud dependencies:
+1. Install [Ollama](https://ollama.com/).
+2. Pull the required models:
+   ```bash
+   ollama pull llama3       # For reasoning/chat
+   ollama pull all-minilm  # For semantic embeddings (RAG)
+   ```
+3. Configure your `.env` to use the local provider:
+   ```bash
+   LLM_PROVIDER=ollama
+   LLM_MODEL_NAME=llama3
+   OLLAMA_HOST=http://host.docker.internal:11434
+   ```
+
+### 🛡️ Ollama Connectivity (Troubleshooting)
+If the API container says it "Encountered an error with the local Ollama service":
+- **macOS/Windows**: Ensure Ollama is running and that you have restarted it *after* setting up Docker.
+- **Environment Variable**: You may need to set `OLLAMA_HOST=0.0.0.0` in your host environment and restart Ollama to ensure it accepts connections from the Docker network bridge.
+
+---
+
+## 4. Database Migrations
+Once the containers are running, apply the latest relational schemas:
+
+```bash
+# Run migrations inside the running container
+docker exec -it retireiq_app flask db upgrade
+```
+
+---
+
+## 5. Development Utilities
+Use these shorthands for daily development:
+
+```bash
+# Stop the environment
+make down
+
+# Access the Database shell
+make db-shell
+
 # Run unit tests
 pytest tests/
-
-# Check styling and lints
-ruff check .
 ```

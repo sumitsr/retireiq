@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import requests
 from app.services.agent_service import call_agent_api
 
 try:
@@ -73,6 +74,29 @@ def call_openai_api(messages, model, temperature):
         return f"I'm sorry, I encountered an error processing your request: {e}"
 
 
+def call_ollama_api(messages, model, temperature):
+    try:
+        base_url = os.environ.get("OLLAMA_HOST", "http://host.docker.internal:11434")
+        url = f"{base_url}/api/chat"
+        
+        payload = {
+            "model": model,
+            "messages": messages,
+            "stream": False,
+            "options": {
+                "temperature": temperature
+            }
+        }
+        
+        response = requests.post(url, json=payload, timeout=30)
+        response.raise_for_status()
+        
+        return response.json().get("message", {}).get("content", "")
+    except Exception as e:
+        print(f"Error with Ollama API: {e}")
+        return f"I'm sorry, I encountered an error with the local Ollama service: {e}"
+
+
 def call_azure_openai_api_with_key(messages, model, temperature=0.7, max_tokens=500):
     try:
         api_key = os.getenv("AZURE_OPENAI_API_KEY")
@@ -119,6 +143,9 @@ def generate_ai_response(message, user_profile=None, conversation_history=None, 
     elif provider == "azure_openai":
         prompt = prepare_azure_openai_messages(system_prompt, conversation_history, message)
         ai_response = call_azure_openai_api_with_key(prompt, model, temperature)
+    elif provider == "ollama":
+        messages = prepare_openai_messages(system_prompt, conversation_history, message)
+        ai_response = call_ollama_api(messages, model, temperature)
     else:
         return "I'm sorry, the configured AI provider is not available. Please check your settings."
 
