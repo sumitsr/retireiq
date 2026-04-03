@@ -29,3 +29,5 @@ pytest-mock==3.11.1
 google-cloud-aiplatform>=1.60.0
 numpy>=1.24.0
 vaderSentiment>=3.3.2
+nemoguardrails>=0.4.0
+cryptography>=42.0.0

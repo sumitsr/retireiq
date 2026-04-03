@@ -34,7 +34,7 @@ def get_profile_unauth():
     if not user_id:
         return jsonify({"message": "Missing user_id parameter"}), 400
 
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         return jsonify({"message": "User not found"}), 404
 

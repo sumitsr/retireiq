@@ -1,0 +1,46 @@
+
+define user ask about non-financial topics
+  "What is the weather?"
+  "Who won the game?"
+  "Can you write code for a website?"
+  "What is the best restaurant in London?"
+
+define user ask about medical advice
+  "I have a pain in my chest."
+  "What medicine should I take for a cold?"
+
+define user ask about legal advice
+  "How do I sue someone?"
+  "What are the terms of my divorce?"
+
+define bot refuse to answer non-financial topics
+  "I am specifically trained as a Retirement Advisor for RetireIQ. I can only provide guidance on financial planning, retirement savings, and investment policy."
+
+define bot refuse medical advice
+  "I am a Financial Advisor, not a medical professional. For any health-related concerns, please consult a doctor or healthcare provider."
+
+define bot refuse legal advice
+  "For legal matters, I suggest consulting a qualified solicitor. I can only advise on the financial implications of your retirement strategy."
+
+# Flows for redirection
+define flow check off-topic
+  user ask about non-financial topics
+  bot refuse to answer non-financial topics
+  stop
+
+define flow check medical
+  user ask about medical advice
+  bot refuse medical advice
+  stop
+
+define flow check legal
+  user ask about legal advice
+  bot refuse legal advice
+  stop
+
+# Hallucination prevention (Self-Check)
+define flow self check hallucination
+  bot ...
+  if $check_hallucination
+    "Your response seems to contain information not present in the retirement policy documents. I will stay strictly within the provided context."
+    stop

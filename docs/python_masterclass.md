@@ -2,20 +2,81 @@
 
 Welcome to the **RetireIQ Python Masterclass**. This document is a **zero to expert** curriculum built on the real-world "Bank-Grade" codebase of RetireIQ. Every concept here maps to live code in this repository — not hypothetical examples.
 
-> [!NOTE]
-> **How to read this document**: Each module teaches a universal Python Engineering pattern first, then explains *why* we made the specific decision in RetireIQ. The goal: after reading this, build any production-grade Python system confidently.
+> [!IMPORTANT]
+> **How to read this document**: 
+> - If you have **NEVER** used Python: Start with **Module 0**. It covers the absolute building blocks.
+> - If you are a **Python Developer**: Skip to **Module 1** for architectural patterns.
+> - If you are a **Senior Engineer**: Jump to **Module 12** for the Advanced Masterclass.
 
 ---
 
-## 🏗️ Module 1: The Anatomy of Python (The Pythonic Way)
+## 🐣 Module 0: Python Foundations (The Absolute Basics)
 
-### 1.1 Dynamic Typing & Type Hinting (PEP 484)
-Python is dynamically typed: a variable can hold any type. But in production, "anything goes" is a recipe for runtime surprises. RetireIQ uses **Type Hinting** as contractual documentation.
+If you have never written a line of Python, this is your starting point. Think of Python as **English with specific rules**.
+
+### 0.1 Variables: Storing Information
+In RetireIQ, we need to remember things (like a user's name or their account balance). We use "Variables" to store this data.
 
 ```python
-# config.py — Type hints as documentation AND IDE contract
-LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "azure_openai")
-LLM_TEMPERATURE: float = float(os.getenv("LLM_TEMPERATURE", "0.7"))
+# Think of this as labeling a box and putting something inside it
+user_name = "Alice"           # A 'String' (text)
+portfolio_balance = 5000.25  # A 'Float' (decimal number)
+retirement_age = 65          # An 'Integer' (whole number)
+is_logged_in = True          # A 'Boolean' (True or False)
+```
+
+**The Why**: Instead of typing `5000.25` everywhere, you just type `portfolio_balance`. If the balance changes, you only update it once.
+
+### 0.2 Making Decisions (If / Else)
+A chatbot is just a series of decisions. We use `if` and `else` to control what the code does.
+
+```python
+# Example: Checking if a user can withdraw money
+if portfolio_balance > 1000:
+    print("Withdrawal approved!")
+else:
+    print("Insufficient funds.")
+```
+
+### 0.3 Repeating Tasks (Loops)
+If we have a list of entries (like 100 messages), we don't want to type `print(message)` 100 times. We use a **Loop**.
+
+```python
+messages = ["Hi", "How are you?", "Help me with retirement."]
+
+# "For every 'msg' in the 'messages' list, do the following:"
+for msg in messages:
+    print(msg.upper())  # Makes the text ALL CAPS
+```
+
+### 0.4 Functions: The Cooking Recipe
+A **Function** is a named block of code that does a specific job. You "call" it whenever you need that job done.
+
+```python
+# Defining the 'recipe'
+def greet_user(name):
+    return f"Hello, {name}! Welcome back to RetireIQ."
+
+# Using the 'recipe'
+message = greet_user("Alice")
+print(message)  # Output: Hello, Alice! Welcome back to RetireIQ.
+```
+
+**The Why**: In RetireIQ, we have a function called `anonymize_text`. We don't want to write the "PII scrubbing" logic 50 times; we write it once in a function and "call" it whenever we see a user message.
+
+---
+
+## 🏗️ Module 1: The Anatomy of Python (Advanced Foundations)
+
+Now that you know the basics, let's look at how RetireIQ uses Python at a "Bank-Grade" level.
+
+### 1.1 Labeling Your Boxes: Type Hinting (PEP 484)
+In Module 0, we saw `user_name = "Alice"`. In production, we want to be 100% sure that `user_name` **always** stays text. We "hint" the type.
+
+```python
+# config.py — Using ':' to label the type
+LLM_PROVIDER: str = "azure_openai"
+LLM_TEMPERATURE: float = 0.7
 ```
 
 **The Why**: When another developer opens `config.py`, `float` tells them immediately: this must be a number. Without it, they might pass `"0.7"` (a string) and silently get the wrong behaviour downstream.
@@ -42,41 +103,93 @@ original = self.mapping.get("<PERSON_0>")  # O(1) — instant
 ```
 
 ### 1.3 Comprehensions & Generator Expressions
-Python comprehensions are idiomatic, readable, and faster than equivalent `for` loops (they run at C-speed inside the interpreter):
+Python comprehensions are idiomatic, readable, and faster than equivalent `for` loops (they run at C-speed).
 
 ```python
 # chat.py — Convert message objects to dicts in one line
-history = [msg.to_dict() for msg in conversation.messages.limit(20).all()]
-
-# sse_service.py — Filter out dead listener queues
-active = [q for q in self.listeners[session_id] if not q.empty()]
+history = [msg.to_dict() for msg in messages]
 ```
+
+---
+
+## 📂 Module 1.5: Working with Groups (Collections & JSON)
+
+Now that we have variables and decisions, how do we handle *lots* of data at once? This is the most common job in RetireIQ.
+
+### 1.5.1 Lists: The Digital "Waitlist"
+A **List** stores multiple items in a specific order. Think of it like a stack of papers.
+
+```python
+# A list of bot responses
+responses = ["Hello!", "I am analyzing...", "Trade confirmed."]
+
+# Adding to the list
+responses.append("Goodbye!")  # Adds to the 'bottom' of the stack
+```
+
+**RetireIQ Usage**: We store the conversation `history` as a list of message objects.
+
+### 1.5.2 Dictionaries: The "Digital Phonebook"
+A **Dictionary** stores data as **Key-Value pairs**. Instead of an index (0, 1, 2), you look up data by its "Label" (Key).
+
+```python
+# A dictionary representing a user
+user = {
+    "first_name": "Alice",
+    "status": "Premium",
+    "balance": 5000
+}
+
+# Looking up a value
+print(user["first_name"])  # Output: Alice
+```
+
+**RetireIQ Usage**: The **anonymizer mapping** is a dictionary. We store `<PERSON_0>` as the key and `Alice` as the value.
+
+### 1.5.3 JSON: The Language of the Web
+JSON is just a dictionary turned into text so it can be sent over the internet or between agents.
+
+```python
+import json
+
+# Packing a dictionary into a JSON string
+json_text = json.dumps(user)  # Now it's a string: '{"first_name": "Alice", ...}'
+
+# Unpacking a JSON string back into a dictionary
+new_user = json.loads(json_text)
+```
+
+**The Why**: Our agents (Dispatcher, Scholar, etc.) communicate via JSON. It’s the universal translator for AI systems.
 
 ---
 
 ## 🛠️ Module 2: Functional Engineering (Logic & Meta-Programming)
 
-### 2.1 Decorators: Functions that Wrap Functions
+### 2.1 Decorators: The "Security Guard" Analogy
 
-A **decorator** is syntactic sugar for a "wrapper function." When you write `@decorator_name`, Python replaces your function with `decorator_name(your_function)`.
+A **Decorator** is like a **Security Guard** standing in front of a room (a function). Before you can enter the room (run the code), the guard checks your ID.
+
+In Python, we use the `@` symbol to put a decorator on a function. This is "Syntactic Sugar"—a fancy way of saying "a shorthand way to write complex logic."
 
 **RetireIQ Usage: `@token_required`** (auth.py):
 ```python
 def token_required(f):
-    """Decorator: verifies JWT before allowing access to any route."""
+    """The 'Security Guard': verifies if the user is logged in."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         token = request.headers.get("Authorization")
         if not token:
-            return jsonify({"message": "Token missing"}), 401
-        # decode & validate...
-        return f(current_user, *args, **kwargs)  # call the original route
+            return jsonify({"message": "ID Card missing"}), 401
+        
+        # If ID is valid, let them into the room
+        return f(current_user, *args, **kwargs)
     return decorated_function
 
-@bp.route("/stream/<int:conversation_id>")
-@token_required  # ← This wraps stream_conversation with auth logic
-def stream_conversation(current_user, conversation_id):
-    ...
+@bp.route("/balance")
+@token_required  # ← The Guard stands here
+def get_balance(current_user):
+    # This room only opens if the Guard above lets them in!
+    return jsonify({"balance": 5000})
 ```
 
 **The Why**: Without the decorator, every route function would need 10 lines of auth boilerplate. The decorator keeps each route function focused on *business logic*, not security infrastructure.
@@ -604,4 +717,216 @@ except ImportError:
 
 ---
 
-*This concludes the Complete Python Engineering Series. RetireIQ is the living laboratory where every module above has a real, running implementation. From basic type hints to thread-safe streaming generators — every pattern here was chosen because it solves a real problem at production scale.*
+## 🔒 Module 11: Production-Grade Security & Privacy (The Defensive Layer)
+
+### 11.1 Hybrid PII Sanitization (The Guardian Agent)
+In a bank-grade system, "blacklisting" words is not enough. We use a **Hybrid Sanitization** approach:
+1.  **Statistical NLP (Presidio)**: Detects `PERSON`, `LOCATION`, and `PHONE` using context-aware machine learning.
+2.  **Deterministic Regex**: Specifically targets high-risk financial formats like **UK National Insurance (NI)** and **IBANs**.
+
+```python
+# pii_sanitizer.py — The Redaction Loop
+def _replace_entities(self, raw_text, results):
+    sanitized_text = raw_text
+    for res in results:
+        original = raw_text[res.start: res.end]
+        
+        # Pattern: unique entity counters to prevent token reuse
+        idx = self.counters.get(res.entity_type, 0)
+        placeholder = f"<{res.entity_type}_{idx}>"
+        self.counters[res.entity_type] = idx + 1
+        
+        sanitized_text = sanitized_text[:res.start] + placeholder + sanitized_text[res.end:]
+    return sanitized_text
+```
+
+**The Why**: Reusing `<PERSON_0>` for two different people makes it impossible for the AI to "reason" about their relationship. Our **Entity Counter Pattern** preserves the distinctness of PII without leaking the actual value.
+
+### 11.2 The De-anonymization Collision Problem
+If the LLM responds with multiple tokens, simple `.replace()` can fail if one token is a substring of another (e.g., `<PERSON_1>` and `<PERSON_10>`).
+
+**The Pythonic Solution**:
+```python
+# Sort descending by key length to prevent partial matches
+sorted_pairs = sorted(self.mapping.items(), key=lambda x: len(x[0]), reverse=True)
+for placeholder, original in sorted_pairs:
+    text = text.replace(placeholder, original)
+```
+By replacing the longest tokens first, we ensure that `<PERSON_10>` is fully replaced before `<PERSON_1>` has a chance to match its first 9 characters.
+
+### 11.3 Least Privilege: Session-Limited Tokens
+Sharing a master API key with every background agent is a security liability. We use **HMAC-based Token Derivation** to create short-lived, scoped tokens.
+
+```python
+# agent_service.py — Token Derivation
+import hashlib
+import os
+
+def get_session_token(user_id: str) -> str:
+    master_key = os.environ.get("MASTER_SECRET")
+    # Derive a token unique to THIS user and THIS hour
+    session_id = f"{user_id}-{time.time() // 3600}"
+    derived = hashlib.sha256(f"{master_key}{session_id}".encode()).hexdigest()
+    return f"sess_{derived[:24]}"
+```
+
+**The Strategy**: The `Executor` and `Analyst` agents only ever see the `sess_...` token. Even if an agent is compromised via a sophisticated prompt injection, the attacker only has access for one hour and cannot pivot to other users' data.
+
+### 11.4 Conversational Guardrails (The Shield)
+Rather than letting any input reach the orchestrator, we implement a **Pre-flight Safety Check**.
+
+```python
+# guardrails_service.py
+def check_query_sync(self, user_query: str) -> Optional[str]:
+    # Sync wrapper for async LLM safety checks
+    import asyncio
+    return asyncio.run(self._generate_verdict(user_query))
+```
+This pattern allows us to use **Asynchronous Safety Frameworks** (like NeMo or internal LLM checkers) inside our legacy **Synchronous Flask** architecture, providing a clean upgrade path to full-async backends.
+
+---
+
+*This concludes the initial Python Engineering Series. Below are the **Advanced Masterclass Modules** covering the high-fidelity agentic patterns implemented in RetireIQ.*
+
+---
+
+## 🧪 Module 12: Advanced Testing (The Reliability Wall)
+
+Testing a Multi-Agent System (MAS) requires more than simple unit tests. We must test **Orchestration, Delegation, and Multimodal Signatures**.
+
+### 12.1 `patch.object` — Mocking Singleton Services
+When a service is a singleton (like `dispatcher`), standard `patch` can be flaky. `patch.object` is more precise:
+
+```python
+# test_orchestrator.py
+from app.services.orchestrator import dispatcher
+
+with patch.object(dispatcher, '_classify_intent', return_value={"intent": "GENERAL"}):
+    # This specifically replaces the method on the live singleton instance
+    response = dispatcher.dispatch(...)
+```
+
+### 12.2 Testing Multimodal Signatures
+One of our biggest regressions was adding `attachments=None` to `generate_ai_response`. Existing mocks didn't expect this extra argument.
+
+**The Fix**: Use `**kwargs` in your mocks to make them "future-proof":
+```python
+@patch("app.services.llm_service.generate_ai_response")
+def test_chat(mock_gen, ...):
+    # The real function was updated to accept attachments.
+    # Our mock automatically handles it because we patched at the source.
+    mock_gen.return_value = "Mocked Response"
+```
+
+### 12.3 `MagicMock` for Complex Objects
+When mocking LLM SDKs (like Vertex AI), the `response` object is complex. `MagicMock` allows you to define deep attributes with one line:
+
+```python
+mock_response = MagicMock()
+mock_response.candidates[0].content.parts[0].text = "Hello World"
+# mock_response will now act like a real Vertex AI response object
+```
+
+---
+
+## 🧵 Module 13: The Background Task Bible
+
+RetireIQ uses background threads to ensure the user never waits for the AI. This requires expert **Context Management**.
+
+### 13.1 `app_context` — The Threading Bridge
+Flask's `current_app` is thread-local. Background threads are "islands" without access to the database or config.
+
+```python
+# chat.py — Pass the context explicitly
+ctx = current_app.app_context()
+thread = threading.Thread(target=task_wrapper, args=(ctx, ...))
+thread.start()
+
+# In the worker:
+def task_wrapper(ctx, ...):
+    with ctx:  # ← This "plugs" the thread into the Flask app
+        db.session.add(...)  # Now DB works!
+```
+
+### 13.2 Sequential Broadcasting (SSE Serialization)
+When multiple agents write to the same SSE stream, the messages can "interleave" (AABB becomes ABAB).
+- **The Solution**: Centralize all agent broadcasts through the `SSEService`. The `SSEService.publish` method uses a `threading.Lock` to ensure that one full event is written before the next one starts.
+
+---
+
+## 🗃️ Module 14: Modern SQLAlchemy 2.0 Patterns
+
+RetireIQ migrated from SQLAlchemy 1.x to 2.0. The "Bible" fix for legacy warnings is to use **Atomic Fetching**.
+
+### 14.1 `db.session.get` — The New Standard
+```python
+# Legacy (Deprecated in 2.0)
+user = User.query.get(user_id)
+
+# Modern (SQLAlchemy 2.0 compatible)
+user = db.session.get(User, user_id)
+```
+**The Why**: `db.session.get` is faster (it checks the local session identity map first) and is safer across multiple threads.
+
+### 14.2 Transactional Integrity in Loops
+In the `MemoryService`, we often update multiple records. Always wrap loops in a single `commit()`:
+```python
+for fact in new_facts:
+    db.session.add(fact)
+db.session.commit()  # ← Commit ONCE after the loop, not inside it
+```
+**Performance**: One commit = One disk sync. Committing inside a loop of 100 items is 100x slower.
+
+---
+
+## 🤖 Module 15: Agentic Communication Patterns
+
+How do agents "talk" to each other? We use **JSON Extraction** and **Lazy Imports**.
+
+### 15.1 JSON Schema Extraction
+LLMs are probabilistic. Sometimes they return "Here is your JSON: { ... }".
+- **The Pattern**: Use a regex fallback parser in your services.
+```python
+match = re.search(r"\{.*\}", llm_response, re.DOTALL)
+if match:
+    data = json.loads(match.group())
+```
+
+### 15.2 Lazy Imports — Breaking Circular Clusters
+The **Orchestrator** needs **LLMService**, but **LLMService** needs the **Orchestrator**'s `dispatcher`.
+- **The Pattern**: Place the import *inside* the function.
+```python
+def _invoke_agent(...):
+    # This import only happens when _invoke_agent is CALLED.
+    # It doesn't happen when orchestrator.py is first LOADED.
+    from app.services.llm_service import generate_ai_response
+    ...
+```
+
+---
+
+## 👁️ Module 16: Multimodal Data Engineering (The Vision)
+
+Integrating **Gemini 1.5 Pro** requires a new way of handling non-text data.
+
+### 16.1 `Part` Objects vs Text Strings
+Standard LLMs take a `string`. Gemini takes a list of `Part` objects.
+```python
+# llm_service.py — Vertex AI Multimodal
+from vertexai.generative_models import Part
+
+content_parts = [Part.from_text(prompt)]
+if attachments:
+    # Append the image/PDF as a raw Part object
+    content_parts.append(Part.from_data(data=b64_data, mime_type="image/jpeg"))
+
+response = model.generate_content(content_parts)
+```
+
+### 16.2 Base64 Handling
+For browser-to-server security, images are sent as Base64 strings.
+- **Expert Move**: Always validate the Base64 header (`data:image/jpeg;base64,...`) before stripping it. Our `VisionAgent` uses `b64decode` inside a memory-efficient buffer.
+
+---
+
+*This concludes the Complete Python Engineering Series. RetireIQ is the living laboratory where every module above has a real, running implementation. From basic type hints to HMAC security and Multimodal Vision — every pattern here was chosen because it solves a real problem at production scale.*

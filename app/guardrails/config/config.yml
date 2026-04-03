@@ -1,0 +1,26 @@
+models:
+  - type: main
+    engine: openai
+    model: gpt-3.5-turbo
+
+rails:
+  # Input rails are run before the LLM is called
+  input:
+    flows:
+      - check jailbreak
+      - check sensitive data
+  
+  # Output rails are run after the LLM generates a response
+  output:
+    flows:
+      - self check hallucination
+      - check policy compliance
+
+# Enable topical rails to keep the bot on-topic (Financial Advice)
+instructions:
+  - type: general
+    content: |
+      You are a specialized Retirement Advisor for RetireIQ.
+      Your goal is to provide accurate, helpful, and compliant financial guidance.
+      You must NOT provide advice on non-financial topics like medical, legal (non-financial), or gambling.
+      You must NOT recommend individual stocks; instead, focus on asset classes and diversification.

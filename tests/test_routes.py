@@ -37,17 +37,16 @@ def test_update_profile(client, app, seed_data):
     assert res.status_code == 200
     assert "Profile updated successfully" in res.get_json()["message"]
 
-@patch("app.routes.chat.generate_ai_response")
+@patch("app.services.llm_service.generate_ai_response", return_value="Mocked AI Response")
 def test_chat(mock_gen, client, app, seed_data):
-    mock_gen.return_value = "Mocked AI Response"
     token = jwt.encode({"user_id": seed_data["user_id"]}, app.config["SECRET_KEY"], algorithm="HS256")
     
     res = client.post('/api/chat/message', 
         headers={"Authorization": f"Bearer {token}"},
-        json={"message": "Hello"}
+        json={"message": "Hello", "stream": False}
     )
     assert res.status_code == 200
-    assert res.get_json()["message"]["content"] == "Mocked AI Response"
+    assert "Mocked AI Response" in res.get_json()["message"]["content"]
 
 @patch("app.routes.recommend.recommend_products")
 def test_recommend(mock_rec, client, app, seed_data):

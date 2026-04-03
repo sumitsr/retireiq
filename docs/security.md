@@ -1,6 +1,7 @@
-# Security Strategy: Bank-Grade Protection
-
 RetireIQ implements a multi-layered security architecture to ensure that sensitive financial data is never leaked — neither to version control nor to external AI providers.
+
+> [!IMPORTANT]
+> For a comprehensive analysis of regulatory alignment (GDPR, MiFID II) and our layered defense-in-depth strategy, please refer to the **[Security and Compliance Blueprint](file:///Users/sumitsrivastava/.gemini/antigravity/scratch/retireiq/docs/security_and_compliance_blueprint.md)**.
 
 ---
 

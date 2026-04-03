@@ -4,41 +4,45 @@ RetireIQ is a "Bank-Grade" retirement planning assistant built on a production-g
 
 ---
 
-## Current Architecture: Multi-Agent System (MAS)
+## Current Architecture: The Autonomous Agent Ecosystem
+
+RetireIQ now operates as a high-fidelity **Agentic Ecosystem**. Every user message passes through a multi-layered security, safety, and behavioral pipeline before reaching a specialist agent.
 
 ```mermaid
 graph TD
     Client["Client / Web / Mobile"] -->|POST /api/chat/message| API["Flask API Gateway"]
     Client -->|GET /api/chat/stream/:id| SSE["SSE Stream Dispatcher"]
 
+    subgraph "Behavioral Layer (The Empath)"
+        API --> Empath["Empath Agent\n(Sentiment → Tone Adjustment)"]
+    end
+
     subgraph "Security Boundary (The Guardian)"
-        API --> PII["PII Sanitizer (Presidio)\nAnonymize → LLM → De-anonymize"]
+        Empath --> PII["PII Sanitizer (Presidio)\nAnonymize → LLM → De-anonymize"]
+    end
+
+    subgraph "Safety Layer (The Shield)"
+        PII --> Shield["Shield Agent (Guardrails)\nOff-topic / Jailbreak Filter"]
     end
 
     subgraph "Orchestration Layer"
-        PII --> Dispatcher["Dispatcher Agent\n(Gemini Flash / Fast Router)"]
-        Dispatcher -->|KNOWLEDGE_BASE| Scholar["Scholar Agent\n(RAG + pgvector/Vertex Search)"]
-        Dispatcher -->|TRANSACTIONAL| Executor["Executor Agent\n(External Agent API)"]
-        Dispatcher -->|PORTFOLIO_ANALYSIS| Analyst["Analyst Agent\n(Recommender Engine)"]
-        Dispatcher -->|GENERAL| Fallback["General LLM\n(Gemini Pro / GPT-4o / Ollama)"]
+        Shield --> Dispatcher["Dispatcher Agent (Router)"]
+        Dispatcher -->|KNOWLEDGE_BASE| Scholar["Scholar Agent (RAG)"]
+        Dispatcher -->|TRANSACTIONAL| Sentinel["Sentinel (Compliance Gate)"]
+        Dispatcher -->|RETIREMENT_SIM| Actuarial["Actuarial Agent (Monte Carlo)"]
+        Dispatcher -->|PORTFOLIO_ANALYSIS| Analyst["Analyst Agent (Recommender)"]
+        Dispatcher -->|GENERAL| Fallback["General LLM (Pro/Flash/Local)"]
     end
 
-    subgraph "Audit & Streaming"
-        Dispatcher --> Historian["Historian (AgentAudit DB)\nTHOUGHT → ACTION → RESPONSE"]
+    subgraph "Execution & Compliance"
+        Sentinel -->|PASS| Executor["Executor Agent"]
+        Vision["Vision Agent (OCR)"] -->|Structured Data| Scholar
+    end
+
+    subgraph "Audit & Observation"
+        Dispatcher --> Historian["Historian (AgentAudit DB)\nTHOUGHT → ACTION → OBSERVATION"]
         Scholar --> Historian
         Historian --> SSE
-    end
-
-    subgraph "Persistent Storage"
-        Scholar --> VDB[("Vector DB\npgvector / Vertex AI Search")]
-        API --> DB[("PostgreSQL\nUsers · Chats · Memory · Audit")]
-        Analyst --> DB
-    end
-
-    subgraph "AI Providers"
-        Fallback --> Vertex["Vertex AI\nGemini 1.5 Pro/Flash"]
-        Fallback --> Azure["Azure OpenAI\nGPT-4o"]
-        Fallback --> Ollama["Ollama\nLlama3 (Local)"]
     end
 ```
 
@@ -121,18 +125,20 @@ Background fact extraction from conversation history into `UserMemory`. Runs in 
 
 ---
 
-## Planned Agents (Phase 7)
+## Status of Autonomous Agents
 
-| Agent | Role | Priority | Pattern |
-|-------|------|---------|---------|
-| **Sentinel** | Pre-trade compliance & regulatory rules engine | 🔴 Must-have | Pre-Executor filter |
-| **Actuarial** | Monte Carlo retirement success simulation | 🔴 Must-have | Compute-intensive background task |
-| **Vision** | OCR & document ingestion of pension statements | 🟡 High | Upload endpoint + Document AI |
-| **Empath** | Behavioral finance sentiment + tone adjustment | 🟡 High | Pre-Dispatcher message analysis |
-| **Concierge** | Proactive outreach for deadlines & opportunities | 🟡 High | Scheduled worker + SSE/email/SMS |
-| **Oracle** | Real-time market intelligence & portfolio alerts | 🟢 Strategic | APScheduler + market data feeds |
-| **Debater** | Ensemble reasoning (3× independent model instances) | 🟢 Strategic | Parallel threads + Moderator |
-| **Forensic** | Fraud detection via anomaly scoring | 🟢 Long-term | Isolation Forest + velocity tracking |
+| Agent | Role | Status | Pattern |
+|-------|------|--------|---------|
+| **Guardian** | PII Sanitization (Presidio) | ✅ Delivered | Request Proxy |
+| **Shield** | Conversational Guardrails (Safety) | ✅ Delivered | Intent Filter |
+| **Sentinel** | Pre-trade compliance & rules engine | ✅ Delivered | Pre-Executor filter |
+| **Actuarial** | Monte Carlo retirement success simulation | ✅ Delivered | Compute background task |
+| **Vision** | OCR & document ingestion (Statements) | ✅ Delivered | Multimodal Extraction |
+| **Empath** | Behavioral finance sentiment analysis | ✅ Delivered | Pre-Dispatcher Layer |
+| **Concierge** | Proactive outreach & scheduling | ✅ Delivered | SSE / Task Skeleton |
+| **Oracle** | Real-time market intelligence | 📅 Planned | Market data feeds |
+| **Debater** | Ensemble reasoning (3× Independent Models) | 📅 Planned | Moderator Pattern |
+| **Forensic** | Fraud detection & anomaly scoring | 📅 Planned | Velocity tracking |
 
 ---
 

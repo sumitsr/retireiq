@@ -7,6 +7,7 @@ from app.services.agent_service import call_agent_api
 from app.services.knowledge_service import knowledge_service
 from app.services.sentinel_service import sentinel
 from app.services.actuarial_service import actuarial
+from app.services.guardrails_service import guardrails_service
 
 logger = logging.getLogger(__name__)
 
@@ -49,20 +50,44 @@ class Orchestrator:
     # Public API
     # -----------------------------------------------------------------------
 
-    def dispatch(self, sanitized_message, user_profile, history, conversation_id):
+    def dispatch(self, sanitized_message, user_profile, history, conversation_id, attachments=None):
         """
         Main entry point for agentic orchestration.
-
-        Returns:
-            A response string from a specialist agent, or None to signal that
-            the general LLM fallback should be used.
+        Now includes a 'Behavioral Layer' (The Empath) and 'Multimodal Input' support.
         """
         logger.info("[Dispatcher] Starting dispatch | conv=%s msg_preview='%s'",
                     conversation_id, sanitized_message[:60])
 
         self._log_dispatch_start(sanitized_message, history, conversation_id)
 
-        intent_data = self._classify_intent(sanitized_message, user_profile, history)
+        # 1. Behavioral Analysis (The Empath)
+        from app.services.empath_service import empath_agent
+        sentiment = empath_agent.analyze(sanitized_message, conversation_id)
+        
+        # Add sentiment context for subsequent agents
+        context_profile = (user_profile or {}).copy()
+        context_profile["behavioral_sentiment"] = {
+            "score": sentiment.score,
+            "bias": sentiment.bias,
+            "suggested_tone": sentiment.suggested_tone
+        }
+
+        # 2. Conversational Guardrails (The Shield)
+        # Filters jailbreaks, medical/legal queries, and off-topic chat
+        guardrails_refusal = guardrails_service.check_query_sync(sanitized_message)
+        if guardrails_refusal:
+            logger.warning("[Dispatcher] Query BLOCKED by The Shield | conv=%s", conversation_id)
+            historian.log_step(
+                session_id=conversation_id,
+                agent_name="Guardian",
+                step_type="ACTION",
+                content="Guardrails triggered: Refusing off-topic or unsafe query.",
+                step_metadata={"refusal_preview": guardrails_refusal[:60]}
+            )
+            return guardrails_refusal
+
+        # 3. Intent Classification
+        intent_data = self._classify_intent(sanitized_message, context_profile, history)
         intent = intent_data.get("intent", "GENERAL")
         confidence = intent_data.get("confidence", 0.0)
 
@@ -71,7 +96,7 @@ class Orchestrator:
 
         self._log_intent_action(intent_data, conversation_id)
 
-        return self._route(intent, intent_data, sanitized_message, user_profile, conversation_id)
+        return self._route(intent, intent_data, sanitized_message, context_profile, conversation_id)
 
     # -----------------------------------------------------------------------
     # Private — Audit helpers
@@ -258,19 +283,19 @@ class Orchestrator:
     def _handle_transaction(self, intent_data, user_profile, conversation_id):
         """
         Routes TRANSACTIONAL intents through the Sentinel compliance gate.
-
-        Flow: Sentinel.pre_trade_check → PASS → Executor
-                                       → WARN → Executor (with advisory)
-                                       → BLOCK → Return rejection to user
         """
         trade_intent = self._build_trade_intent(intent_data, user_profile)
-
+        
         verdict = sentinel.pre_trade_check(
             trade_intent=trade_intent,
             user_profile=user_profile if user_profile else {},
             conversation_id=conversation_id,
         )
 
+        return self._process_transaction_verdict(verdict, intent_data, user_profile, conversation_id)
+
+    def _process_transaction_verdict(self, verdict, intent_data, user_profile, conversation_id):
+        """Internal logic gate for Sentinel PASS/WARN/BLOCK outcomes."""
         if verdict.status == "BLOCK":
             logger.warning("[Dispatcher] Trade BLOCKED by Sentinel | reason='%s' conv=%s",
                            verdict.reason, conversation_id)
@@ -291,7 +316,7 @@ class Orchestrator:
                 f"{agent_response}"
             )
 
-        # PASS — proceed directly to Executor
+        # PASS
         logger.info("[Dispatcher] Sentinel PASS — proceeding to Executor | conv=%s", conversation_id)
         return self._handle_agent_call(intent_data, user_profile)
 
@@ -300,8 +325,6 @@ class Orchestrator:
         Extracts structured trade parameters from the Dispatcher's intent data
         and user profile for Sentinel evaluation.
         """
-        # In a production system, these would come from a structured trade form.
-        # For now, we extract what we can from intent metadata.
         return {
             "type": intent_data.get("sub_intent", "general_trade"),
             "value": intent_data.get("trade_value", 0),
@@ -315,22 +338,18 @@ class Orchestrator:
 
     def _handle_retirement_simulation(self, user_profile, conversation_id):
         """
-        Actuarial Agent: runs a Monte Carlo retirement simulation based on
-        the user's financial profile data.
+        Actuarial Agent: runs a Monte Carlo retirement simulation.
         """
         logger.info("[Actuarial] Preparing retirement simulation | conv=%s", conversation_id)
-
         params = self._extract_simulation_params(user_profile)
+        return self._execute_actuarial_simulation(params, conversation_id)
 
+    def _execute_actuarial_simulation(self, params, conversation_id):
+        """Executes the simulation engine and handles formatting/errors."""
         try:
             result = actuarial.simulate(
-                initial_portfolio=params["initial_portfolio"],
-                monthly_contribution=params["monthly_contribution"],
-                annual_withdrawal=params["annual_withdrawal"],
-                current_age=params["current_age"],
-                retirement_age=params["retirement_age"],
-                life_expectancy=params["life_expectancy"],
-                simulations=1000,  # Faster for interactive; 10k for batch reports
+                **params,
+                simulations=1000,
                 conversation_id=conversation_id,
             )
             summary = actuarial.format_summary(result, params["retirement_age"])

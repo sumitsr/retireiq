@@ -39,20 +39,20 @@ def build_system_prompt(user_profile_string=""):
     """Builds the base RetireIQ advisor system prompt from an anonymised profile."""
     try:
         parsed = json.loads(user_profile_string)
-        memories = parsed.get("memories", [])
     except Exception:
-        logger.debug("Could not parse user_profile_string as JSON; defaulting to empty memories.")
-        memories = []
+        logger.debug("Could not parse user_profile_string; defaulting to empty profile.")
+        parsed = {}
 
-    logger.debug("Building system prompt with %d memories.", len(memories))
+    memories = parsed.get("memories", [])
+    tone_instruction = _apply_behavioral_tone(parsed)
 
-    system_prompt = f"""
+    return f"""
     As RetireIQ, a retirement agent chatbot with access to the customer's structured personal and
     financial data in JSON format, begin a short, personalized conversation to guide the customer
     toward the sub-intent "Choose retirement investments." First, extract the customer's first name
     from the field personal_details.first_name and use it naturally to address them throughout the
-    interaction. Acknowledge their current financial stage without repeating known details. Ask if
-    they're currently more focused on growing long-term retirement savings or keeping flexibility for
+    interaction. Acknowledge their current financial stage without repeating known details.{tone_instruction}
+    Ask if they're currently more focused on growing long-term retirement savings or keeping flexibility for
     short-term needs. Based on their response, follow up to understand whether they prefer a hands-on
     investment style or an automated, guided approach. If needed, ask if they have specific
     preferences or exclusions (e.g., ESG, sectors to avoid). Keep the conversation friendly and
@@ -72,7 +72,22 @@ def build_system_prompt(user_profile_string=""):
 
     User Profile Data: {user_profile_string}
     """
-    return system_prompt
+
+
+def _apply_behavioral_tone(profile):
+    """
+    Step 1b — Behavioral Logic: Returns the persona adjustment instruction
+    based on the Empath's sentiment analysis.
+    """
+    sentiment = profile.get("behavioral_sentiment", {})
+    bias = sentiment.get("bias", "NEUTRAL")
+    
+    if bias == "PANIC":
+        return "\n    CRITICAL: The user is showing signs of anxiety or PANIC. Use an extremely CALMING, REASSURING, and empathetic tone. Provide objective data to ground their fears."
+    elif bias == "FOMO":
+        return "\n    CRITICAL: The user is showing signs of FOMO or over-excitement. Use a CAUTIONARY, PRUDENT tone. Remind them of long-term risks and diversification."
+    
+    return ""
 
 
 def prepare_openai_messages(system_prompt, conversation_history, message):
@@ -141,28 +156,38 @@ def call_ollama_api(messages, model, temperature):
         return f"I'm sorry, I encountered an error with the local Ollama service: {e}"
 
 
-def call_vertex_ai_api(prompt, model_name="gemini-1.5-pro", temperature=0.7):
-    """Calls Google Cloud Vertex AI (Gemini 1.5) and returns the response text."""
+def call_vertex_ai_api(prompt, model_name="gemini-1.5-pro", temperature=0.7, attachments=None):
+    """
+    Calls Google Cloud Vertex AI (Gemini 1.5) and returns the response text.
+    Supports multimodal inputs if attachments (list of base64 data) are provided.
+    """
     if not vertexai:
-        logger.warning("Vertex AI SDK is not installed. Returning fallback message.")
+        logger.warning("Vertex AI SDK not installed. Returning fallback.")
         return "Vertex AI SDK not installed. Please check requirements.txt."
 
     project_id = os.getenv("GCP_PROJECT_ID")
     location = os.getenv("GCP_REGION", "us-central1")
-    logger.info(
-        "Calling Vertex AI | project=%s location=%s model=%s temperature=%s",
-        project_id, location, model_name, temperature,
-    )
+    logger.info("Calling Vertex AI | model=%s multimodal=%s", model_name, bool(attachments))
 
     try:
         vertexai.init(project=project_id, location=location)
         model = GenerativeModel(model_name)
         config = GenerationConfig(temperature=temperature, max_output_tokens=2048)
-        response = model.generate_content(prompt, generation_config=config)
-        logger.debug("Vertex AI response received (first 80 chars): %s", response.text[:80])
+        
+        # Assemble multimodal content
+        contents = [prompt]
+        if attachments:
+            for att in attachments:
+                if isinstance(att, str): # Assume base64 or URI
+                    if att.startswith("gs://"):
+                        contents.append(Part.from_uri(att, mime_type="application/pdf"))
+                    else:
+                        contents.append(Part.from_data(att, mime_type="image/jpeg"))
+
+        response = model.generate_content(contents, generation_config=config)
         return response.text
     except Exception as e:
-        logger.error("Vertex AI call failed: %s", e, exc_info=True)
+        logger.error("Vertex AI call failed: %s", e)
         return f"Vertex AI Error: {str(e)}"
 
 
@@ -209,9 +234,12 @@ def _resolve_llm_config():
     }
 
 
-def _call_llm_provider(provider, model, temperature, system_prompt, history, sanitized_message):
-    """Routes to the correct LLM provider adapter. Returns the raw AI response string."""
-    logger.info("Routing to LLM provider: %s", provider)
+def _call_llm_provider(
+    provider, model, temperature, system_prompt, history, sanitized_message, 
+    attachments=None
+):
+    """Routes to the correct LLM provider adapter. Supports multimodal for Vertex AI."""
+    logger.info("Routing to LLM provider: %s | multimodal=%s", provider, bool(attachments))
 
     if provider == "openai":
         messages = prepare_openai_messages(system_prompt, history, sanitized_message)
@@ -223,7 +251,7 @@ def _call_llm_provider(provider, model, temperature, system_prompt, history, san
 
     elif provider == "vertex_ai":
         full_prompt = f"{system_prompt}\n\nUser: {sanitized_message}"
-        return call_vertex_ai_api(full_prompt, model, temperature)
+        return call_vertex_ai_api(full_prompt, model, temperature, attachments=attachments)
 
     elif provider == "ollama":
         messages = prepare_openai_messages(system_prompt, history, sanitized_message)
@@ -282,14 +310,20 @@ def _run_dispatch(sanitized_message, user_profile, history, conversation_id):
     return agent_response
 
 
-def _run_general_llm(provider, model, temperature, anonymized_profile, history, sanitized_message):
+def _run_general_llm(
+    provider, model, temperature, anonymized_profile, history, sanitized_message, 
+    attachments=None
+):
     """
     Step 3 — General LLM Fallback: Handles small-talk and non-domain queries.
     Returns the raw (still anonymised) response string.
     """
     logger.info("[General LLM] Generating fallback response | provider=%s", provider)
     system_prompt = build_system_prompt(anonymized_profile)
-    response = _call_llm_provider(provider, model, temperature, system_prompt, history, sanitized_message)
+    response = _call_llm_provider(
+        provider, model, temperature, system_prompt, history, sanitized_message,
+        attachments=attachments
+    )
 
     if response is None:
         logger.error("[General LLM] Unsupported provider '%s'; returning error message.", provider)
@@ -320,35 +354,34 @@ def _run_deanonymise(ai_response, conversation_id):
 # ---------------------------------------------------------------------------
 
 def generate_ai_response(
-    message, user_profile=None, conversation_history=None, llm_config=None, conversation_id=None
+    message, user_profile=None, conversation_history=None, llm_config=None, 
+    conversation_id=None, attachments=None
 ):
     """
-    Full agentic pipeline for a single user message:
-      1. Guardian — PII anonymisation
-      2. Dispatcher — Intent-based specialist routing
-      3. General LLM — Fallback for unmatched intents
-      4. Guardian — PII de-anonymisation
+    Full agentic pipeline for a single user message.
+    Orchestrates the Guardian, Dispatcher, and Specialist Agents in a single flow.
     """
-    logger.info("generate_ai_response started | conv=%s", conversation_id)
-    config = _resolve_llm_config()
-    provider = config["provider"]
-    model = config["modelName"]
-    temperature = config["temperature"]
+    logger.info("generate_ai_response started | conv=%s multimodal=%s", 
+                conversation_id, bool(attachments))
 
-    # Step 1: PII scrub
+    # Phase 1: Preparation & PII Anonymisation
+    config = _resolve_llm_config()
     sanitized_message, anonymized_profile = _run_pii_scrub(message, user_profile, conversation_id)
 
-    # Step 2: Specialist dispatch
+    # Phase 2: Intent-based Routing (Specialist Agents)
+    # The Dispatcher internally handles Empath sentiment analysis and Guardrails
     agent_response = _run_dispatch(sanitized_message, user_profile, conversation_history, conversation_id)
     if agent_response:
         return agent_response
 
-    # Step 3: General LLM fallback
+    # Phase 3: General Intelligence Fallback (Multimodal-ready)
     ai_response = _run_general_llm(
-        provider, model, temperature, anonymized_profile, conversation_history, sanitized_message
+        config["provider"], config["modelName"], config["temperature"],
+        anonymized_profile, conversation_history, sanitized_message, 
+        attachments=attachments
     )
 
-    # Step 4: De-anonymise
+    # Phase 4: PII De-anonymisation
     final_response = _run_deanonymise(ai_response, conversation_id)
 
     logger.info("generate_ai_response complete | conv=%s", conversation_id)

@@ -15,7 +15,8 @@ RetireIQ is a mission-critical retirement planning assistant, evolved from a leg
 | **4** | **Enterprise Scale** | Vertex AI (Gemini 1.5), Model Tiering, Context Caching (90% token reduction). | ✅ Complete |
 | **5** | **Production Hardening** | Big function refactors, structured logging, full documentation overhaul. | ✅ Complete |
 | **6** | **Frontend & Marketing** | Next.js/React dark-mode UI, animated architecture reveal, GitHub polish. | 📅 Planned |
-| **7** | **Autonomous Agent Ecosystem** | 8 specialist agents. **Priority 1 (Sentinel, Actuarial)** now delivered. | 🏗️ In Progress |
+| **7** | **Autonomous Agent Ecosystem** | 8 specialist agents. **Priority 1 (Sentinel, Actuarial, Guardian, Shield)** delivered. | ✅ Complete |
+| **8** | **Strategic Intelligence** | Empath (Sentiment), Vision (OCR), Concierge (Outreach). | ✅ Complete |
 
 ---
 

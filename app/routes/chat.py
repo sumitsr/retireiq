@@ -32,9 +32,10 @@ def send_message(current_user):
     message_text = data["message"]
     conversation_id = data.get("conversation_id")
     is_streaming = data.get("stream", False)
+    attachments = data.get("attachments", None) # List of base64 or URIs
 
-    logger.info("[Chat] Incoming message | user=%s conv=%s stream=%s",
-                current_user.id, conversation_id, is_streaming)
+    logger.info("[Chat] Incoming message | user=%s conv=%s stream=%s multimodal=%s",
+                current_user.id, conversation_id, is_streaming, bool(attachments))
 
     # Resolve or create the conversation
     conversation, error_response = _resolve_conversation(current_user, conversation_id)
@@ -74,7 +75,7 @@ def stream_conversation(current_user, conversation_id):
     logger.info("[Chat] SSE subscription requested | user=%s conv=%s",
                 current_user.id, conversation_id)
 
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.get(Conversation, conversation_id)
     if not conversation or conversation.user_id != current_user.id:
         logger.warning("[Chat] Invalid conversation ID | user=%s conv=%s",
                        current_user.id, conversation_id)
@@ -108,7 +109,7 @@ def _resolve_conversation(current_user, conversation_id):
                     conversation.id, current_user.id)
         return conversation, None
 
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.get(Conversation, conversation_id)
     if not conversation or conversation.user_id != current_user.id:
         logger.warning("[Chat] Conversation not found or unauthorised | conv=%s user=%s",
                        conversation_id, current_user.id)
@@ -160,7 +161,7 @@ def _build_sync_response(conversation_id):
 # Private — Background task
 # ---------------------------------------------------------------------------
 
-def _start_agent_thread(current_user, conversation, message_text, history):
+def _start_agent_thread(current_user, conversation, message_text, history, attachments=None):
     """Spawns the background thread that runs the full agentic pipeline."""
     thread = threading.Thread(
         target=_run_agent_task,
@@ -170,6 +171,7 @@ def _start_agent_thread(current_user, conversation, message_text, history):
             message_text,
             history,
             conversation.id,
+            attachments
         ),
         daemon=True,
     )
@@ -178,20 +180,14 @@ def _start_agent_thread(current_user, conversation, message_text, history):
     return thread
 
 
-def _run_agent_task(app_context, user_dict, msg_text, history, conv_id):
+def _run_agent_task(app_context, user_dict, msg_text, history, conv_id, attachments):
     """
     Background thread target.  Runs inside the Flask app context.
-
-    Steps:
-      1. Run the full agentic pipeline (PII → Dispatch → LLM → De-PII)
-      2. Persist the bot response
-      3. Broadcast the final SSE event
-      4. Trigger background memory summarization
     """
     with app_context:
         logger.info("[AgentTask] Starting background task | conv=%s", conv_id)
         try:
-            ai_response = _invoke_agent(user_dict, msg_text, history, conv_id)
+            ai_response = _invoke_agent(user_dict, msg_text, history, conv_id, attachments)
             bot_message = _persist_bot_response(conv_id, ai_response)
             _broadcast_final_response(conv_id, ai_response, bot_message.id)
             _trigger_memory_summarization(user_dict, conv_id)
@@ -201,14 +197,16 @@ def _run_agent_task(app_context, user_dict, msg_text, history, conv_id):
             sse_service.publish(session_id=conv_id, event="error", data={"message": str(e)})
 
 
-def _invoke_agent(user_dict, msg_text, history, conv_id):
+def _invoke_agent(user_dict, msg_text, history, conv_id, attachments):
     """Calls the full agentic pipeline and returns the final response string."""
     logger.info("[AgentTask] Invoking agentic pipeline | conv=%s", conv_id)
+    from app.services.llm_service import generate_ai_response
     response = generate_ai_response(
         msg_text,
         user_profile=user_dict,
         conversation_history=history,
         conversation_id=conv_id,
+        attachments=attachments
     )
     logger.info("[AgentTask] Agentic pipeline complete | conv=%s", conv_id)
     return response
