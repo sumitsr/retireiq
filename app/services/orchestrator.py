@@ -5,6 +5,8 @@ import logging
 from app.services.audit_service import historian
 from app.services.agent_service import call_agent_api
 from app.services.knowledge_service import knowledge_service
+from app.services.sentinel_service import sentinel
+from app.services.actuarial_service import actuarial
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +31,9 @@ class Orchestrator:
        or goal tracking.
     3. TRANSACTIONAL: Requests to buy/sell assets, register accounts, or change
        personal info.
-    4. GENERAL: Greetings, thanks, or unrelated chit-chat.
+    4. RETIREMENT_SIMULATION: Requests for retirement projections, "will I have enough",
+       Monte Carlo analysis, or "what if" scenario planning.
+    5. GENERAL: Greetings, thanks, or unrelated chit-chat.
 
     Output ONLY a JSON object with no extra text:
     {
@@ -168,10 +172,18 @@ class Orchestrator:
             logger.info("[Dispatcher] Routing to Scholar Agent | conv=%s", conversation_id)
             return self._handle_knowledge_query(message, conversation_id)
 
-        elif intent in ("TRANSACTIONAL", "PORTFOLIO_ANALYSIS"):
+        elif intent == "TRANSACTIONAL":
+            logger.info("[Dispatcher] Routing to Sentinel → Executor | conv=%s", conversation_id)
+            return self._handle_transaction(intent_data, user_profile, conversation_id)
+
+        elif intent == "PORTFOLIO_ANALYSIS":
             logger.info("[Dispatcher] Routing to External Agent | intent=%s conv=%s",
                         intent, conversation_id)
             return self._handle_agent_call(intent_data, user_profile)
+
+        elif intent == "RETIREMENT_SIMULATION":
+            logger.info("[Dispatcher] Routing to Actuarial Agent | conv=%s", conversation_id)
+            return self._handle_retirement_simulation(user_profile, conversation_id)
 
         else:
             logger.info("[Dispatcher] Intent=%s — falling through to general LLM | conv=%s",
@@ -239,6 +251,120 @@ class Orchestrator:
                     len(context_chunks), conversation_id)
         return response
 
+    # -----------------------------------------------------------------------
+    # Private — Sentinel → Executor (Pre-Trade Compliance Gate)
+    # -----------------------------------------------------------------------
+
+    def _handle_transaction(self, intent_data, user_profile, conversation_id):
+        """
+        Routes TRANSACTIONAL intents through the Sentinel compliance gate.
+
+        Flow: Sentinel.pre_trade_check → PASS → Executor
+                                       → WARN → Executor (with advisory)
+                                       → BLOCK → Return rejection to user
+        """
+        trade_intent = self._build_trade_intent(intent_data, user_profile)
+
+        verdict = sentinel.pre_trade_check(
+            trade_intent=trade_intent,
+            user_profile=user_profile if user_profile else {},
+            conversation_id=conversation_id,
+        )
+
+        if verdict.status == "BLOCK":
+            logger.warning("[Dispatcher] Trade BLOCKED by Sentinel | reason='%s' conv=%s",
+                           verdict.reason, conversation_id)
+            return (
+                f"⛔ **Trade Blocked** — This transaction cannot proceed.\n\n"
+                f"**Reason**: {verdict.reason}\n\n"
+                f"If you believe this is an error, please contact your financial advisor."
+            )
+
+        if verdict.status == "WARN":
+            logger.info("[Dispatcher] Trade WARNING from Sentinel | reason='%s' conv=%s",
+                        verdict.reason, conversation_id)
+            # Proceed but attach advisory
+            agent_response = self._handle_agent_call(intent_data, user_profile)
+            return (
+                f"⚠️ **Compliance Advisory**: {verdict.reason}\n\n"
+                f"The trade is proceeding, but please review the advisory above.\n\n"
+                f"{agent_response}"
+            )
+
+        # PASS — proceed directly to Executor
+        logger.info("[Dispatcher] Sentinel PASS — proceeding to Executor | conv=%s", conversation_id)
+        return self._handle_agent_call(intent_data, user_profile)
+
+    def _build_trade_intent(self, intent_data, user_profile):
+        """
+        Extracts structured trade parameters from the Dispatcher's intent data
+        and user profile for Sentinel evaluation.
+        """
+        # In a production system, these would come from a structured trade form.
+        # For now, we extract what we can from intent metadata.
+        return {
+            "type": intent_data.get("sub_intent", "general_trade"),
+            "value": intent_data.get("trade_value", 0),
+            "risk_level": intent_data.get("risk_level", "moderate"),
+            "asset": intent_data.get("asset", "unknown"),
+        }
+
+    # -----------------------------------------------------------------------
+    # Private — Actuarial Agent (Retirement Simulation)
+    # -----------------------------------------------------------------------
+
+    def _handle_retirement_simulation(self, user_profile, conversation_id):
+        """
+        Actuarial Agent: runs a Monte Carlo retirement simulation based on
+        the user's financial profile data.
+        """
+        logger.info("[Actuarial] Preparing retirement simulation | conv=%s", conversation_id)
+
+        params = self._extract_simulation_params(user_profile)
+
+        try:
+            result = actuarial.simulate(
+                initial_portfolio=params["initial_portfolio"],
+                monthly_contribution=params["monthly_contribution"],
+                annual_withdrawal=params["annual_withdrawal"],
+                current_age=params["current_age"],
+                retirement_age=params["retirement_age"],
+                life_expectancy=params["life_expectancy"],
+                simulations=1000,  # Faster for interactive; 10k for batch reports
+                conversation_id=conversation_id,
+            )
+            summary = actuarial.format_summary(result, params["retirement_age"])
+            logger.info("[Actuarial] Simulation complete | success=%.1f%% conv=%s",
+                        result.success_rate * 100, conversation_id)
+            return summary
+
+        except Exception as e:
+            logger.error("[Actuarial] Simulation failed: %s | conv=%s",
+                         e, conversation_id, exc_info=True)
+            return (
+                "I wasn't able to run a retirement projection at this time. "
+                "Please ensure your financial profile is up to date and try again."
+            )
+
+    def _extract_simulation_params(self, user_profile):
+        """
+        Pulls simulation inputs from the user's profile, with sensible defaults.
+        """
+        profile = user_profile or {}
+        financial = profile.get("financial_profile", {})
+        personal = profile.get("personal_details", {})
+        goals = profile.get("financial_goals", {})
+
+        return {
+            "initial_portfolio": financial.get("totalAssets", 50000),
+            "monthly_contribution": financial.get("monthly_savings", 500),
+            "annual_withdrawal": financial.get("annual_retirement_spending", 30000),
+            "current_age": personal.get("age", 35),
+            "retirement_age": goals.get("target_retirement_age", 67),
+            "life_expectancy": goals.get("life_expectancy", 90),
+        }
+
 
 # Global singleton — imported by llm_service and routes
 dispatcher = Orchestrator()
+

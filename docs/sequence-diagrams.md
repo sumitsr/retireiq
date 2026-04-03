@@ -109,23 +109,65 @@ sequenceDiagram
 
 ---
 
-## 4. Legacy Data Migration Flow
+## 4. Protected Transactional Operation (Sentinel Guard)
 
-This sequence visualizes the historical shift from unstructured JSONs to structured SQL.
+Every trade must pass a deterministic compliance gate *before* being executed externally.
 
 ```mermaid
 sequenceDiagram
-    participant CLI
-    participant Script as Migration Script
-    participant JSON as old_data.json
-    participant DB as PostgreSQL Relational DB
+    participant Dispatcher
+    participant Sentinel
+    participant Historian
+    participant Executor
+    participant AgentAPI as External Bank API
 
-    CLI->>Script: Run `flask seed db`
-    Script->>JSON: Read and parse JSON content
-    loop For Each Object Instance
-        Script->>Script: Perform data transformations & map to SQLAlchemy Models
-        Script->>DB: Add to active session (Batch INSERT)
-    end
-    DB-->>Script: Acknowledge successful commit
-    Script-->>CLI: Print Migration Success message
+    Dispatcher->>Sentinel: pre_trade_check(trade_intent, user_profile)
+    Note over Sentinel: Evaluate ConcentrationRule<br/>Evaluate SuitabilityRule<br/>Evaluate AgeRestrictionRule
+    
+    ALT Rule Violates (BLOCK)
+        Sentinel->>Historian: log ACTION "BLOCK: Exceeds concentration"
+        Sentinel-->>Dispatcher: ComplianceVerdict (status: BLOCK)
+        Dispatcher-->>Client: Rejection Response ("Trade Blocked")
+    ELSE Rule Warnings (WARN)
+        Sentinel->>Historian: log ACTION "WARN: Low balance"
+        Sentinel-->>Dispatcher: ComplianceVerdict (status: WARN)
+        Dispatcher->>Executor: proceed_with_trade(intent)
+        Executor->>AgentAPI: POST /api/v1/trade
+    ELSE All Rules Pass (PASS)
+        Sentinel->>Historian: log ACTION "PASS: Ready to execute"
+        Sentinel-->>Dispatcher: ComplianceVerdict (status: PASS)
+        Dispatcher->>Executor: proceed_with_trade(intent)
+        Executor->>AgentAPI: POST /api/v1/trade
+    END
 ```
+
+---
+
+## 5. Retirement Simulation (Actuarial Monte Carlo)
+
+Shows the probabilistic path from user profile data to a confidence-band projection.
+
+```mermaid
+sequenceDiagram
+    participant Dispatcher
+    participant Actuarial
+    participant Historian
+    participant NumPy as Simulation Engine
+
+    Dispatcher->>Actuarial: simulate(user_financial_profile)
+    Actuarial->>Historian: log THOUGHT "Initializing 10,000 scenarios"
+    
+    loop 10,000 Sim Cycles
+        Actuarial->>NumPy: Sample random returns & inflation
+        NumPy-->>Actuarial: Accumulation + Decumulation Trajectory
+    end
+
+    Actuarial->>Actuarial: Compute Percentiles (p10, p50, p90)
+    Actuarial->>Historian: log OBSERVATION "Success Rate: 78%"
+    Actuarial-->>Dispatcher: Simulation Summary + Advice
+```
+
+---
+
+## 6. Legacy Data Migration Flow
+

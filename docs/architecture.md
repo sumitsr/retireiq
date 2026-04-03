@@ -4,7 +4,7 @@ RetireIQ is a "Bank-Grade" retirement planning assistant built on a production-g
 
 ---
 
-## High-Level Architecture: Multi-Agent System (MAS)
+## Current Architecture: Multi-Agent System (MAS)
 
 ```mermaid
 graph TD
@@ -44,32 +44,95 @@ graph TD
 
 ---
 
-## Core Components
+## Future Architecture: The Autonomous Agent Ecosystem (Phase 7)
+
+The current architecture covers the **reactive** dimension. The Phase 7 agents add **proactive**, **preventive**, and **predictive** dimensions.
+
+```mermaid
+graph TD
+    Client["Client / Web / Mobile"]
+    Concierge["🗓 Concierge Agent\nProactive Outreach"]
+    Oracle["🔮 Oracle Agent\nMarket Intelligence"]
+    Empath["🧠 Empath Agent\nBehavioral Finance"]
+
+    subgraph "Proactive Layer (Phase 7)"
+        Oracle --> Concierge
+        Concierge -->|SSE / Email / SMS| Client
+    end
+
+    Client -->|POST /api/chat/message| API["Flask API Gateway"]
+    API --> Empath
+    Empath -->|Tone Adjustment| Dispatcher
+
+    subgraph "Orchestration Layer"
+        Dispatcher["Dispatcher Agent (Router)"]
+        Dispatcher -->|KNOWLEDGE_BASE| Scholar["Scholar Agent (RAG)"]
+        Dispatcher -->|TRANSACTIONAL| Sentinel
+        Dispatcher -->|PORTFOLIO_ANALYSIS| Actuarial
+        Dispatcher -->|GENERAL| Fallback["General LLM"]
+    end
+
+    subgraph "Safety & Compliance Layer"
+        Sentinel["⚖️ Sentinel Agent\nPre-Trade Compliance"] -->|PASS| Executor["Executor Agent"]
+        Sentinel -->|BLOCK| Forensic["🕵️ Forensic Agent\nFraud Detection"]
+    end
+
+    subgraph "Intelligence Layer"
+        Actuarial["📊 Actuarial Agent\nMonte Carlo Simulation"]
+        Vision["🧾 Vision Agent\nDocument Ingestion / OCR"]
+        Vision -->|Structured Data| Scholar
+    end
+
+    subgraph "High-Stakes Safety"
+        Actuarial -->|High Impact?| Debater["🗳 Debater Agent\nEnsemble Reasoning (3× Model)"]
+    end
+
+    subgraph "Historian & Stream"
+        Historian["Historian (Audit DB)"]
+        SSE["SSE Stream Dispatcher"]
+        Historian --> SSE
+    end
+```
+
+---
+
+## Core Components (Current)
 
 ### 1. Flask App Factory (`app/__init__.py`)
-Modular monolith using Blueprints. New agents and routes can be added without touching the core. Registers all SQLAlchemy models (including `AgentAudit`) at startup.
+Modular monolith using Blueprints. Registers all SQLAlchemy models (including `AgentAudit`) at startup.
 
 ### 2. Orchestrator / Dispatcher (`app/services/orchestrator.py`)
-The central nervous system. Uses a **fast model** (Gemini Flash) to classify user intent into domains, then hands off to the correct specialized service. Prevents "Instruction Bleed" — each agent only receives its relevant tools.
+The central nervous system. Uses Gemini Flash (T=0.0) to classify user intent into domains, then delegates to specialists via `_classify_intent` → `_parse_intent_response` → `_route`.
 
 ### 3. Historian / Audit Sentinel (`app/services/audit_service.py` + `app/models/audit.py`)
-Every agentic step is persisted:
-- `session_id`: Links all steps for a single request.
-- `agent_name`: Which agent acted (Dispatcher, Scholar, Guardian...).
-- `step_type`: `THOUGHT`, `ACTION`, `OBSERVATION`, or `RESPONSE`.
-- `content`: The raw reasoning text.
+Every agentic step is persisted with `session_id`, `agent_name`, `step_type` (THOUGHT/ACTION/OBSERVATION/RESPONSE), and `content`.
 
 ### 4. Stream Dispatcher / SSE Hub (`app/services/sse_service.py`)
-Thread-safe event hub. The Historian's `log_step` broadcasts simultaneously to the client's SSE stream, enabling real-time "Chain of Thought" visualization.
+Thread-safe event hub. All Historian log steps simultaneously broadcast to the client's SSE stream. Heartbeat pings every 20s prevent proxy timeouts.
 
 ### 5. PII Sanitization Gateway (`app/utils/pii_sanitizer.py`)
-Bank-grade data protection using **Microsoft Presidio**. Custom recognizers for `SSN` and `ACCOUNT_NUMBER`. Operates as a symmetric proxy: anonymizes before the LLM call, de-anonymizes after.
+Bank-grade proxy using Microsoft Presidio. Custom recognizers for `SSN` and `ACCOUNT_NUMBER`. Symmetric: anonymise → LLM → de-anonymise (the "Ghost Map" pattern). Session-isolated via `clear_mapping()`.
 
 ### 6. Knowledge Service (`app/services/knowledge_service.py`)
-Manages semantic search via `pgvector` (local) or `Vertex AI text-embedding-004` (cloud). Also includes `VertexCacheManager` for **Context Caching** — reduces input token costs by up to **90%** for large, frequently-accessed policy corpora.
+Semantic search via `pgvector` (local) or Vertex AI `text-embedding-004` (cloud). Includes `VertexCacheManager` for 90% input token reduction on repeated large policy lookups.
 
 ### 7. Memory Service (`app/services/memory_service.py`)
-Stateful conversational memory. After each conversation, `summarize_into_facts` runs in a background thread to extract long-term preferences (risk tolerance, goals) into `UserMemory`.
+Background fact extraction from conversation history into `UserMemory`. Runs in a daemon thread after each conversation turn.
+
+---
+
+## Planned Agents (Phase 7)
+
+| Agent | Role | Priority | Pattern |
+|-------|------|---------|---------|
+| **Sentinel** | Pre-trade compliance & regulatory rules engine | 🔴 Must-have | Pre-Executor filter |
+| **Actuarial** | Monte Carlo retirement success simulation | 🔴 Must-have | Compute-intensive background task |
+| **Vision** | OCR & document ingestion of pension statements | 🟡 High | Upload endpoint + Document AI |
+| **Empath** | Behavioral finance sentiment + tone adjustment | 🟡 High | Pre-Dispatcher message analysis |
+| **Concierge** | Proactive outreach for deadlines & opportunities | 🟡 High | Scheduled worker + SSE/email/SMS |
+| **Oracle** | Real-time market intelligence & portfolio alerts | 🟢 Strategic | APScheduler + market data feeds |
+| **Debater** | Ensemble reasoning (3× independent model instances) | 🟢 Strategic | Parallel threads + Moderator |
+| **Forensic** | Fraud detection via anomaly scoring | 🟢 Long-term | Isolation Forest + velocity tracking |
 
 ---
 
@@ -89,11 +152,9 @@ Stateful conversational memory. After each conversation, `summarize_into_facts` 
 
 ## Provider Switching
 
-Configure via environment variables — no code changes required:
-
 | `LLM_PROVIDER` | Model | Use Case |
 |----------------|-------|---------|
 | `vertex_ai` | Gemini 1.5 Pro/Flash | Production (GCP) |
-| `azure_openai` | GPT-4o | Enterprise (Azure) |
+| `azure_openai` | GPT-4o | Enterprise (Azure, PCI DSS) |
 | `openai` | GPT-4o | Cloud (OpenAI) |
 | `ollama` | Llama3 | Local Dev (Zero Cost) |

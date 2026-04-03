@@ -14,6 +14,8 @@ This architecture maps logical intent-based workflows to native Google Cloud ser
 | **Vector Database** | **Vertex AI Vector Search** | High-scale vector similarity matching. |
 | **Knowledge Agent** | **Vertex AI Search** | Managed RAG capabilities for document retrieval. |
 | **PII Redaction** | **Sensitive Data Protection (DLP)** | Automated masking/de-identification of PII. |
+| **Sentinel Agent** | **Cloud Run** | Deterministic pre-trade compliance checks (FCA/AML logic). |
+| **Actuarial Agent** | **Cloud Run** | High-performance Monte Carlo simulations (NumPy/SciPy). |
 | **LLM Core** | **Vertex AI (Gemini 1.5 Pro)** | The central intelligence and reasoning engine. |
 
 ---

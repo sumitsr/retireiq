@@ -150,18 +150,18 @@ python scripts/seed_knowledge.py
 ## 7. Running Tests
 
 ```bash
-# Run all 74 tests
+# Run all 109 tests
 ./.venv/bin/python -m pytest
 
 # Run with coverage report
 ./.venv/bin/python -m pytest --cov=app --cov-report=term-missing
 
-# Run a specific test file
-./.venv/bin/python -m pytest tests/test_orchestrator.py -v
+# Run a specific test suite (e.g. Compliance)
+./.venv/bin/python -m pytest tests/test_sentinel_service.py -v
 ```
 
 > [!IMPORTANT]
-> The >90% test coverage threshold must be maintained for all new features. New services must include both success and error path tests.
+> The >90% test coverage threshold must be maintained for all new features. The latest additions (Sentinel and Actuarial) bring 35 new tests for compliance and simulation edge cases.
 
 ---
 

@@ -6,16 +6,32 @@ To create a natural, multi-turn "bank-grade customer service chatbot," we have t
 
 ## How it works in RetireIQ
 
-### 1. Persistence (State Management)
-Every time a user asks a question and the AI replies, those two messages are saved as a "turn" inside a dedicated table in the PostgreSQL database (tied to a unique session and user identifier).
+RetireIQ implements a **Dual-Layer Memory** architecture:
 
-### 2. Context Window Management
-When a user asks a *new* follow-up question (e.g., "Can you elaborate on that?"), the Flask API first calls the Conversational Memory component. The Memory component queries the database for the last `N` messages belonging to that specific session. 
+### 1. Short-Term History (The Transcript)
+Every user message and AI response is saved in the `messages` table.
+- **Cycle**: When a new query arrives, the `MemoryService` retrieves the last 10 messages for that `session_id`.
+- **Purpose**: Provides immediate conversational context ("What did we just talk about?").
+
+### 2. Long-Term Facts (The UserMemory)
+This is the "Brain" of the system.
+- **Extraction**: A background task periodically runs the **Analyst Agent** over the transcript. It extracts persistent financial facts (e.g., "User has a daughter named Sarah," "User plans to buy a house in 2028").
+- **Storage**: Facts are stored in the `user_memories` table, linked to the `User` model.
+- **RAG Integration**: These facts are injected into the System Prompt for every future session, ensuring the AI "knows" the user across different days and devices.
 
 ### 3. Assembling the Prompt Array
-The Memory component formats those past messages into a continuous, ordered context array (for instance: `["User: How much is in my 401k?", "AI: You have $50,000.", "User: Can you elaborate on that?"]`) and hands it to the RAG Orchestrator / LLM. 
+The `llm_service` combines:
+1. **System Prompt**: Core personality + User Facts (Long-term).
+2. **Context**: Relevant policy snippets from the Scholar (RAG).
+3. **History**: The last few transcript turns (Short-term).
+4. **Current Query**: The user's latest message.
 
-### 4. Pruning and Summarization (Advanced Scalability)
-If a conversation goes on for 50+ messages, sending the entire history would consume too many tokens, increasing latency and exceeding the LLM's context limit. Our conversational memory layer handles this by automatically "pruning" the history (e.g., keeping only the 5 most recent relevant turns) or by generating a rolling summary of the older conversation to keep the token payload lightweight and cost-effective.
+### 4. Pruning and Summarization
+To manage token costs and latency:
+- **Rolling Window**: Only the most recent $N$ messages are sent.
+- **Summarization**: Older messages are compressed into a "contextual summary" by the `MemoryService` if the transcript exceeds 2,000 tokens.
 
-**In summary:** The Conversational Memory is the critical storage and retrieval mechanism that gives our chatbot the illusion of memory, allowing users to ask follow-up queries naturally without having to repeatedly restate all their prior context.
+---
+
+**In summary:** This dual-layer approach gives RetireIQ the illusion of a lifelong relationship with the user, where the AI remembers both the *details* of the current conversation and the *fundamental facts* of the user's financial life.
+

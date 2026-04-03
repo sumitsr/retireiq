@@ -627,4 +627,195 @@ Break-Even:
 
 ---
 
-*This concludes the Complete AI Engineering Series. RetireIQ is the living laboratory where every module above has a corresponding implementation you can run, modify, and experiment with. The goal was never just to build a chatbot — it was to teach the engineering principles that make AI systems trustworthy at scale.*
+## ⚖️ Module 13: Compliance Engineering (The Sentinel Pattern)
+
+### 13.1 Why Every AI Financial System Needs a Pre-Execution Guard
+
+An AI that can *execute* financial transactions is not just a product — it is a regulated financial service. Under FCA (UK), FINRA (US), and MiFID II (EU), every trade must pass through a suitability and compliance check before execution. The Sentinel is the implementation of this regulatory requirement as an agent.
+
+### 13.2 The Rules Engine Architecture
+
+A compliance rules engine is not an LLM. Regulatory rules are **deterministic** — a trade either violates a concentration limit or it doesn't. The Sentinel uses a layered decision tree:
+
+```python
+class SentinelAgent:
+    """Pre-trade compliance gate — must run before any Executor call."""
+
+    RULES = [
+        ConcentrationRule(max_single_stock_pct=0.10),   # No stock > 10% of portfolio
+        SuitabilityRule(),                              # Risk profile vs. asset risk class
+        AMLRule(provider="ComplyAdvantage"),            # AML watchlist check
+        JurisdictionRule(),                             # Age-based + geographic restrictions
+    ]
+
+    def check(self, trade_intent, user_profile):
+        """Returns a ComplianceVerdict: PASS | WARN | BLOCK."""
+        for rule in self.RULES:
+            verdict = rule.evaluate(trade_intent, user_profile)
+            if verdict.status == "BLOCK":
+                historian.log_step(agent_name="Sentinel", step_type="ACTION",
+                                   content=f"BLOCK: {verdict.reason}")
+                return verdict  # Fail-fast: first BLOCK aborts the chain
+
+        return ComplianceVerdict(status="PASS")
+```
+
+**The Key Property**: Rules are **auditable by non-engineers**. A compliance officer can read `ConcentrationRule(max_single_stock_pct=0.10)` and understand exactly what the system enforces — without reading LLM prompts.
+
+### 13.3 The WARN Pattern (Human-in-the-Loop)
+
+Not every compliance issue is a hard BLOCK. `WARN` verdicts trigger a **Human-in-the-Loop (HITL)** handoff:
+```
+WARN → Log to AgentAudit → SSE event: "compliance_review_required"
+     → Notify compliance team (Slack/PagerDuty webhook)
+     → Trade suspended pending human approval (72h timeout)
+```
+
+This pattern satisfies the MiFID II requirement for "appropriate human oversight" of automated investment decisions.
+
+---
+
+## 📊 Module 14: Probabilistic Planning (The Actuarial Pattern)
+
+### 14.1 Why Deterministic Answers Fail Retirement Planning
+
+A bank account calculator tells you: *"At 5% annual growth, £100,000 becomes £163,000 in 10 years."* This is **deterministically wrong** — markets don't return exactly 5% every year. Some years are up 20%, some are down 30%.
+
+Retirement planning requires **probabilistic answers** that model this uncertainty honestly.
+
+### 14.2 Monte Carlo Simulation — The Core Algorithm
+
+```python
+import numpy as np
+
+def monte_carlo_retirement(
+    initial_portfolio: float,     # Current savings: £500,000
+    monthly_contribution: float,  # Monthly saving: £1,000
+    annual_withdrawal: float,     # Yearly spend in retirement: £40,000
+    years_to_retirement: int,     # Time horizon: 20 years
+    years_in_retirement: int,     # Life expectancy after retire: 25 years
+    simulations: int = 10_000,
+    mean_annual_return: float = 0.07,
+    annual_std_dev: float = 0.15,
+) -> float:
+    """Returns the probability (0–1) of not outliving your savings."""
+    success = 0
+
+    for _ in range(simulations):
+        portfolio = initial_portfolio
+
+        # Accumulation phase: saving toward retirement
+        for _ in range(years_to_retirement):
+            r = np.random.normal(mean_annual_return, annual_std_dev)
+            portfolio = portfolio * (1 + r) + (monthly_contribution * 12)
+
+        # Decumulation phase: spending in retirement
+        for _ in range(years_in_retirement):
+            r = np.random.normal(mean_annual_return - 0.01, annual_std_dev)  # Lower return assumption
+            portfolio = portfolio * (1 + r) - annual_withdrawal
+            if portfolio <= 0:
+                break  # Portfolio exhausted — this simulation failed
+
+        if portfolio > 0:
+            success += 1
+
+    return success / simulations  # e.g. 0.78 → "78% probability of success"
+```
+
+### 14.3 The "Sequence of Returns" Risk
+
+One of the most counterintuitive retirement risks: *the order of returns matters more than the average return*. A severe bear market in the **first 5 years of retirement** is catastrophic — you are forced to sell depressed assets to fund living expenses. The same bear market 20 years in is manageable.
+
+Monte Carlo models this naturally because each simulation draws random year-by-year returns — some will have the crash early, some late. The probability output captures this asymmetry.
+
+### 14.4 Output: Confidence Bands (Plotly)
+
+```python
+# The 10th, 50th, and 90th percentile portfolio values across simulations
+# form confidence bands — the "fan chart" used by central banks and pension funds
+
+fig.add_trace(go.Scatter(x=years, y=p10_values, name="Pessimistic (10th %ile)",
+                          fill=None, line=dict(color="red")))
+fig.add_trace(go.Scatter(x=years, y=p50_values, name="Median (50th %ile)",
+                          fill="tonexty", line=dict(color="orange")))
+fig.add_trace(go.Scatter(x=years, y=p90_values, name="Optimistic (90th %ile)",
+                          fill="tonexty", line=dict(color="green")))
+```
+
+---
+
+## 🧠 Module 15: Behavioral Finance & Sentiment Engineering (The Empath Pattern)
+
+### 15.1 Why Human Behavior is the Biggest Risk Factor
+
+Nobel Laureate Daniel Kahneman (Thinking, Fast and Slow) identified that investors reliably:
+- **Sell at the bottom** (panic selling — loss aversion: losses feel ~2× worse than equal gains)
+- **Buy at the top** (FOMO — recency bias: recent returns feel permanent)
+- **Hold losers too long** (status quo bias: losses are "unrealised" until you sell)
+
+DALBAR's annual study consistently shows that **actual investor returns lag fund returns by 2–4%/year** — entirely due to behavioral timing errors. The Empath agent is RetireIQ's answer to this.
+
+### 15.2 Real-Time Sentiment Detection
+
+```python
+PANIC_SIGNALS = [
+    "sell everything", "get out now", "crash", "scared",
+    "losing everything", "can't sleep", "should i panic"
+]
+
+FOMO_SIGNALS = [
+    "bitcoin", "crypto", "gamestop", "all in", "missing out",
+    "everyone is making money", "should i put everything in"
+]
+
+class EmpathAgent:
+    def analyse(self, message: str) -> dict:
+        message_lower = message.lower()
+
+        # Rule-based bias check (fast, deterministic)
+        detected_bias = "FOMO" if any(s in message_lower for s in FOMO_SIGNALS) \
+                   else "PANIC" if any(s in message_lower for s in PANIC_SIGNALS) \
+                   else "NONE"
+
+        # Sentiment score (0.0 = extreme panic, 1.0 = calm confidence)
+        from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+        vs = SentimentIntensityAnalyzer().polarity_scores(message)
+        compound = (vs["compound"] + 1) / 2  # normalise from [-1,1] to [0,1]
+
+        return {
+            "sentiment_score": compound,
+            "detected_bias": detected_bias,
+            "tone_adjustment": self._tone_for(detected_bias, compound),
+        }
+
+    def _tone_for(self, bias: str, score: float) -> str:
+        if bias == "PANIC" or score < 0.3:
+            return "CALMING"     # "I understand this feels alarming. Let's look at the data."
+        elif bias == "FOMO":
+            return "CAUTIONARY"  # "I hear the excitement. Let me share some context..."
+        return "STANDARD"
+```
+
+### 15.3 Dynamic System Prompt Injection
+
+The Empath's output modifies the LLM's `system_prompt` *before* the response is generated:
+
+```python
+# Tone variants injected into system prompt preamble
+TONE_PROMPTS = {
+    "CALMING": "The user appears anxious. Begin with empathy. Use grounding language. Prioritise long-term perspective. Avoid market jargon.",
+    "CAUTIONARY": "The user may be experiencing FOMO. Be cautious but not dismissive. Present balanced risk/reward framing. Cite historical data.",
+    "STANDARD": "Maintain your standard professional advisor tone.",
+}
+
+def inject_tone(system_prompt: str, tone: str) -> str:
+    return f"{TONE_PROMPTS.get(tone, '')} {system_prompt}"
+```
+
+### 15.4 Empath → Sentinel Escalation
+
+High-risk emotional decisions (PANIC + low score, or FOMO + large portfolio impact) are automatically flagged to the Sentinel with a `BEHAVIORAL_RISK` flag, triggering an additional "Are you sure?" confirmation step — mimicking industry-standard "best interest" duty checks.
+
+---
+
+*This concludes the Complete AI Engineering Series. RetireIQ is the living laboratory where every module above has a corresponding implementation you can run, modify, and experiment with. The goal was never just to build a chatbot — it was to teach the engineering principles that make AI systems trustworthy, compliant, and genuinely helpful at scale.*

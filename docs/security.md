@@ -80,7 +80,30 @@ For financial compliance, every AI decision is recorded in the `agent_audit` tab
 
 ---
 
-## 5. Best Practices for Contributors
+## 5. Pre-Trade Compliance: The Sentinel Agent
+
+For any state-changing financial operation (`TRANSACTIONAL`), RetireIQ introduces a **Deterministic Compliance Gate**.
+
+### The Rule Chain
+Before a trade reaches the Executor, the Sentinel evaluates a sequence of hard-coded rules in `app/services/sentinel_service.py`:
+- **Concentration**: Prevents any single holding from exceeding 10% of the portfolio.
+- **Suitability**: Ensures the asset risk class (High/Med/Low) matches the user's Risk Tolerance.
+- **Min Balance**: WARNs the user if a trade would drain their cash buffer below £1,000.
+- **Age Restriction**: Blocks pension drawdowns if the user is under 55 (UK regulation).
+
+### Security Rationale
+- **Not Probabilistic**: Unlike the LLM, the Sentinel uses Python logic. It cannot be "convinced" to break a rule via prompt injection.
+- **Fail-Safe**: If any rule returns `BLOCK`, the transaction is aborted immediately before the external Agent API is even called.
+
+---
+
+## 6. Session Integrity & Memory
+- **Isolation**: Each chat session has a unique `conversation_id`. Threads and SSE streams are locked to this ID.
+- **Selective Memory**: Only pertinent financial facts (extracted by the `MemoryService`) are persisted. PII is scrubbed from the transcript *before* it is summarized into memories.
+
+---
+
+## 7. Best Practices for Contributors
 
 - **Never hardcode strings**: Avoid using strings as fallbacks in `os.environ.get()`. If it's a secret, it should be mandatory.
 - **Rotate Secrets Regularly**: In production environments, secrets should be rotated every 90 days.

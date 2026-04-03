@@ -1,33 +1,36 @@
-# Enterprise-Grade PII Sanitization
+# Enterprise-Grade PII Sanitization: The Guardian Pattern
 
-For modern financial-tech applications handling LLM integration, data privacy is non-negotiable. RetireIQ employs a strict barrier between our server environments and any third-party APIs like external Large Language Models.
-
-We ensure that Protected Health Information (PHI), Personally Identifiable Information (PII), or Sensitive Financial Data is never transmitted externally.
+For modern fintech applications, data privacy is non-negotiable. RetireIQ employs a **Guardian Agent** (PIISanitizer) that acts as a bi-directional transparent proxy between our secure server and external LLM providers.
 
 ## Core Responsibilities
-The **PII Sanitizer Layer** acts as a bi-directional transparent proxy filter mapping text entities to deterministic variables immediately prior to LLM query routing. 
+The **PII Sanitizer Layer** ensures that Protected Health Information (PHI), Personally Identifiable Information (PII), and Sensitive Financial Data (Account numbers) never leave the local environment.
 
-## Technical Implementation Workflow
+## The 4-Phase Lifecycle
 
-1. **Detection Phase (Entity Recognition)**
-   The system utilizes robust Named Entity Recognition (NER) (e.g., integrating Presidio or custom spaCy logic) alongside tightly bounded regex to capture bank-specific formats, identifying:
-   - First and Last Names
-   - Social Security Numbers (SSN)
-   - Account / Routing Numbers
-   - Portfolios, Phone numbers, Physical Addresses, Identifiable Email addresses.
+### 1. Detection (Named Entity Recognition)
+The system uses **Microsoft Presidio** backed by **spaCy** (`en_core_web_sm`) to identify sensitive entities:
+- **Identity**: Person names, Email addresses, Phone numbers.
+- **Financial**: IBANs, Credit Card numbers, Account IDs.
+- **Location**: Physical addresses, Zip codes.
 
-2. **Redaction Phase (Tokenization)**
-   Identified data blocks are substituted with generic but categorized markers, and their true values are inserted into a fast ephemeral key-value map cache mapping the token to the real string for this specific transaction.
-   - *Original*: "John Doe wants to check the routing number 123456789."
-   - *To LLM*: "[PERSON_0] wants to check the routing number [ROUTING_NUMBER_0]."
+### 2. Redaction (The Ghost Map)
+Identified entities are substituted with generic, categorized tokens (e.g., `<PERSON_0>`). The original value is stored in an ephemeral, per-request **Ghost Map**.
+- **Input**: "Transfer £500 to Alice Smith."
+- **Redacted**: "Transfer £500 to <PERSON_0>."
 
-3. **External Transmission**
-   The LLM provider reads the fully redacted context and builds a reasonable response utilizing identical token placement logic.
-   - *LLM Response*: "I have securely looked up the account for [PERSON_0] matching [ROUTING_NUMBER_0]."
+### 3. External Processing
+The LLM (Gemini, GPT-4, or Ollama) processes the redacted text. It never "sees" Alice Smith, only contextually aware tokens.
+- **LLM Output**: "I have prepared the transfer of £500 to <PERSON_0>."
 
-4. **De-Sanitization Phase (Re-hydration)**
-   Before the HTTP response cycles back through the Flask API layer to the end user client, the PII Sanitizer executes a reverse map parsing. It searches for tokens and replaces them identically with the original data stored in our private ephemeral map.
-   - *Final User View*: "I have securely looked up the account for John Doe matching 123456789."
+### 4. De-anonymization (Re-hydration)
+Before the response reaches the user, the PIISanitizer parses the output, matching tokens against the **Ghost Map** to restore the original values.
+- **Final Result**: "I have prepared the transfer of £500 to Alice Smith."
 
-### Resulting Compliance 
-This architecture guarantees strict enterprise compliance measures for data locality, anonymizing conversational interfaces and ensuring our relational data models never inadvertently bleed across untrusted API boundaries while retaining completely natural conversation UX continuity.
+## Security & Compliance
+- **Session Isolation**: The Ghost Map is purged at the start of every request cycle to prevent cross-user data leakage.
+- **In-Memory Only**: Mappings are never written to disk, databases, or logs.
+- **Audit-Safe**: The Historian logs the *fact* that sanitization occurred, but never the original sensitive strings.
+
+> [!IMPORTANT]
+> This "Guardian" pattern allows RetireIQ to leverage high-power cloud LLMs while maintaining a bank-grade security posture.
+
