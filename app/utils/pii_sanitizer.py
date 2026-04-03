@@ -1,6 +1,14 @@
 import json
-from presidio_analyzer import AnalyzerEngine, nlp_engine
+from presidio_analyzer import AnalyzerEngine, nlp_engine, PatternRecognizer, Pattern
 from presidio_anonymizer import AnonymizerEngine
+
+# 1. Custom Financial Recognizers (Bank-Grade Security)
+# We add custom patterns for SSNs and standard Bank Account Number formats.
+ssn_pattern = Pattern(name="ssn_pattern", regex=r"\b\d{3}-\d{2}-\d{4}\b", score=0.5)
+ssn_recognizer = PatternRecognizer(supported_entity="SSN", patterns=[ssn_pattern])
+
+account_pattern = Pattern(name="account_pattern", regex=r"\b[A-Z]{2,4}\d{5,12}\b", score=0.6)
+account_recognizer = PatternRecognizer(supported_entity="ACCOUNT_NUMBER", patterns=[account_pattern])
 
 # Initialize engines
 configuration = {
@@ -9,75 +17,76 @@ configuration = {
 }
 provider = nlp_engine.NlpEngineProvider(nlp_configuration=configuration)
 nlp_engine_instance = provider.create_engine()
+
+# Initialize Analyzer with Custom Recognizers
 analyzer = AnalyzerEngine(nlp_engine=nlp_engine_instance, supported_languages=["en"])
+analyzer.registry.add_recognizer(ssn_recognizer)
+analyzer.registry.add_recognizer(account_recognizer)
+
 anonymizer = AnonymizerEngine()
 
 
 class PIISanitizer:
     def __init__(self):
+        # The 'Ghost Map' for re-hydration (De-anonymization)
         self.mapping = {}
 
-    def sanitize_profile_to_string(self, profile_dict):
+    def sanitize_text(self, raw_text, entities=None):
         """
-        Takes the user profile, converts to JSON string, and strips PII.
-        Stores the mapping of <ENTITY_X> to Original Text for reverse lookup.
+        Takes raw string text and redacts PII. 
+        Returns (sanitized_text, mapping).
         """
-        raw_text = json.dumps(profile_dict)
+        if not entities:
+            entities = ["PERSON", "EMAIL_ADDRESS", "PHONE_NUMBER", "LOCATION", "SSN", "ACCOUNT_NUMBER"]
 
-        # Analyze text for PII
-        # We specify entities like PERSON, EMAIL_ADDRESS, PHONE_NUMBER, LOCATION
         results = analyzer.analyze(
             text=raw_text,
-            entities=["PERSON", "EMAIL_ADDRESS", "PHONE_NUMBER", "LOCATION"],
+            entities=entities,
             language="en",
         )
-
-        # Anonymize
-        anonymized_result = anonymizer.anonymize(text=raw_text, analyzer_results=results)
-
-        anonymized_text = anonymized_result.text
-
-        # Build mapping from the anonymizer result items
-        # items contain the replaced text and the operator used (e.g. <PERSON>)
-        for item in anonymized_result.items:
-            # item.text is the original text, item.entity_type is the entity type
-            # Unfortunately, Presidio doesn't natively expose the exact generated placeholder string easily in items
-            # if we use default replace, it just places <PERSON>.
-            pass
-
-        # Refined approach: Let's extract the mapping directly from the text changes
-        # Since standard Presidio just replaces with <PERSON>, if there are multiple persons it replaces all with <PERSON>
-        # For simplicity in this demo, let's do a basic global replace mapping tracking.
-
-        # Reset mapping
-        self.mapping = {}
 
         # Sort results by start index, descending (to safely replace without messing up indices)
         results = sorted(results, key=lambda x: x.start, reverse=True)
 
         sanitized_text = raw_text
+        mapping = {}
         for i, res in enumerate(results):
             original_fragment = raw_text[res.start : res.end]
             placeholder = f"<{res.entity_type}_{i}>"
-            self.mapping[placeholder] = original_fragment
+            mapping[placeholder] = original_fragment
 
             # Replace in text
             sanitized_text = sanitized_text[: res.start] + placeholder + sanitized_text[res.end :]
 
+        return sanitized_text, mapping
+
+    def sanitize_profile_to_string(self, profile_dict):
+        """
+        Specialized helper for user profiles. Updates internal mapping.
+        """
+        raw_text = json.dumps(profile_dict)
+        sanitized_text, mapping = self.sanitize_text(raw_text)
+        
+        # Merge into global mapping for this request context
+        self.mapping.update(mapping)
         return sanitized_text
 
     def deanonymize_response(self, llm_response_text):
         """
-        Takes the LLM's response and replaces the <ENTITY_X> tokens back to actual names.
+        Takes the LLM's response and replaces tokens back to clean data.
         """
         text = llm_response_text
-        # We reverse sort the keys just in case a key is a substring of another
+        # Sort by length descending to avoid substring collision (e.g. PERSON_10 before PERSON_1)
         for placeholder, original_value in sorted(
             self.mapping.items(), key=lambda x: len(x[0]), reverse=True
         ):
             text = text.replace(placeholder, str(original_value))
 
         return text
+
+    def clear_mapping(self):
+        """Call this after every request/turn."""
+        self.mapping = {}
 
 
 # Singleton instance

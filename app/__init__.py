@@ -15,6 +15,11 @@ def create_app(config_class=Config):
     CORS(app)
     db.init_app(app)
 
+    # Register models
+    from app.models.user import User
+    from app.models.chat import ChatMessage
+    from app.models.knowledge import KnowledgeChunk
+
     # Set up basic logging
     logging.basicConfig(level=logging.INFO)
 

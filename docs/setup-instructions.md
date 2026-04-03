@@ -64,13 +64,28 @@ If the API container says it "Encountered an error with the local Ollama service
 
 ---
 
-## 4. Database Migrations
-Once the containers are running, apply the latest relational schemas:
+## 4. Database Migrations & Knowledge Seeding
+Once the containers are running, apply the latest relational schemas and seed the vector database.
 
 ```bash
-# Run migrations inside the running container
+# 1. Run migrations for new tables (e.g. knowledge_chunks)
+docker exec -it retireiq_app flask db migrate -m "Add knowledge chunks"
 docker exec -it retireiq_app flask db upgrade
+
+# 2. Seed binary/relational data (Products & Users)
+docker exec -it retireiq_app python scripts/seed_db.py
+
+# 3. Seed semantic knowledge (RAG Policies)
+# Note: Ensure Ollama is running and has 'all-minilm' pulled
+docker exec -it retireiq_app python scripts/seed_knowledge.py
 ```
+
+---
+
+## 5. Knowledge Management (RAG)
+To maintain the "Scholar" persona's intelligence:
+- **Adding Documents**: Use the `KnowledgeService` to ingest new PDFs or text policies.
+- **Verification**: You can verify semantic retrieval by running `db-shell` and querying the `knowledge_chunks` table directly.
 
 ---
 

@@ -130,21 +130,29 @@ def generate_ai_response(message, user_profile=None, conversation_history=None, 
     model = llm_config.get("modelName")
     temperature = llm_config.get("temperature")
 
+    # 0. Session Isolation: Clear previous mappings
+    sanitizer.clear_mapping()
+
     # 1. PII Scrubbing of the user profile dictionary
     anonymized_profile = sanitizer.sanitize_profile_to_string(user_profile if user_profile else {})
+
+    # 2. PII Scrubbing of the incoming user message
+    sanitized_message, message_mapping = sanitizer.sanitize_text(message)
+    # Merge message mapping into global mapping for re-hydration
+    sanitizer.mapping.update(message_mapping)
 
     system_prompt = build_system_prompt(anonymized_profile)
 
     ai_response = ""
 
     if provider == "openai":
-        messages = prepare_openai_messages(system_prompt, conversation_history, message)
+        messages = prepare_openai_messages(system_prompt, conversation_history, sanitized_message)
         ai_response = call_openai_api(messages, model, temperature)
     elif provider == "azure_openai":
-        prompt = prepare_azure_openai_messages(system_prompt, conversation_history, message)
+        prompt = prepare_azure_openai_messages(system_prompt, conversation_history, sanitized_message)
         ai_response = call_azure_openai_api_with_key(prompt, model, temperature)
     elif provider == "ollama":
-        messages = prepare_openai_messages(system_prompt, conversation_history, message)
+        messages = prepare_openai_messages(system_prompt, conversation_history, sanitized_message)
         ai_response = call_ollama_api(messages, model, temperature)
     else:
         return "I'm sorry, the configured AI provider is not available. Please check your settings."
