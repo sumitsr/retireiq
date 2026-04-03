@@ -17,8 +17,10 @@ def create_app(config_class=Config):
 
     # Register models
     from app.models.user import User
-    from app.models.chat import ChatMessage
+    from app.models.chat import Conversation, Message
     from app.models.knowledge import KnowledgeChunk
+    from app.models.product import Product
+    from app.models.user_memory import UserMemory
 
     # Set up basic logging
     logging.basicConfig(level=logging.INFO)

@@ -1,6 +1,6 @@
 import json
 import logging
-from app import db
+from app import db, create_app
 from app.models.chat import Conversation
 from app.models.user_memory import UserMemory
 from app.services.llm_service import call_openai_api, call_azure_openai_api_with_key
@@ -14,12 +14,10 @@ def summarize_into_facts(user_id, conversation_id):
     Called by a background thread. Reads the user's recent conversation and uses the LLM
     to extract permanent facts, preferences, or goals.
     """
-    from app import create_app
-
     app = create_app()
 
     with app.app_context():
-        conversation = Conversation.query.get(conversation_id)
+        conversation = db.session.get(Conversation, conversation_id)
         if not conversation:
             return
 

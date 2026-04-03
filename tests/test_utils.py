@@ -18,7 +18,7 @@ def test_token_required_valid(app, client, seed_data):
     @app.route('/dummy-valid')
     @token_required
     def dummy_valid(current_user):
-        return jsonify({"user": current_user.username})
+        return jsonify({"user": current_user.email})
         
     token = jwt.encode(
         {"user_id": seed_data["user_id"]},
@@ -27,7 +27,7 @@ def test_token_required_valid(app, client, seed_data):
     )
     res = client.get('/dummy-valid', headers={"Authorization": f"Bearer {token}"})
     assert res.status_code == 200
-    assert res.get_json()["user"] == "testuser"
+    assert res.get_json()["user"] == "test@user.com"
 
 def test_token_required_expired(app, client, seed_data):
     @app.route('/dummy-expired')
