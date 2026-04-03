@@ -21,6 +21,7 @@ def create_app(config_class=Config):
     from app.models.knowledge import KnowledgeChunk
     from app.models.product import Product
     from app.models.user_memory import UserMemory
+    from app.models.audit import AgentAudit
 
     # Set up basic logging
     logging.basicConfig(level=logging.INFO)

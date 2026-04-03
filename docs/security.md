@@ -1,34 +1,91 @@
-# Security Strategy: Leak-Proof Configuration
+# Security Strategy: Bank-Grade Protection
 
-RetireIQ implements a strict security boundary to ensure that "Bank-Grade" sensitive data is never committed to the source control repository.
-
-## 1. Environment Variable Injection Strategy
-All sensitive configuration (API Keys, Database Passwords, JWT Secrets) is injected at runtime using environment variables.
-
-### How it Works:
-- **Source**: Your private `.env` file (stored locally in the project root).
-- **Orchestration**: `docker-compose.yml` utilizes variable interpolation (e.g., `${POSTGRES_PASSWORD}`) to pass these values from the host OS into the containers.
-- **Application**: The Flask `Config` class fetches these values via `os.environ`.
+RetireIQ implements a multi-layered security architecture to ensure that sensitive financial data is never leaked — neither to version control nor to external AI providers.
 
 ---
 
-## 2. Fail-Fast Mechanism
-To prevent accidental insecure execution, the application is configured to **fail-fast**.
+## 1. PII Proxy: The Guardian Agent
 
-- If mandatory security keys (like `JWT_SECRET_KEY`) are missing from the environment, the application will raise a `RuntimeError` and refuse to start. 
-- This ensures that a developer or an automated deployment is immediately alerted to a missing configuration before any traffic reaches the app.
+The most critical security boundary is between user data and external LLM providers. RetireIQ uses a **symmetric anonymization proxy** pattern.
+
+### How it Works
+
+```
+User Message/Profile  →  [Anonymize]  →  LLM (only sees tokens)  →  [De-anonymize]  →  User
+"John Smith owes..."       "<PERSON_0> owes..."                      "John Smith owes..."
+```
+
+**Implementation**: `app/utils/pii_sanitizer.py` using **Microsoft Presidio**.
+
+### Entities Redacted
+| Entity Type | Example Input | Token |
+|------------|--------------|-------|
+| `PERSON` | "John Smith" | `<PERSON_0>` |
+| `EMAIL_ADDRESS` | "john@email.com" | `<EMAIL_ADDRESS_0>` |
+| `PHONE_NUMBER` | "0712345678" | `<PHONE_NUMBER_0>` |
+| `SSN` | "123-45-6789" | `<SSN_0>` |
+| `ACCOUNT_NUMBER` | "GB29NWBK..." | `<ACCOUNT_NUMBER_0>` |
+| `LOCATION` | "London" | `<LOCATION_0>` |
+
+### The Ghost Map (Re-hydration)
+A per-request `mapping` dictionary is maintained by the `PIISanitizer` instance:
+- `clear_mapping()` is called at the start of every request to prevent cross-session leakage.
+- The mapping is used by `deanonymize_response()` to restore original values in the LLM's output.
+
+> [!CAUTION]
+> The Ghost Map is **in-memory only**. It is never persisted to the database or logs. This is a deliberate security constraint — the AI never "knows" it processed real PII.
+
+---
+
+## 2. Environment Variable Injection Strategy
+
+All sensitive configuration (API Keys, Database Passwords, JWT Secrets) is injected at runtime using environment variables. **Nothing sensitive lives in the codebase.**
+
+### How it Works
+- **Source**: Your private `.env` file (stored locally in the project root, never committed).
+- **Orchestration**: `docker-compose.yml` uses `${VARIABLE}` interpolation to pass values from the host OS into containers.
+- **Application**: The Flask `Config` class fetches these values via `os.environ`.
+
+### Fail-Fast Mechanism
+The application is configured to **refuse to start** if mandatory security keys are missing:
+
+```python
+# config.py
+SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("JWT_SECRET_KEY environment variable is not set!")
+```
+
+This prevents a misconfigured app from serving traffic with no authentication.
 
 ---
 
 ## 3. Strict Source Protection
+
 The repository is configured with a strict `.gitignore` policy:
 - `.env` and all `.env.*` files are excluded.
 - Only `.env.example` is committed, providing a template without actual values.
 
-## 4. Best Practices for Contributors
+---
+
+## 4. Agent Audit Trail (The Historian)
+
+For financial compliance, every AI decision is recorded in the `agent_audit` table:
+- `session_id`: Ties all steps to a specific user conversation.
+- `agent_name` + `step_type`: Creates a structured, queryable paper trail.
+- **Zero LLM output is stored verbatim without context** — the audit record shows *why* and *how* a response was generated.
+
+> [!NOTE]
+> This audit trail is the foundation for GDPR Right-to-Explanation compliance. A customer can request a full record of what the AI knew when it made a recommendation.
+
+---
+
+## 5. Best Practices for Contributors
+
 - **Never hardcode strings**: Avoid using strings as fallbacks in `os.environ.get()`. If it's a secret, it should be mandatory.
 - **Rotate Secrets Regularly**: In production environments, secrets should be rotated every 90 days.
-- **Use Secret Management Tools**: For production deployments, we recommend using **Google Cloud Secret Manager** or **HashiCorp Vault**.
+- **Use Secret Management Tools**: For production deployments, use **Google Cloud Secret Manager** or **HashiCorp Vault**.
+- **Model Provider Security**: When using `vertex_ai`, ensure service account credentials are injected via `GOOGLE_APPLICATION_CREDENTIALS`, never hardcoded.
 
 ---
 

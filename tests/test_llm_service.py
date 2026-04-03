@@ -65,19 +65,17 @@ def test_validate_intent_response():
     assert validate_intent_response("{\"intent\": \"test\"}") is True
     assert validate_intent_response("invalid json") is False
 
-@patch("app.services.llm_service.call_ollama_api")
-@patch("app.services.llm_service.call_agent_api")
-def test_generate_ai_response_ollama_intent(mock_agent_call, mock_ollama_call):
-    # Mock Ollama returning a JSON intent
-    mock_ollama_call.return_value = '{"intent": "invest", "sub_intent": "stocks", "summary": "wants stocks"}'
-    mock_agent_call.return_value = "Agent Result"
-    
+@patch("app.services.llm_service.dispatcher.dispatch")
+def test_generate_ai_response_ollama_intent(mock_dispatch):
+    # In the new architecture, the dispatcher handles intent routing.
+    mock_dispatch.return_value = "Agent Result"
+
     os.environ["LLM_PROVIDER"] = "ollama"
-    
+
     res = generate_ai_response("I want to invest in stocks", user_profile={"id": "u1"})
-    
+
     assert res == "Agent Result"
-    mock_agent_call.assert_called_once()
+    mock_dispatch.assert_called_once()
 
 @patch("openai.OpenAI")
 def test_call_openai_api_success(mock_openai):
@@ -102,7 +100,8 @@ def test_call_azure_openai_api_success(mock_create):
 
 def test_generate_ai_response_invalid_provider():
     os.environ["LLM_PROVIDER"] = "invalid"
-    res = generate_ai_response("hi")
+    with patch("app.services.llm_service.dispatcher.dispatch", return_value=None):
+        res = generate_ai_response("hi")
     assert "configured AI provider is not available" in res
 
 def test_prepare_azure_openai_messages():
@@ -123,7 +122,8 @@ def test_generate_suggested_questions():
 def test_generate_ai_response_azure_success(mock_azure_call):
     mock_azure_call.return_value = "Azure Hello"
     os.environ["LLM_PROVIDER"] = "azure_openai"
-    res = generate_ai_response("hi", user_profile={"id": "u1"})
+    with patch("app.services.llm_service.dispatcher.dispatch", return_value=None):
+        res = generate_ai_response("hi", user_profile={"id": "u1"})
     assert res == "Azure Hello"
 
 @patch("openai.OpenAI")

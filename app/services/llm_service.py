@@ -1,8 +1,13 @@
 import os
 import json
 import re
+import logging
 import requests
 from app.services.agent_service import call_agent_api
+from app.services.audit_service import historian
+from app.services.orchestrator import dispatcher
+
+logger = logging.getLogger(__name__)
 
 try:
     import openai
@@ -14,22 +19,48 @@ try:
 except ImportError:
     pass
 
+try:
+    import vertexai
+    from vertexai.generative_models import GenerativeModel, Part, Content, GenerationConfig
+    from vertexai.preview import caching
+    from vertexai.language_models import TextEmbeddingModel
+except ImportError:
+    vertexai = None
+    GenerativeModel = Part = Content = GenerationConfig = caching = TextEmbeddingModel = None
+
 from app.utils.pii_sanitizer import sanitizer
 
 
-def build_system_prompt(user_profile_string=""):
-    import json
+# ---------------------------------------------------------------------------
+# Prompt Builders
+# ---------------------------------------------------------------------------
 
+def build_system_prompt(user_profile_string=""):
+    """Builds the base RetireIQ advisor system prompt from an anonymised profile."""
     try:
         parsed = json.loads(user_profile_string)
         memories = parsed.get("memories", [])
-    except:
+    except Exception:
+        logger.debug("Could not parse user_profile_string as JSON; defaulting to empty memories.")
         memories = []
 
-    system_prompt = f"""
-    As RetireIQ, a retirement agent chatbot with access to the customer's structured personal and financial data in JSON format, begin a short, personalized conversation to guide the customer toward the sub-intent "Choose retirement investments." First, extract the customer's first name from the field personal_details.first_name and use it naturally to address them throughout the interaction. Acknowledge their current financial stage without repeating known details. Ask if they’re currently more focused on growing long-term retirement savings or keeping flexibility for short-term needs. Based on their response, follow up to understand whether they prefer a hands-on investment style or an automated, guided approach. If needed, ask if they have specific preferences or exclusions (e.g., ESG, sectors to avoid). Keep the conversation friendly and concise, ask only relevant questions (up to five), and stop once enough information is gathered to recommend suitable retirement investment options tailored to their goals and preferences.
+    logger.debug("Building system prompt with %d memories.", len(memories))
 
-    Once intent and sub-intent are known, output your understanding in the following structured JSON format only and don't add any other text anywhere in response:
+    system_prompt = f"""
+    As RetireIQ, a retirement agent chatbot with access to the customer's structured personal and
+    financial data in JSON format, begin a short, personalized conversation to guide the customer
+    toward the sub-intent "Choose retirement investments." First, extract the customer's first name
+    from the field personal_details.first_name and use it naturally to address them throughout the
+    interaction. Acknowledge their current financial stage without repeating known details. Ask if
+    they're currently more focused on growing long-term retirement savings or keeping flexibility for
+    short-term needs. Based on their response, follow up to understand whether they prefer a hands-on
+    investment style or an automated, guided approach. If needed, ask if they have specific
+    preferences or exclusions (e.g., ESG, sectors to avoid). Keep the conversation friendly and
+    concise, ask only relevant questions (up to five), and stop once enough information is gathered
+    to recommend suitable retirement investment options tailored to their goals and preferences.
+
+    Once intent and sub-intent are known, output your understanding in the following structured JSON
+    format only and don't add any other text anywhere in response:
     {{
         "intent": "<detected primary intent>",
         "sub_intent": "<detected sub-intent details>",
@@ -45,65 +76,106 @@ def build_system_prompt(user_profile_string=""):
 
 
 def prepare_openai_messages(system_prompt, conversation_history, message):
+    """Assembles the messages list in OpenAI chat-completion format."""
     messages = [{"role": "system", "content": system_prompt}]
+
     if conversation_history:
         for msg in conversation_history:
-            if msg["type"] == "user":
-                messages.append({"role": "user", "content": msg["content"]})
-            elif msg["type"] == "bot":
-                messages.append({"role": "assistant", "content": msg["content"]})
+            role = "user" if msg["type"] == "user" else "assistant"
+            messages.append({"role": role, "content": msg["content"]})
+
     messages.append({"role": "user", "content": message})
+    logger.debug("Prepared %d messages for OpenAI-format call.", len(messages))
     return messages
 
 
 def prepare_azure_openai_messages(system_prompt, conversation_history, message):
+    """Alias for prepare_openai_messages (Azure uses the same format)."""
     return prepare_openai_messages(system_prompt, conversation_history, message)
 
 
+# ---------------------------------------------------------------------------
+# LLM Provider Adapters
+# ---------------------------------------------------------------------------
+
 def call_openai_api(messages, model, temperature):
+    """Calls the OpenAI Chat Completions API and returns the response text."""
+    logger.info("Calling OpenAI API | model=%s temperature=%s", model, temperature)
     try:
         client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
         if not client.api_key:
+            logger.warning("OPENAI_API_KEY is not configured.")
             return "I'm sorry, the OpenAI API key is not configured correctly."
+
         response = client.chat.completions.create(
             model=model, messages=messages, temperature=temperature, max_tokens=500
         )
-        return response.choices[0].message.content
+        content = response.choices[0].message.content
+        logger.debug("OpenAI response received (first 80 chars): %s", content[:80])
+        return content
     except Exception as e:
-        print(f"Error with OpenAI API: {e}")
+        logger.error("OpenAI API call failed: %s", e, exc_info=True)
         return f"I'm sorry, I encountered an error processing your request: {e}"
 
 
 def call_ollama_api(messages, model, temperature):
+    """Calls a locally-running Ollama instance and returns the response text."""
+    base_url = os.environ.get("OLLAMA_HOST", "http://host.docker.internal:11434")
+    url = f"{base_url}/api/chat"
+    logger.info("Calling Ollama API | url=%s model=%s", url, model)
+
+    payload = {
+        "model": model,
+        "messages": messages,
+        "stream": False,
+        "options": {"temperature": temperature},
+    }
     try:
-        base_url = os.environ.get("OLLAMA_HOST", "http://host.docker.internal:11434")
-        url = f"{base_url}/api/chat"
-        
-        payload = {
-            "model": model,
-            "messages": messages,
-            "stream": False,
-            "options": {
-                "temperature": temperature
-            }
-        }
-        
         response = requests.post(url, json=payload, timeout=30)
         response.raise_for_status()
-        
-        return response.json().get("message", {}).get("content", "")
+        content = response.json().get("message", {}).get("content", "")
+        logger.debug("Ollama response received (first 80 chars): %s", content[:80])
+        return content
     except Exception as e:
-        print(f"Error with Ollama API: {e}")
+        logger.error("Ollama API call failed: %s", e, exc_info=True)
         return f"I'm sorry, I encountered an error with the local Ollama service: {e}"
 
 
+def call_vertex_ai_api(prompt, model_name="gemini-1.5-pro", temperature=0.7):
+    """Calls Google Cloud Vertex AI (Gemini 1.5) and returns the response text."""
+    if not vertexai:
+        logger.warning("Vertex AI SDK is not installed. Returning fallback message.")
+        return "Vertex AI SDK not installed. Please check requirements.txt."
+
+    project_id = os.getenv("GCP_PROJECT_ID")
+    location = os.getenv("GCP_REGION", "us-central1")
+    logger.info(
+        "Calling Vertex AI | project=%s location=%s model=%s temperature=%s",
+        project_id, location, model_name, temperature,
+    )
+
+    try:
+        vertexai.init(project=project_id, location=location)
+        model = GenerativeModel(model_name)
+        config = GenerationConfig(temperature=temperature, max_output_tokens=2048)
+        response = model.generate_content(prompt, generation_config=config)
+        logger.debug("Vertex AI response received (first 80 chars): %s", response.text[:80])
+        return response.text
+    except Exception as e:
+        logger.error("Vertex AI call failed: %s", e, exc_info=True)
+        return f"Vertex AI Error: {str(e)}"
+
+
 def call_azure_openai_api_with_key(messages, model, temperature=0.7, max_tokens=500):
+    """Calls Azure-hosted OpenAI via the legacy ChatCompletion API."""
+    logger.info("Calling Azure OpenAI | model=%s temperature=%s", model, temperature)
     try:
         api_key = os.getenv("AZURE_OPENAI_API_KEY")
         api_base = os.getenv("AZURE_OPENAI_ENDPOINT")
         api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2023-12-01-preview")
 
         if not api_key or not api_base:
+            logger.warning("Azure OpenAI credentials are not fully configured.")
             return "I'm sorry, the Azure OpenAI API key or endpoint is not configured correctly."
 
         openai.api_type = "azure"
@@ -114,71 +186,186 @@ def call_azure_openai_api_with_key(messages, model, temperature=0.7, max_tokens=
         response = openai.ChatCompletion.create(
             engine=model, messages=messages, temperature=temperature, max_tokens=max_tokens
         )
-        return response["choices"][0]["message"]["content"]
+        content = response["choices"][0]["message"]["content"]
+        logger.debug("Azure OpenAI response received (first 80 chars): %s", content[:80])
+        return content
     except Exception as e:
-        print(f"Error with Azure OpenAI API: {e}")
+        logger.error("Azure OpenAI API call failed: %s", e, exc_info=True)
         return f"I'm sorry, I encountered an error processing your request: {e}"
 
 
-def generate_ai_response(message, user_profile=None, conversation_history=None, llm_config=None):
-    llm_config = {
-        "provider": os.getenv("LLM_PROVIDER", "azure_openai"),
-        "modelName": os.getenv("LLM_MODEL_NAME", "gpt-4o"),
+# ---------------------------------------------------------------------------
+# LLM Provider Router
+# ---------------------------------------------------------------------------
+
+def _resolve_llm_config():
+    """Resolves the active LLM provider, model, and temperature from environment."""
+    provider = os.getenv("LLM_PROVIDER", "azure_openai")
+    default_model = "gemini-1.5-pro" if provider == "vertex_ai" else "gpt-4o"
+    return {
+        "provider": provider,
+        "modelName": os.getenv("LLM_MODEL_NAME") or default_model,
         "temperature": float(os.getenv("LLM_TEMPERATURE", 0.7)),
     }
-    provider = llm_config.get("provider")
-    model = llm_config.get("modelName")
-    temperature = llm_config.get("temperature")
 
-    # 0. Session Isolation: Clear previous mappings
-    sanitizer.clear_mapping()
 
-    # 1. PII Scrubbing of the user profile dictionary
-    anonymized_profile = sanitizer.sanitize_profile_to_string(user_profile if user_profile else {})
-
-    # 2. PII Scrubbing of the incoming user message
-    sanitized_message, message_mapping = sanitizer.sanitize_text(message)
-    # Merge message mapping into global mapping for re-hydration
-    sanitizer.mapping.update(message_mapping)
-
-    system_prompt = build_system_prompt(anonymized_profile)
-
-    ai_response = ""
+def _call_llm_provider(provider, model, temperature, system_prompt, history, sanitized_message):
+    """Routes to the correct LLM provider adapter. Returns the raw AI response string."""
+    logger.info("Routing to LLM provider: %s", provider)
 
     if provider == "openai":
-        messages = prepare_openai_messages(system_prompt, conversation_history, sanitized_message)
-        ai_response = call_openai_api(messages, model, temperature)
+        messages = prepare_openai_messages(system_prompt, history, sanitized_message)
+        return call_openai_api(messages, model, temperature)
+
     elif provider == "azure_openai":
-        prompt = prepare_azure_openai_messages(system_prompt, conversation_history, sanitized_message)
-        ai_response = call_azure_openai_api_with_key(prompt, model, temperature)
+        messages = prepare_azure_openai_messages(system_prompt, history, sanitized_message)
+        return call_azure_openai_api_with_key(messages, model, temperature)
+
+    elif provider == "vertex_ai":
+        full_prompt = f"{system_prompt}\n\nUser: {sanitized_message}"
+        return call_vertex_ai_api(full_prompt, model, temperature)
+
     elif provider == "ollama":
-        messages = prepare_openai_messages(system_prompt, conversation_history, sanitized_message)
-        ai_response = call_ollama_api(messages, model, temperature)
+        messages = prepare_openai_messages(system_prompt, history, sanitized_message)
+        return call_ollama_api(messages, model, temperature)
+
     else:
+        logger.error("Unknown LLM provider configured: '%s'", provider)
+        return None
+
+
+def _run_pii_scrub(message, user_profile, conversation_id):
+    """
+    Step 1 — Guardian Agent: Anonymises the incoming message and profile.
+    Returns (sanitized_message, anonymized_profile_string).
+    """
+    logger.debug("[Guardian] Starting PII anonymisation | conv=%s", conversation_id)
+    historian.log_step(
+        session_id=conversation_id,
+        agent_name="Guardian",
+        step_type="THOUGHT",
+        content="Initializing PII sanitization for user profile and message.",
+    )
+
+    sanitizer.clear_mapping()
+    anonymized_profile = sanitizer.sanitize_profile_to_string(user_profile if user_profile else {})
+    sanitized_message, message_mapping = sanitizer.sanitize_text(message)
+    sanitizer.mapping.update(message_mapping)
+
+    logger.info(
+        "[Guardian] Anonymisation complete | entities_masked=%d conv=%s",
+        len(message_mapping),
+        conversation_id,
+    )
+    historian.log_step(
+        session_id=conversation_id,
+        agent_name="Guardian",
+        step_type="ACTION",
+        content=f"Anonymization complete. {len(message_mapping)} entities masked.",
+    )
+    return sanitized_message, anonymized_profile
+
+
+def _run_dispatch(sanitized_message, user_profile, history, conversation_id):
+    """
+    Step 2 — Dispatcher Agent: Routes the message to a specialist agent.
+    Returns the agent response string, or None to fall through to general LLM.
+    """
+    logger.info("[Dispatcher] Dispatching message | conv=%s", conversation_id)
+    agent_response = dispatcher.dispatch(sanitized_message, user_profile, history, conversation_id)
+
+    if agent_response:
+        logger.info("[Dispatcher] Specialist agent responded | conv=%s", conversation_id)
+    else:
+        logger.info("[Dispatcher] No specialist matched; falling through to general LLM | conv=%s", conversation_id)
+
+    return agent_response
+
+
+def _run_general_llm(provider, model, temperature, anonymized_profile, history, sanitized_message):
+    """
+    Step 3 — General LLM Fallback: Handles small-talk and non-domain queries.
+    Returns the raw (still anonymised) response string.
+    """
+    logger.info("[General LLM] Generating fallback response | provider=%s", provider)
+    system_prompt = build_system_prompt(anonymized_profile)
+    response = _call_llm_provider(provider, model, temperature, system_prompt, history, sanitized_message)
+
+    if response is None:
+        logger.error("[General LLM] Unsupported provider '%s'; returning error message.", provider)
         return "I'm sorry, the configured AI provider is not available. Please check your settings."
 
-    # 2. De-anonymize back to original names.
-    deanonymized_ai_response = sanitizer.deanonymize_response(ai_response)
+    return response
 
-    print(f"AI Response: {deanonymized_ai_response}")
-    extrectedAIResponse = extract_json(deanonymized_ai_response)
 
-    if validate_intent_response(extrectedAIResponse):
-        print(f"Intent and sub-intent identified, calling agent: {extrectedAIResponse}")
-        user_id = user_profile.get("id", "") if isinstance(user_profile, dict) else ""
-        final_res = call_agent_api(extrectedAIResponse, user_id)
-        return final_res
-    else:
-        return deanonymized_ai_response
+def _run_deanonymise(ai_response, conversation_id):
+    """
+    Step 4 — Guardian Agent: Re-hydrates PII tokens back into the response.
+    Returns the final clean response.
+    """
+    logger.debug("[Guardian] Starting de-anonymisation | conv=%s", conversation_id)
+    final_response = sanitizer.deanonymize_response(ai_response)
+    historian.log_step(
+        session_id=conversation_id,
+        agent_name="Guardian",
+        step_type="RESPONSE",
+        content="Response de-anonymized and ready for customer delivery.",
+    )
+    logger.info("[Guardian] De-anonymisation complete | conv=%s", conversation_id)
+    return final_response
 
+
+# ---------------------------------------------------------------------------
+# Main Entry Point
+# ---------------------------------------------------------------------------
+
+def generate_ai_response(
+    message, user_profile=None, conversation_history=None, llm_config=None, conversation_id=None
+):
+    """
+    Full agentic pipeline for a single user message:
+      1. Guardian — PII anonymisation
+      2. Dispatcher — Intent-based specialist routing
+      3. General LLM — Fallback for unmatched intents
+      4. Guardian — PII de-anonymisation
+    """
+    logger.info("generate_ai_response started | conv=%s", conversation_id)
+    config = _resolve_llm_config()
+    provider = config["provider"]
+    model = config["modelName"]
+    temperature = config["temperature"]
+
+    # Step 1: PII scrub
+    sanitized_message, anonymized_profile = _run_pii_scrub(message, user_profile, conversation_id)
+
+    # Step 2: Specialist dispatch
+    agent_response = _run_dispatch(sanitized_message, user_profile, conversation_history, conversation_id)
+    if agent_response:
+        return agent_response
+
+    # Step 3: General LLM fallback
+    ai_response = _run_general_llm(
+        provider, model, temperature, anonymized_profile, conversation_history, sanitized_message
+    )
+
+    # Step 4: De-anonymise
+    final_response = _run_deanonymise(ai_response, conversation_id)
+
+    logger.info("generate_ai_response complete | conv=%s", conversation_id)
+    return final_response
+
+
+# ---------------------------------------------------------------------------
+# Utility Functions
+# ---------------------------------------------------------------------------
 
 def validate_intent_response(api_response):
+    """Returns True if the api_response is a valid JSON object."""
     if isinstance(api_response, dict):
         return True
-    elif isinstance(api_response, str):
+    if isinstance(api_response, str):
         try:
-            corrected_str = api_response.replace("'", '"')
-            json.loads(corrected_str)
+            json.loads(api_response.replace("'", '"'))
             return True
         except json.JSONDecodeError:
             return False
@@ -186,37 +373,23 @@ def validate_intent_response(api_response):
 
 
 def extract_json(input_text):
+    """Extracts the first JSON object found in a freeform string."""
     match = re.search(r"\{.*\}", input_text, re.DOTALL)
     if match:
         try:
             return json.loads(match.group())
         except json.JSONDecodeError:
+            logger.warning("extract_json: regex matched but JSON decode failed.")
             return input_text
     return input_text
 
 
 def generate_suggested_questions(message, response):
+    """Returns a static set of contextual follow-up questions."""
     import uuid
-
     return [
-        {
-            "id": str(uuid.uuid4()),
-            "text": "How much do I need to save monthly?",
-            "category": "planning",
-        },
-        {
-            "id": str(uuid.uuid4()),
-            "text": "What investment strategy is best for me?",
-            "category": "investment",
-        },
-        {
-            "id": str(uuid.uuid4()),
-            "text": "How does inflation affect my retirement?",
-            "category": "planning",
-        },
-        {
-            "id": str(uuid.uuid4()),
-            "text": "What are tax advantages of retirement accounts?",
-            "category": "investment",
-        },
+        {"id": str(uuid.uuid4()), "text": "How much do I need to save monthly?", "category": "planning"},
+        {"id": str(uuid.uuid4()), "text": "What investment strategy is best for me?", "category": "investment"},
+        {"id": str(uuid.uuid4()), "text": "How does inflation affect my retirement?", "category": "planning"},
+        {"id": str(uuid.uuid4()), "text": "What are tax advantages of retirement accounts?", "category": "investment"},
     ]

@@ -1,195 +1,630 @@
-# AI Engineering Masterclass: Zero to Hero (The RetireIQ Case Study)
+# AI Engineering Masterclass: Zero to Expert (The RetireIQ Case Study)
 
-Welcome to the **RetireIQ AI Engineering Masterclass**. This document is designed to take a developer from "Zero" to "Expert AI Engineer" by using the real-world, "Bank-Grade" architecture of RetireIQ as a living laboratory.
+Welcome to the **RetireIQ AI Engineering Masterclass**. This document is a **zero to expert** curriculum built on the real-world, "Bank-Grade" architecture of RetireIQ as a living laboratory. Every concept, formula, and decision here maps directly to live code you can open, read, and run.
+
+> [!NOTE]
+> **How to read this document**: Each module teaches a universal AI Engineering concept first, then explains exactly *why* we made the specific implementation decisions we did in RetireIQ. The goal is that after reading this, you can build any production-grade AI system — not just this one.
 
 ---
 
 ## 🏛️ Module 1: The AI Foundations (The Vector Transformation)
 
-### 1.1 Beyond the Autocomplete: The Attention Mechanism
-While many see LLMs as simple word predictors, an Expert AI Engineer understands the **Transformer Architecture**. The "Secret Sauce" is **Multi-Head Attention**.
+### 1.1 Beyond the Autocomplete: The Transformer Architecture
+While many see LLMs as simple word predictors, an Expert AI Engineer understands the **Transformer Architecture**. At its core, the "Secret Sauce" is **Multi-Head Attention**.
 
-**RetireIQ Implementation: LLM Roles**
-In RetireIQ, we use three distinct roles to structure every single prompt:
-- **System**: The "Identity" (e.g., *"You are RetireIQ, a senior financial advisor..."*).
-- **User**: The incoming customer prompt.
-- **Assistant**: The LLM's previous responses (history).
+The seminal 2017 paper "Attention Is All You Need" (Vaswani et al.) introduced the mechanism that replaced recurrent networks (RNNs) and enabled parallel training at a massive scale.
+
+**The Key Equations:**
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+
+Where:
+- **$Q$ (Query)**: What the current token is looking for.
+- **$K$ (Key)**: What other tokens in the sequence offer.
+- **$V$ (Value)**: The actual content to aggregate if attention is high.
+- **$d_k$**: The key dimension — we divide by $\sqrt{d_k}$ to prevent vanishing gradients in deep models.
 
 > [!NOTE]
-> **Expert Concept: Q, K, V (Query, Key, Value)**
-> Think of Attention like a retrieval system. 
-> 1. **Query ($Q$)**: What the current word is looking for.
-> 2. **Key ($K$)**: What other words in the sentence represent.
-> 3. **Value ($V$)**: The actual information to "attend" to.
-> 
-> The model calculates a "Dot Product" between $Q$ and $K$ to determine weight. If you're analyzing a loan application, the word "Income" ($Q$) will have a high Weight toward the numerical value "$150,000$" ($K$), allowing the AI to bind the concept to the data.
+> **RetireIQ Insight: Why Three Roles?**
+> In `llm_service.py`, we structure every prompt into three distinct roles — **System**, **User**, **Assistant** — because these map directly to the Transformer's contextual attention layers. The `System` role is processed with highest attention weight, establishing the "persona" that guides all downstream token predictions.
 
-### 1.2 The Token Lifecycle
-LLMs digest **Tokens**, not words. We use the **Byte-Pair Encoding (BPE)** algorithm to break text into sub-word units.
-- **Efficiency**: "Retirement" might be 1 token, but "RetireIQ-Masterclass" might be 4.
-- **Context Window**: In RetireIQ, we monitor the context limits (e.g. 128k for GPT-4o) to prevent "Context Overflow," which leads to the model "forgetting" the beginning of the conversation.
+### 1.2 The Token Lifecycle & Context Windows
+LLMs digest **Tokens**, not words. We use **Byte-Pair Encoding (BPE)** to split text into sub-word units.
+
+- "Retirement" → `["Retire", "ment"]` = 2 tokens
+- "RetireIQ" → `["Retire", "IQ"]` = 2 tokens
+
+**RetireIQ Context Management**: We cap conversation history at 20 messages in `chat.py` to prevent pushing past the model's context limit (128k for GPT-4o, 1M+ for Gemini 1.5 Pro). Beyond the limit, the model literally "forgets" the beginning of the conversation.
 
 ### 1.3 Sampling Parameters: Shaping the Probability Distribution
-When the LLM predicts the next token, it produces **Logits** (raw scores). We use sampling to select the final token from this distribution:
+
+When the LLM predicts the next token, it produces **Logits** (raw scores over the entire vocabulary — often 50,000+ tokens). **Sampling** controls how we select from this distribution.
 
 | Parameter | Mathematical Impact | RetireIQ Usage (The Why) |
 | :--- | :--- | :--- |
-| **Temperature ($T$)** | Divides logits before Softmax ($score_i / T$). | **$T=0$ (Greedy)**: Used for intent extraction. **$T=0.7$**: Our "Chat Standard" for human-like dialogue. |
-| **Top-P (Nucleus)** | Dynamic threshold. Sums tokens until cumulative mass is $P$. | Preferred for RetireIQ because it **adapts** to confidence. If the model is 99% sure, the pool is tiny. |
+| **Temperature ($T$)** | Divides all logits before Softmax: $score_i / T$ | See Decision Matrix below |
+| **Top-P (Nucleus)** | Dynamic threshold. Sum tokens by probability until cumulative mass $\geq P$ | Preferred for RetireIQ — adapts to the model's confidence |
+| **Top-K** | Limits the pool to the $K$ most likely tokens only | Used when Top-P pools become too wide |
 
 #### 🌡️ Deep Dive: The Temperature Decision Matrix
+
 In RetireIQ, we don't just "pick a number." We align $T$ with the **Cognitive Load** of the task:
 
-- **Scenario A: $T=0.0$ (The "Robot" - Data Extraction)**
-    - *Usage*: When asking the AI to "Extract the account number from this text."
-    - *Why*: We need 100% precision. At $T=0$, the AI will **never** vary its answer. It always picks the mathematically certain token.
-- **Scenario B: $T=0.3$ (The "Analyst" - Summarization)**
-    - *Usage*: Summarizing a 50-page investment policy.
-    - *Why*: We want the summary to sound professional (not repetitive), but we cannot risk the AI "inventing" new financial terms. This adds a tiny bit of linguistic flavor without sacrificing grounding.
-- **Scenario C: $T=0.7$ (The "Advisor" - RetireIQ Chat)**
-    - *Usage*: General conversation with a user about their goals.
-    - *Why*: **The Human Factor**. $T=0.7$ allows the model to use natural sentence structures and varied vocabulary. It makes RetireIQ feel like a person, not a database interface, while staying within the "Safe Sampling" boundary.
-- **Scenario D: $T=1.0+$ (The "Poet" - Brainstorming)**
-    - *Usage*: "Give me 10 unique names for a new retirement fund."
-    - *Why*: We want the model to explore the "Long Tail" of its vocabulary. High temperature flattens the probability, allowing "surprising" tokens to be selected.
+- **$T=0.0$ — The "Robot" (Data Extraction)**
+    - *When*: `orchestrator.py` intent classification — "Is this a BUY, SELL, or INFO request?"
+    - *Why*: We need **100% precision**. At $T=0$, the Softmax distribution collapses to a near-spike — the AI always picks the highest-probability token. There is no creativity, and we want none.
+
+- **$T=0.3$ — The "Analyst" (Structured Summarization)**
+    - *When*: Summarizing a 50-page investment policy document into bullet points.
+    - *Why*: We want the summary to sound professional (not robotic), but we cannot risk the AI "inventing" new financial terms. A low but non-zero $T$ adds subtle linguistic variety without losing factual grounding.
+
+- **$T=0.7$ — The "Advisor" (RetireIQ Standard Chat)**
+    - *When*: General dialogue between a user and their RetireIQ advisor.
+    - *Why*: **The Human Factor**. At $T=0.7$, the model uses natural sentence structures and varied vocabulary, making RetireIQ feel like a trusted human advisor. This is the balance point between creativity and accuracy — known in the industry as the "Safe Sampling Zone."
+
+- **$T=1.0+$ — The "Poet" (Creative Tasks)**
+    - *When*: "Generate 10 unique marketing names for a new retirement fund."
+    - *Why*: We want the model to explore the "Long Tail" of its vocabulary. High temperature flattens the probability distribution, allowing surprising, novel tokens to emerge.
 
 > [!IMPORTANT]
-> **Expert Pro-Tip: Hallucination Risk**
-> As $T$ increases, the probability of **Hallucination** increases linearly. In "Bank-Grade" systems, we rarely exceed $0.7$ to ensure that creativity never overrides factual integrity.
+> **Expert Warning: The Hallucination Gradient**
+> As $T$ increases from 0 → 1, hallucination risk increases non-linearly. In "Bank-Grade" systems like RetireIQ, we hard-cap at $T=0.7$ for all user-facing responses. Financial advice that sounds creative but is factually wrong is far more dangerous than advice that sounds repetitive but is correct.
 
 ---
 
 ## 🧠 Module 2: The Vector Mind (Geometry vs. Keywords)
 
-### 2.1 The Case Study: "Pension" vs. "Retirement"
-A standard database search for "Retirement" is literal. If you have a document about "Pension Savings" but not the word "Retirement," a standard search fails. This is why RetireIQ uses **Semantic (Geometric) Search**.
+### 2.1 The Problem: Semantic vs. Lexical Search
+A standard database `LIKE '%retirement%'` query fails if your document uses "pension savings" instead. **This is the core problem RAG solves**.
 
-### 2.2 Embeddings & High-Dimensional Space
-We use models like `all-minilm` to transform text into a **high-dimensional vector** (e.g. 384 numbers). 
-- **The Manifold**: Think of the AI's mind as a map. "Pension" and "401k" are geometrically adjacent (low distance), even if they share zero characters.
+A user asking *"How much can I put into my pension this year?"* must match against a document containing *"Annual 401k contribution limits for pre-retirees..."* — zero shared keywords, identical semantic intent.
 
-### 2.3 RAG (Retrieval-Augmented Generation)
-This is how we give RetireIQ "Long-Term Memory."
-1. **The Ingestion**: We chunk your PDFs into small snippets.
-2. **The Embedding**: We turn those snippets into vectors and store them in **pgvector**.
-3. **The Retrieval**: When a user asks a question, we turn their question into a vector and find the "closest" geometry in the database.
+### 2.2 Embeddings & High-Dimensional Geometry
+We pass text through an **Encoder model** (e.g., `all-minilm`, `text-embedding-004`) and receive a vector of ~384–3072 floating point numbers.
+
+**The Geometric Insight**: Similar meanings cluster in high-dimensional space. The vector for "pension" is geometrically close (small cosine distance) to "401k" even though the two words share no characters.
+
+$$\text{Cosine Similarity} = \frac{A \cdot B}{||A|| \cdot ||B||}$$
+
+This is how `knowledge_service.py` finds relevant policy snippets — it computes this distance across every stored vector.
+
+### 2.3 The Full RAG Pipeline
+
+```
+1. INGESTION TIME:
+   PDF/Policy Text
+       ↓  Chunk (512 tokens)
+   ["Fixed income fund risks...", "401k contribution limits..."]
+       ↓  Embed (text-embedding-004 or all-minilm)
+   [[0.23, -0.41, 0.78, ...], [0.11, 0.09, -0.55, ...]]
+       ↓  Store
+   pgvector / Vertex AI Vector Search
+
+2. QUERY TIME:
+   User Question → Embed → Query Vector
+       ↓  Cosine Distance Search (HNSW)
+   Top-K nearest chunks
+       ↓  Inject into prompt
+   Grounded, factual LLM response
+```
+
+### 2.4 Search Engineering: HNSW Indexing
+Searching linearly through 1 million vectors is $O(n)$ — too slow for a real-time chatbot. **HNSW (Hierarchical Navigable Small Worlds)** reduces this to approximately $O(\log n)$ by building a multi-layer graph where each node connects to its nearest neighbors.
+
+**Live Implementation**: [knowledge_service.py](../app/services/knowledge_service.py) — `query_knowledge()` uses pgvector's `cosine_distance` operator, backed by an HNSW index in PostgreSQL.
 
 > [!TIP]
-> **RetireIQ Rationale: Why RAG?**
-> RAG allows us to keep our models "Small and Smart" (Local Ollama) while still having access to millions of "Big Data" documents.
-
-### 2.4 Search Engineering: HNSW & Vector Indexing
-Searching through 1 million vectors linearly is $O(n)$—too slow for a chatbot. Expert systems use **HNSW (Hierarchical Navigable Small Worlds)**.
-
-**Live Implementation: `knowledge_service.py`**
-In [/knowledge_service.py](../app/services/knowledge_service.py), we handle these embeddings and vector storage logic.
+> **RetireIQ Rationale: Why pgvector and not a dedicated vector DB?**
+> We keep vectors in the same PostgreSQL instance as our users and conversations. This allows us to do **filtered similarity search** ("find the most similar policy snippet *for this specific product tier*") using SQL `WHERE` clauses alongside vector distance — something standalone vector DBs make complex.
 
 ---
 
 ## 🧠 Module 3: The Retrieval Paradox (RAG vs. Long-Context)
 
-With the rise of "Infinite Context" models (like Gemini 1.5 Pro with its 2M context), many ask if RAG is dead. In a "Bank-Grade" system, the answer is a resounding **No**. This module explores why retrieval remains the primary performance and cost lever.
+With the rise of "Infinite Context" models (Gemini 1.5 Pro supports 2M tokens), many ask: **Is RAG dead?** In a "Bank-Grade" system, the answer is a resounding **No**. This module explains why retrieval remains the dominant cost and performance lever.
 
-### 3.1 The "Token Tax" (Latency and Cost)
-Processing 1 million tokens every time a user asks a question is computationally expensive and slow. RetireIQ optimizes for **Latency**—RAG retrieves only the 1% of data that matters, keeping response time <2 seconds.
+### 3.1 The "Token Tax" (Latency and Cost at Scale)
+
+Processing 500,000 tokens on every user message:
+- **Latency**: Even at 2ms/1k tokens, that's 1 full second just on input processing.
+- **Cost**: Gemini 1.5 Pro charges ~$3.50 per 1M input tokens. 10,000 users × 500k tokens = **$17,500/day**.
+
+RAG retrieves only the top-5 relevant chunks (~2,500 tokens): **Cost: ~$0.009 per query**.
 
 ### 3.2 The "Lost in the Middle" Phenomenon
-LLM performance degrades as context length increases. Models excel at identifying information at the very beginning or end of a prompt but often "drift" or fail when the answer is buried in the middle of 500k+ tokens.
-- **Expert Tactic**: Use RAG as a **Spotlight**. By providing a "Curated" context of 10 relevant snippets, we ensure the agent's attention is 100% focused on the correct facts.
+Stanford NLP research (Liu et al., 2023) showed LLM performance **degrades significantly** when the relevant answer is in the *middle* of a long context. Models reliably find information at the very beginning and end but "drift" or ignore content buried in the middle of 500k+ tokens.
 
-### 3.3 Dynamic Policy & Access Control
-Banking regulations change daily. RAG allows us to update one row in [knowledge.py](../app/models/knowledge.py) for instant updates. It also provides **Security** by filtering data at the Retrieval Layer, preventing shared context bleed between users.
+**RAG as a Spotlight**: By providing only 5–10 curated, highly relevant snippets, we ensure the model's full attention mechanism is focused precisely on the facts that matter.
 
-### 3.4 The "Hybrid" Strategy Matrix
-The "Expert Standard" is a hybrid architecture:
+### 3.3 The Expert Strategy Matrix
 
-| Feature | Long-Context Only (2M+) | Hybrid RAG (The RetireIQ Way) |
-| :--- | :--- | :--- |
-| **Cost** | 💸 Exponential with data size | 💰 Linear and predictable |
-| **Speed** | 🐢 Slow (high latency) | ⚡ Fast (pinpoint retrieval) |
-| **Accuracy** | 📉 Drifts in "The Middle" | 🎯 High precision via reranking |
-| **Privacy** | 🔓 Risk of context bleed | 🔒 DB-level boundaries |
+| Feature | Long-Context Only | RAG-First (The RetireIQ Way) | Hybrid (Best of Both) |
+| :--- | :--- | :--- | :--- |
+| **Cost** | 💸 Exponential | 💰 Predictable | 💰 Optimized |
+| **Speed** | 🐢 High latency | ⚡ Fast | ⚡ Fast + Smart Cache |
+| **Accuracy** | 📉 Drifts in the middle | 🎯 High precision | 🎯 Highest precision |
+| **Privacy** | 🔓 Context bleed risk | 🔒 DB-level boundaries | 🔒 Isolated |
+| **Freshness** | 📅 Model cutoff only | ✅ Real-time via DB | ✅ Real-time |
 
-> [!IMPORTANT]
-> **Expert Pro-Tip: The Librarian Metaphor**
-> RAG is the **Librarian** who knows where every book is. The Context Window is the **Reading Desk**. Even if you have a massive desk, you still need the librarian to bring you the *right* books, or the desk becomes a cluttered, unusable mess.
+> [!NOTE]
+> **RetireIQ Hybrid Pattern**: We use RAG for standard knowledge queries and **Vertex AI Context Caching** (Module 12) for large, stable policy documents that are accessed many times per hour. This gives us RAG's precision with context caching's near-zero repeated token cost.
 
 ---
 
 ## 🏗️ Module 4: Multi-Agent Systems (The Collaborative Brain)
 
-Moving beyond a "Single-Bot" architecture is the key to building specialized financial intelligence. We use a **MAS (Multi-Agent System)** to distribute complexity.
+Moving beyond a "Single-Bot" architecture is the key to building specialized financial intelligence.
 
-### 3.1 The ReAct Pattern (Reason + Act)
-In RetireIQ, our agents don't just guess; they perform **ReAct** loops. 
+### 4.1 Why Single-Agent Fails at Scale
 
-### 3.2 The Orchestrator / Dispatcher Pattern
-We don't ask one bot to do everything. We use a **Semantic Router** (The Dispatcher) to identify the user's intent:
-- User: *"What's my balance?"* -> Routed to **Portfolio Agent**.
-- User: *"Sell 10 shares of Apple"* -> Routed to **Transaction Agent**.
-- User: *"What is a 401k?"* -> Routed to **Knowledge Agent**.
+A single agent given a massive system prompt faces:
+1. **Instruction Dilution**: A 10,000-token system prompt reduces effective attention on any single instruction.
+2. **Tool Confusion**: An agent with 50 tools available has high probability of calling the wrong one.
+3. **Context Pollution**: A trading instruction in one part of the conversation affects a retirement planning answer later.
 
-> [!IMPORTANT]
-> **RetireIQ Rationale: Why Dispatch?**
-> This dispatcher approach prevents "Instruction Bleed." A Knowledge Agent doesn't need to know how to sell stocks, and a Transaction Agent doesn't need to know the definition of a 401k.
+### 4.2 The ReAct Pattern (Reason + Act)
 
-### 3.3 Advanced Knowledge: Tool-use (Function Calling)
-When an LLM "calls a tool," it generates a specific JSON output based on a schema we provide. 
+The standard agentic reasoning loop:
+
+```
+THOUGHT: "The user wants to know their portfolio balance."
+ACTION: call_tool("get_portfolio", {"user_id": "u123"})
+OBSERVATION: {"cash": 12000, "equity": 45000, "bonds": 20000}
+THOUGHT: "I have the data. I'll format a friendly summary."
+RESPONSE: "Your current portfolio is valued at $77,000 across..."
+```
+
+RetireIQ's **Historian** (`audit_service.py`) records every single step in this loop into the `agent_audit` table.
+
+### 4.3 The Orchestrator / Dispatcher Pattern
+
+Rather than one agent trying to handle all domains, we use a **Semantic Router** that operates as the "Air Traffic Controller":
+
+```
+User Message → [Dispatcher: Gemini Flash, T=0.0]
+                      ↓ JSON classification
+               {intent: "KNOWLEDGE_BASE", confidence: 0.97}
+                      ↓
+               [Scholar Agent: Gemini Pro + RAG]
+                      ↓
+               Grounded policy answer
+```
+
+**Instruction Blast Isolation**: The Scholar Agent's system prompt only includes *knowledge retrieval* instructions. It has no awareness of trading tools. This reduces hallucination probability and attack surface simultaneously.
+
+**Live Implementation**: [orchestrator.py](../app/services/orchestrator.py) — The `dispatch()` method routes to `_handle_knowledge_query()`, `call_agent_api()`, or returns `None` (falls back to general LLM).
+
+### 4.4 Intent Domain Taxonomy
+
+| Intent | Agent | Key Signal Words |
+|--------|-------|-----------------|
+| `KNOWLEDGE_BASE` | Scholar (RAG) | "What is", "explain", "how does", "policy" |
+| `PORTFOLIO_ANALYSIS` | Analyst | "balance", "performance", "projection", "goal" |
+| `TRANSACTIONAL` | Executor | "buy", "sell", "transfer", "register", "change" |
+| `GENERAL` | General LLM | "hello", "thanks", "what can you do" |
+
+### 4.5 Advanced: Tool-Use (Function Calling)
+
+When an LLM "calls a tool," it generates a structured JSON output matching a schema we defined:
+
+```json
+{
+  "tool": "get_account_balance",
+  "arguments": { "user_id": "u123", "account_type": "equity" }
+}
+```
+
+The agent runtime intercepts this, executes the function, and feeds the result back as an **OBSERVATION**. This is the foundation of all agentic behavior.
 
 ---
 
-## 🛡️ Module 5: Mission-Critical Security (The PII Proxy)
+## 🛡️ Module 5: Mission-Critical Security (The PII Proxy — The Guardian Agent)
 
-### 5.1 The De-identification Lifecycle (The RetireIQ Firewall)
-To ensure zero data leaks to external LLMs (OpenAI/Azure), we solve the "Bank Data Paradox" with a 3-step transformation:
+In a financial system, sending raw user data to an external LLM (OpenAI, Gemini, etc.) is a regulatory and trust violation. The "Bank Data Paradox" is: *"The AI needs context to give good advice, but it must never see real PII."*
 
-1. **Anonymization (Entry)**: Our proxy uses **NER (Named Entity Recognition)** models and **Custom Regex** to identify identities.
-    - **SSNs**: `\b\d{3}-\d{2}-\d{4}\b`
-    - **Account Numbers**: `\b[A-Z]{2,4}\d{5,12}\b`
-2. **The Prediction (External)**: The LLM works *only* with surrogate tokens like `[CLIENT_NAME_1]`.
-3. **Re-hydration (Exit)**: Before the response reaches the user, the proxy "swaps" the tokens back using a secure, local mapping.
+### 5.1 The De-identification Lifecycle (The "Ghost Map" Pattern)
 
-### 5.2 Local-First Privacy (The Ollama Wall)
-By using **Ollama** locally, we create a "Biological Boundary." Data stays on your machine.
+We solve this with a symmetric transformation proxy:
 
-**Live Implementation: `pii_sanitizer.py`**
-In [/pii_sanitizer.py](../app/utils/pii_sanitizer.py), we use **Microsoft Presidio** to handle this redaction logic.
+```
+STEP 1: ANONYMIZE (Entry Firewall)
+─────────────────────────────────
+Raw:   "Hi, I'm John Smith (SSN: 123-45-6789). What are my options?"
+Ghost: "Hi, I'm <PERSON_0> (SSN: <SSN_0>). What are my options?"
+Map:   { "<PERSON_0>": "John Smith", "<SSN_0>": "123-45-6789" }
+
+STEP 2: LLM PREDICTION (External Call)
+────────────────────────────────────────
+LLM sees ONLY: "Hi, I'm <PERSON_0> (SSN: <SSN_0>). What are my options?"
+LLM responds:  "Hello <PERSON_0>! Based on your profile, I recommend..."
+
+STEP 3: RE-HYDRATION (Exit Reconstruction)
+──────────────────────────────────────────
+Response: "Hello <PERSON_0>! Based on your profile, I recommend..."
+Output:   "Hello John Smith! Based on your profile, I recommend..."
+```
+
+The `mapping` dictionary (the "Ghost Map") never leaves the RetireIQ server. It lives only in memory for the duration of a single request.
+
+### 5.2 Entity Recognition: The Two-Layer Approach
+
+**Layer 1 — Statistical NER (Presidio/spaCy)**: Detects `PERSON`, `LOCATION`, `EMAIL_ADDRESS`, `PHONE_NUMBER` using ML models trained on millions of annotated examples.
+
+**Layer 2 — Domain-Specific Regex**: Catches financial entities that general NER models miss:
+```python
+# Custom SSN Pattern (Bank-Grade)
+ssn_pattern = Pattern(name="ssn_pattern", regex=r"\b\d{3}-\d{2}-\d{4}\b", score=0.5)
+
+# Account Number Pattern (AU/UK/US bank format)
+account_pattern = Pattern(name="account_pattern", regex=r"\b[A-Z]{2,4}\d{5,12}\b", score=0.6)
+```
+
+### 5.3 Security Properties
+
+1. **Session Isolation**: `sanitizer.clear_mapping()` is called at the start of *every* request. There is zero cross-session ghost map contamination.
+2. **Sort-by-length De-anonymization**: We sort placeholders by string length (descending) before re-hydration to prevent `<PERSON_10>` being partially matched by `<PERSON_1>`.
+3. **Local-First Option**: When `LLM_PROVIDER=ollama`, all data stays on-premise. The PII proxy becomes a belt-and-suspenders defensive measure.
+
+**Live Implementation**: [pii_sanitizer.py](../app/utils/pii_sanitizer.py)
 
 ---
 
 ## ⚖️ Module 6: Evaluation (The Hallucination Firewall)
 
-### 6.1 The Hallucination Case Study
-A hallucination is when an LLM confidently states a fact that is false (e.g., *"The fixed income fund yield is 500%"*). In RetireIQ, we use the **RAGAS (RAG Assessment)** framework to measure performance.
+### 6.1 Why AI Testing is Different from Software Testing
 
-### 6.2 Expert Tactic: Fact-Checking Agents
-To ensure "Bank-Grade" accuracy, we use a secondary **Validator Agent**. It receives the response and the source documents, then performs a "Cross-Check". 
+Traditional software is **deterministic**: given the same input, `add(2, 3)` always returns `5`.
 
----
+An LLM is **probabilistic**: given "What's the stock market outlook?", it returns a different answer every single time — and sometimes invents facts.
 
-## 🚀 Module 7: The Path to Enterprise Scale (GCP & Vertex AI)
+This is why RetireIQ treats **>90% code coverage** as a non-negotiable hard floor.
 
-### 7.1 Scaling RetireIQ with Vertex AI
-While we develop locally with **Ollama**, a production system needs the massive scale of **Google Cloud (GCP)**.
-- **Context Caching**: For massive bank policies, we cache the vector state in Vertex AI to reduce latency.
-- **Controlled Output**: We enforce **JSON Schema** to ensure 100% reliable system integration.
+### 6.2 The RAGAS Framework (RAG Assessment Score)
 
----
+For evaluating our retrieval quality, we use the **RAGAS** metric suite:
 
-## 🧪 Module 8: AI Testing & Evaluation (The Reliability Barrier)
+| Metric | What it Measures | Target |
+|--------|-----------------|--------|
+| **Faithfulness** | Is the response grounded in the retrieved context? | > 0.85 |
+| **Answer Relevancy** | Does the answer actually address the question? | > 0.80 |
+| **Context Recall** | Did retrieval find all the necessary information? | > 0.75 |
+| **Context Precision** | Was the retrieved context actually relevant? | > 0.80 |
 
-Traditional software is **Deterministic**. AI is **Probabilistic**. This is why RetireIQ treats **95% Code Coverage** as a "Hard Requirement" for production.
+### 6.3 The RetireIQ Testing Philosophy: Mock-First
 
-### 8.1 The Power of Mocking
-To achieve our high coverage, we use `unittest.mock` to simulate LLM responses. This allows us to test how RetireIQ handles:
-1. **Valid JSON Intent**: Does the system call the right agent?
-2. **Malformed JSON**: Does the system fail gracefully?
-3. **Empty Responses**: Does the system ask the user for clarification?
+We use `unittest.mock.patch` to isolate every external dependency, enabling deterministic assertions:
+
+```python
+# Pattern: Mock the LLM, test the business logic
+@patch("app.services.llm_service.dispatcher.dispatch", return_value=None)
+@patch("app.services.llm_service.call_azure_openai_api_with_key")
+def test_generate_ai_response(mock_azure, mock_dispatch):
+    mock_azure.return_value = "Safe investment advice"
+    result = generate_ai_response("What should I invest in?")
+    assert result == "Safe investment advice"
+    mock_dispatch.assert_called_once()  # Verify dispatch was invoked
+```
+
+**Why this works**: We control the LLM's "answer," so our assertions test the *orchestration logic* — not the model's creativity. The model's quality is tested separately (via RAGAS on a held-out dataset), keeping concerns cleanly separated.
+
+### 6.4 Test Taxonomy (The 3-Layer Pyramid)
+
+```
+         [E2E / Integration Tests]
+              - test_routes.py
+              - Full request lifecycle
+         ─────────────────────────────
+        [Service Unit Tests]
+         - test_orchestrator.py
+         - test_llm_service.py
+         - test_sse_service.py
+         ─────────────────────────────────────
+    [Model / Utility Tests]
+     - test_memory_service.py
+     - test_vertex_service.py
+     - Pure function, no network calls
+```
 
 > [!IMPORTANT]
 > **The Golden Rule of AI Engineering**
-> "If you can't test it, don't deploy it." RetireIQ's stability is built on our **Testing Suite**, not just the model's intelligence.
+> "If you can't test it, don't deploy it." RetireIQ's stability is built on 74 passing tests, not just the model's intelligence. New features **must** include tests for both the success path and every error path.
 
 ---
 
-*This concludes the core curriculum overhaul. RetireIQ is your sandbox to practice these implementations.*
+## 🚀 Module 7: Scaling LLM Platforms (GCP, Azure, Ollama)
+
+### 7.1 The Provider Abstraction Principle
+
+A production AI system should be **provider-agnostic**. A business decision (switch from Azure to GCP) should not require rewriting application code. In RetireIQ, we achieve this with an environment variable strategy:
+
+```
+LLM_PROVIDER=vertex_ai  →  call_vertex_ai_api()
+LLM_PROVIDER=azure_openai  →  call_azure_openai_api_with_key()
+LLM_PROVIDER=openai  →  call_openai_api()
+LLM_PROVIDER=ollama  →  call_ollama_api()
+```
+
+All paths produce the same output: a string. The rest of the application never knows which provider was used.
+
+### 7.2 Azure OpenAI vs. OpenAI Direct
+
+| Feature | OpenAI Direct | Azure OpenAI |
+|---------|--------------|-------------|
+| **Data Residency** | US by default | Your chosen Azure region |
+| **Compliance** | SOC 2 | SOC 2, ISO 27001, HIPAA, **PCI DSS** |
+| **Network Security** | Public internet | Private VNet integration |
+| **Pricing** | Pay-per-token | Pay-per-token + Enterprise discounts |
+
+**RetireIQ Default = `azure_openai`** because financial data requires PCI DSS compliance, which is only available on Azure's hosted OpenAI deployments.
+
+### 7.3 Ollama: Zero-Cost Local LLMs
+
+Ollama runs open-source models (Llama3, Mistral, Phi-3) locally, making it ideal for:
+- **Development**: No cloud bill while coding.
+- **Privacy Testing**: Verify the PII proxy works without any external call.
+- **Offline Environments**: Air-gapped financial institutions.
+
+```bash
+# Pull the two models RetireIQ needs
+ollama pull llama3       # Chat / Reasoning
+ollama pull all-minilm   # Embeddings (for RAG)
+```
+
+---
+
+## 🧪 Module 8: AI Testing Patterns (The Reliability Barrier)
+
+### 8.1 `patch.multiple()` — The MAS Testing Pattern
+
+When a service depends on multiple mocked components simultaneously, nested `with patch()` blocks become unreadable. The expert pattern is `patch.multiple()`:
+
+```python
+# Testing Vertex AI when SDK is not installed (GenerativeModel = None)
+with patch.multiple(
+    'app.services.llm_service',
+    vertexai=MagicMock(),            # Make SDK "available"
+    GenerativeModel=mock_model_class, # Replace None with our mock
+    GenerationConfig=MagicMock(),    # Replace None config class
+):
+    response = call_vertex_ai_api("Hello", "gemini-1.5-pro")
+    assert response == "GCP Response"
+```
+
+**The Why**: The Vertex AI SDK isn't installed in local dev. SDK classes default to `None`. Standard `patch()` replaces `None` with a Mock, but the function still calls `None(...)` (not the mock) if imported at module load time. `patch.multiple` patches the entire module namespace atomically.
+
+### 8.2 Testing MAS Architecture: The Cascade Problem
+
+In a multi-agent system, a bug in a lower-level service (e.g., `audit_service`) can fail tests for a higher-level service (`orchestrator`). The solution is **explicit layer mocking**:
+
+```python
+# Test ONLY the orchestrator's routing logic
+# Mock the audit service so DB errors don't cascade into orchestrator tests
+with patch.object(dispatcher, '_classify_intent', return_value=mock_intent):
+    with patch.object(dispatcher, '_handle_knowledge_query', return_value="result"):
+        response = dispatcher.dispatch("What is a 401k?", {}, [], "session-1")
+```
+
+---
+
+## 🧠 Module 9: Multi-Agent Orchestration in Depth (The Dispatcher Pattern)
+
+### 9.1 The Full Dispatch Lifecycle
+
+```python
+# orchestrator.py — The full flow
+def dispatch(self, sanitized_message, user_profile, history, conversation_id):
+    # 1. Log to Historian (THOUGHT)
+    historian.log_step(session_id=conversation_id, agent_name="Dispatcher",
+                       step_type="THOUGHT", content="Resolving intent...")
+
+    # 2. Fast classification (Gemini Flash, T=0.0)
+    intent_data = self._classify_intent(sanitized_message, user_profile, history)
+
+    # 3. Log classification result (ACTION)
+    historian.log_step(session_id=conversation_id, agent_name="Dispatcher",
+                       step_type="ACTION", content=f"Intent: {intent_data['intent']}")
+
+    # 4. Route to specialist
+    if intent_data['intent'] == 'KNOWLEDGE_BASE':
+        return self._handle_knowledge_query(sanitized_message, conversation_id)
+    elif intent_data['intent'] in ['TRANSACTIONAL', 'PORTFOLIO_ANALYSIS']:
+        return call_agent_api(intent_data, user_profile.get("id"))
+    return None  # Fall through to general LLM
+```
+
+### 9.2 Classification Prompt Engineering
+
+The Dispatcher's classification prompt is deliberately **constrained**:
+
+```
+You are the RetireIQ Dispatcher Agent. Your ONLY job is to classify the user's intent
+into exactly one of these categories:
+1. KNOWLEDGE_BASE: Questions about retirement policies...
+2. PORTFOLIO_ANALYSIS: Requests for account balances...
+3. TRANSACTIONAL: Requests to buy/sell assets...
+4. GENERAL: Greetings, thanks, or unrelated chit-chat.
+
+Output ONLY a JSON object:
+{ "intent": "CATEGORY", "sub_intent": "brief description", "confidence": 0.0-1.0 }
+```
+
+**Why `T=0.0` here?**: We need deterministic JSON output. At `T=0.0`, the model will always produce the same classification for the same message — making the system testable and predictable.
+
+### 9.3 Confidence Thresholds (Future Enhancement)
+
+A production-grade version adds confidence routing:
+- `confidence > 0.85`: Route as classified.
+- `0.60 < confidence < 0.85`: Route but flag for human review.
+- `confidence < 0.60`: Ask the user for clarification before routing.
+
+---
+
+## 🏛️ Module 10: The Historian Pattern (Audit Trails & Compliance)
+
+### 10.1 Why Standard Logging Fails for AI
+
+Standard logging captures *what happened*. The Historian captures *why the AI decided what it decided*. This distinction is critical for:
+- **Financial Compliance**: "Show me every reason this portfolio recommendation was made."
+- **Model Debugging**: "Why did the agent classify that as TRANSACTIONAL instead of KNOWLEDGE_BASE?"
+- **GDPR Right-to-Explanation**: A customer's right to understand automated decisions.
+
+### 10.2 The AgentAudit Schema
+
+```python
+class AgentAudit(db.Model):
+    session_id   = db.Column(db.String(36), index=True)  # Links all steps for one request
+    agent_name   = db.Column(db.String(50))              # "Dispatcher", "Scholar", "Guardian"
+    step_type    = db.Column(db.String(20))              # "THOUGHT", "ACTION", "OBSERVATION", "RESPONSE"
+    content      = db.Column(db.Text)                    # The raw reasoning text
+    step_metadata= db.Column(JSON)                       # {"model": "gemini-flash", "latency_ms": 240}
+    created_at   = db.Column(db.DateTime)
+```
+
+**A complete audit trail for one request looks like:**
+
+```
+session_id: "conv-123"
+─────────────────────────────────────────────────────
+[Guardian]  THOUGHT     "Initializing PII sanitization..."
+[Guardian]  ACTION      "Anonymization complete. 2 entities masked."
+[Dispatcher] THOUGHT    "Resolving intent: 'What is a Roth IRA?'"
+[Dispatcher] ACTION     "Intent resolved: KNOWLEDGE_BASE (conf: 0.97)"
+[Scholar]    THOUGHT     "Searching knowledge base for: Roth IRA"
+[Scholar]    OBSERVATION "Found 3 relevant policy snippets."
+[Guardian]  RESPONSE    "Response de-anonymized and delivered."
+```
+
+### 10.3 Audit + SSE Integration
+
+The Historian's `log_step` simultaneously writes to DB **and** broadcasts to the SSE stream:
+
+```python
+# audit_service.py
+db.session.commit()
+sse_service.publish(session_id=session_id, event="agent_step",
+                    data={"agent": agent_name, "type": step_type, "content": str(content)})
+```
+
+This single function call achieves two goals:
+1. **Persistence**: Immutable compliance record in the database.  
+2. **Transparency**: Real-time Chain-of-Thought stream for the user interface.
+
+---
+
+## ⚡ Module 11: Real-time UX & Agentic Transparency (SSE)
+
+### 11.1 WebSockets vs. SSE vs. Polling
+
+| Mechanism | Direction | Complexity | Best For |
+|-----------|-----------|-----------|---------|
+| **Short Polling** | Client → Server (repeated) | Low | Simple status checks |
+| **Long Polling** | Server holds response | Medium | Near-real-time updates |
+| **WebSockets** | Bidirectional | High | Chat, games, collaborative apps |
+| **SSE (us)** | Server → Client (one-way) | **Low** | **Streaming AI reasoning steps** |
+
+**Why SSE for RetireIQ**: The agent's reasoning is inherently one-directional — the server pushes updates; the client only observes. SSE is the lowest-complexity mechanism that achieves this perfectly.
+
+### 11.2 The SSE Wire Protocol
+
+SSE events are newline-delimited plain text:
+
+```
+event: agent_step
+data: {"agent": "Dispatcher", "type": "THOUGHT", "content": "Resolving intent..."}
+
+event: agent_step
+data: {"agent": "Scholar", "type": "OBSERVATION", "content": "Found 3 snippets."}
+
+event: final_response
+data: {"content": "Based on our policies, a Roth IRA...", "message_id": 42}
+
+event: ping
+data: {"time": 1712088000.0}
+```
+
+The trailing double newline (`\n\n`) is the SSE **event boundary**. The client's `EventSource` API handles parsing automatically.
+
+### 11.3 The Thread-Safe Queue Architecture
+
+The SSE service uses Python's `queue.Queue` to bridge the background agent thread and the streaming response:
+
+```
+[Background Thread: Agent Worker]
+        ↓ q.put(event)
+   [queue.Queue]  ← Thread boundary (thread-safe)
+        ↓ q.get(timeout=20)
+[Flask Response Generator: SSE subscriber]
+        ↓ yield "event: ...\ndata: ...\n\n"
+  [Client EventSource]
+```
+
+**The Heartbeat**: If the queue is empty for 20 seconds, a `ping` event is yielded to prevent proxy/load-balancer connection timeouts. This is critical in production where Nginx/Cloud Run have default 30-second idle connection timeouts.
+
+**Live Implementation**: [sse_service.py](../app/services/sse_service.py)
+
+---
+
+## ☁️ Module 12: Enterprise Scaling & Vertex AI (Context Caching)
+
+### 12.1 Model Tiering: The Cost-Performance Matrix
+
+Not every task requires a frontier model. We implement **Tiered Model Selection**:
+
+| Task | Model | Why |
+|------|-------|-----|
+| Intent Classification (Dispatcher) | Gemini 1.5 **Flash** | Sub-100ms, ~50x cheaper than Pro |
+| Policy Grounded Q&A (Scholar) | Gemini 1.5 **Pro** | Superior multi-document reasoning |
+| Semantic Embeddings (RAG) | text-embedding-004 | Purpose-built, lowest cost per token |
+| General Chat (Fallback) | Gemini 1.5 **Pro** | Full reasoning capability |
+
+**RetireIQ Default Logic** (`llm_service.py`):
+```python
+provider = os.getenv("LLM_PROVIDER", "azure_openai")
+default_model = "gemini-1.5-pro" if provider == "vertex_ai" else "gpt-4o"
+model = os.getenv("LLM_MODEL_NAME") or default_model
+```
+
+### 12.2 Vertex AI Context Caching: The 90% Token Reduction
+
+For a financial institution with 10,000+ pages of policy documents, sending the full corpus with every request is cost-prohibitive.
+
+**The Math:**
+- Without caching: `50,000 tokens × $3.50/1M = $0.175 per query`
+- With caching: `50 tokens + cache storage = ~$0.007 per query`
+- **Saving: 96%**
+
+**The Implementation:**
+```python
+# VertexCacheManager (knowledge_service.py)
+cache = caching.CachedContent.create(
+    model_name="gemini-1.5-pro",
+    contents=[large_policy_text],
+    system_instruction="You are a RetireIQ policy expert...",
+    ttl=3600,  # 1 hour TTL
+)
+# Cache ID returned: "projects/.../cachedContents/abc123"
+# All subsequent requests reference this ID — only the user question is sent
+```
+
+### 12.3 Cache TTL Strategy: The Break-Even Analysis
+
+Caches have a storage cost even when not in use. The optimal TTL depends on query frequency:
+
+```
+Token Input Cost = $3.50 / 1M tokens
+Cache Storage = $0.02 / hour / 1M tokens
+
+Break-Even:
+  If hit_rate × input_saved > storage_cost
+  If 2+ queries/hour on the same document → cache is profitable
+```
+
+**RetireIQ Strategy**:
+- Popular policy documents (accessed 100+/day) → `ttl=86400` (24h cache)
+- Niche documents → Standard RAG (no cache)
+- User-personalized context → No cache (user-specific, no sharing)
+
+**Live Implementation**: [knowledge_service.py](../app/services/knowledge_service.py) → `VertexCacheManager`
+
+---
+
+*This concludes the Complete AI Engineering Series. RetireIQ is the living laboratory where every module above has a corresponding implementation you can run, modify, and experiment with. The goal was never just to build a chatbot — it was to teach the engineering principles that make AI systems trustworthy at scale.*

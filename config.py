@@ -24,3 +24,9 @@ class Config:
     LLM_MODEL_NAME = os.environ.get("LLM_MODEL_NAME", "llama3")
     LLM_TEMPERATURE = float(os.environ.get("LLM_TEMPERATURE", "0.7"))
     OLLAMA_BASE_URL = os.environ.get("OLLAMA_HOST", "http://host.docker.internal:11434")
+
+    # GCP Vertex AI Settings
+    GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
+    GCP_REGION = os.environ.get("GCP_REGION", "us-central1")
+    VERTEX_AI_MODEL_PRO = os.environ.get("VERTEX_AI_MODEL_PRO", "gemini-1.5-pro")
+    VERTEX_AI_MODEL_FLASH = os.environ.get("VERTEX_AI_MODEL_FLASH", "gemini-1.5-flash")
