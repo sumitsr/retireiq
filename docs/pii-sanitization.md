@@ -1,5 +1,11 @@
 # Enterprise-Grade PII Sanitization: The Guardian Pattern
 
+## Status: 🛡️ **v1.0 Production-Ready (Bank-Grade)**
+
+RetireIQ implements a dual-layer PII sanitization strategy:
+1.  **The Guardian (Local)**: Symmetrical anonymization using Microsoft Presidio.
+2.  **The Shield (LLM-Gate)**: Intent-based safety classification.
+
 For modern fintech applications, data privacy is non-negotiable. RetireIQ employs a **Guardian Agent** (PIISanitizer) that acts as a bi-directional transparent proxy between our secure server and external LLM providers.
 
 ## Core Responsibilities

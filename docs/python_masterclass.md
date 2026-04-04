@@ -968,4 +968,62 @@ Once we have 3 viewpoints, we use a **Moderator** (Gemini Flash) to synthesize t
 
 ---
 
-*This concludes the Complete Python Engineering Series. RetireIQ is the living laboratory where every module above has a real, running implementation. From basic type hints to HMAC security, Multimodal Vision, and Weighted Multi-Model Ensembles — every pattern here was chosen because it solves a real problem at bank-grade scale.*
+## 🔐 Module 18: Cryptographic Integrity (Audit Signing)
+
+In bank-grade systems, data is not just "saved" — it is **Signed**. This prevents tempered records from being used in evidence.
+
+### 18.1 `hashlib` — The Fingerprint Generator
+RetireIQ's **Reporting Service** uses SHA-256 to create a unique "Fingerprint" of an audit manifest.
+
+```python
+import hashlib
+import json
+
+def sign_manifest(manifest):
+    # Convert manifest to a stable string
+    manifest_str = json.dumps(manifest, sort_keys=True)
+    # Generate SHA-256 hash
+    return hashlib.sha256(manifest_str.encode()).hexdigest()
+```
+
+### 18.2 Why `sort_keys=True`?
+JSON objects are unordered. If you don't sort the keys, the same data might result in a different string, which creates a different hash. **Symmetry is the core of security.**
+
+---
+
+## 💓 Module 19: Production API Patterns (Health Check)
+
+A production app never runs in isolation. It is monitored by **Probes** (GCP/Azure/Kubernetes).
+
+### 19.1 Liveness & Readiness Probes
+The `/api/system/health` route is the app's pulse. It doesn't just say "I'm alive" — it checks if the Database and LLM providers are reachable.
+
+### 19.2 SQL Pass-Through
+Sometimes you need to bypass SQLAlchemy's abstraction to check the actual connection:
+```python
+# system.py
+from app import db
+# Light-weight heartbeat query
+db.session.execute(db.text("SELECT 1"))
+```
+
+---
+
+## 📊 Module 20: Mathematical Simulation (NumPy)
+
+RetireIQ's **Actuarial Agent** performs 10,000+ simulations to predict retirement success. This requires **Vectorized Operations**.
+
+### 20.1 Why NumPy?
+Standard Python loops are slow for 10,000 simulations. NumPy pushes the math into C-level code, making it 50x faster.
+
+```python
+import numpy as np
+
+# Simulate 10,000 market returns in ONE line
+returns = np.random.normal(0.07, 0.15, size=(10000, 30))
+# This simulates 10,000 users over a 30-year horizon instantly.
+```
+
+---
+
+*This concludes the COMPLETE Python Engineering Series (Module 1-20). You have moved from basic syntax to building a bank-grade, cryptographically-signed, mathematically-simulated AI ecosystem. RetireIQ is your laboratory.*

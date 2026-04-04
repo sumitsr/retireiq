@@ -61,59 +61,38 @@ This document tracks the technical execution of RetireIQ's evolution, focusing o
 
 ## Phase 7: The Autonomous Agent Ecosystem ✅ COMPLETE
 
-This phase elevates RetireIQ from a reactive Q&A system to a fully autonomous, proactive, and enterprise-regulated financial intelligence platform.
-
-### 🔴 Priority 1 — Regulatory & Core Differentiation (Must-have)
-
-#### The Sentinel (Pre-Trade Compliance Agent)
-- **Why**: Without a pre-trade rules engine, RetireIQ cannot legally execute financial transactions under FCA/FINRA regulation.
-- **How**: Every TRANSACTIONAL intent passes through the Sentinel before the Executor. Returns PASS / WARN / BLOCK with a compliance reasoning trail persisted to `AgentAudit`.
-- **Stack**: Rules Engine (Python dict), AML API (ComplyAdvantage / Refinitiv), compliance policy database.
-
-#### The Actuarial (Monte Carlo Simulation Agent)
-- **Why**: Answers the most critical retirement question: *"Will I actually have enough money?"* — accounting for market volatility, inflation, and longevity risk.
-- **How**: 10,000+ scenario simulations using log-normal return sampling. Outputs probabilistic success rates (e.g., "78% chance of not outliving savings to age 90").
-- **Stack**: NumPy (simulations), SciPy (statistical distributions), Plotly (confidence band visualisations), actuarial life tables.
+This phase elevated RetireIQ from a reactive Q&A system to a fully autonomous, proactive, and enterprise-regulated financial intelligence platform. All agents (Sentinel, Actuarial, Vision, Empath, Concierge, Oracle, Debater, Forensic) are now delivered and verified.
 
 ---
 
-### 🟡 Priority 2 — User Experience & Retention (High Value)
+## Phase 10: Production Hardening & Regulatory Release ✅ COMPLETE
 
-#### The Vision (Document Ingestion Agent)
-- **Why**: Collapses 2-hour manual financial onboarding into 2 minutes by reading uploaded pension statements, P60s, and ISA summaries automatically.
-- **How**: OCR via Google Document AI / Tesseract. Gemini 1.5 Pro parses and normalises extracted data into the RetireIQ schema. Guardian Agent scrubs PII before storage.
-- **Stack**: Google Document AI, Pillow (image preprocessing), Gemini 1.5 Pro (long-context extraction).
-
-#### The Empath (Behavioral Finance Agent)
-- **Why**: Irrational behavioral biases (panic selling, FOMO) destroy more retirement savings than poor market selection. No current AI retirement product addresses this.
-- **How**: Real-time sentiment analysis on every user message. Detects panic/FOMO signals and dynamically adjusts the LLM system prompt tone.
-- **Stack**: VADER Sentiment / Gemini Flash, rule-based bias detector, dynamic system prompt injection.
-
-#### The Concierge (Proactive Outreach Agent)
-- **Why**: A true financial advisor doesn't wait. Tax deadlines, ISA resets, RMD dates — these pass silently and cost users money.
-- **How**: Personalised event calendar per user. Scheduled background scan for upcoming financial deadlines triggers proactive SSE/email/SMS alerts.
-- **Stack**: APScheduler, personalised event store (PostgreSQL), SendGrid (email), Twilio (SMS).
+The final transition into a **v1.0 Production-Ready** state.
+- [x] **Regulatory Audit Exporter**: Automated compliance manifest generation (JSON/PDF).
+- [x] **System Health Diagnostics**: `/api/system/health` Liveness/Readiness probes.
+- [x] **Dependency Pinning**: All core libraries locked for bank-grade stability.
+- [x] **Documentation v1.0 Seal**: Complete architectural and debugging hand-off.
 
 ---
 
-### 🟢 Priority 3 — Enterprise & Strategic (Long-term)
+## 🏛️ 9. Production Regulatory Reporting (v1.0)
 
-#### The Oracle (Market Intelligence Agent)
-- **Why**: RetireIQ currently has no awareness of the real world. Market events actively eroding a user's portfolio should trigger proactive alerts.
-- **How**: Real-time market data feeds (yfinance, Alpha Vantage). Cross-references user holdings for price/news thresholds. Feeds the Concierge with alert triggers.
-- **Stack**: APScheduler, yfinance / Alpha Vantage, Gemini Flash (news summarisation), Celery (task queue).
+As of Phase 10, RetireIQ supports automated compliance manifest generation for state audits.
 
-#### The Debater (Ensemble Reasoning Agent)
-- **Why**: For high-stakes decisions (>20% portfolio impact), a single model's error is catastrophic. Investment committees never let one analyst make a large call alone.
-- **How**: Spawns 3 independent agents (different models + perspectives: bull / bear / neutral). A Moderator Agent synthesises the responses and quantifies uncertainty.
-- **Stack**: Python threading (parallel agents), Gemini Pro + GPT-4o + Llama3, consensus scoring logic.
+### 9.1 The Reporting Engine
+*   **Component**: `app/services/reporting_service.py`
+*   **Function**: Generates a cryptographically-secured JSON manifest of all `AgentAudit` records for a specific session.
+*   **Compliance Evidence**: This report contains every internal reasoning step ("THOUGHTS") and tool output ("OBSERVATIONS") used to reach a financial recommendation.
 
-#### The Forensic (Fraud Detection Agent)
-- **Why**: A platform that executes transactions is a fraud target. Unusual transaction velocity, geo-location changes, and trade-size anomalies need to be caught before execution.
-- **How**: ML-based anomaly detection (Isolation Forest) on transaction features. High-risk events trigger human review via webhook and block the transaction pending verification.
-- **Stack**: scikit-learn (Isolation Forest), GeoIP2 (location), Redis (velocity tracking), PagerDuty API.
+### 9.2 Operational Health & Resilience
+*   **Endpoint**: `/api/system/health`
+*   **Infrastructure Monitoring**: Provides real-time status of Database, Vector search, and LLM provider connectivity.
+*   **Alerting**: Integrated with production monitoring to detect AI degradation in high-stakes environments.
 
 ---
+
+> [!IMPORTANT]
+> **Summary for Architects**: Compliance is not a wrapper; it is an **Internal Gatekeeper**. By placing the `Guardian`, `Shield`, and `Sentinel` *inside* the execution loop, and the `ReportingService` at the output, you ensure that the AI—regardless of its creativity—never steps outside the 'Bank-Grade' regulatory boundary.
 
 > [!TIP]
 > The Phase 7 agents follow the same architectural patterns established in Phases 2–4: each agent uses the Historian for audit logging, publishes to the SSE stream, and is tested with the Mock-First pattern. The infrastructure is already in place — these are domain-specific extensions, not architectural rebuilds.

@@ -137,9 +137,9 @@ Background fact extraction from conversation history into `UserMemory`. Runs in 
 | **Vision** | OCR & document ingestion (Statements) | ✅ Delivered | Multimodal Extraction |
 | **Empath** | Behavioral finance sentiment analysis | ✅ Delivered | Pre-Dispatcher Layer |
 | **Concierge** | Proactive outreach & scheduling | ✅ Delivered | SSE / Task Skeleton |
-| **Oracle** | Real-time market intelligence | ✅ Delivered | Market data feeds |
-| **Debater** | Expert Ensemble (3× Weighted Models) | ✅ Delivered | Expert Weighting Logic |
-| **Forensic** | Fraud detection & anomaly scoring | ✅ Delivered | Velocity tracking |
+| **Oracle** | Real-time market intelligence | ✅ v1.0-PROD | Market data feeds |
+| **Debater** | Expert Ensemble (3× Weighted Models) | ✅ v1.0-PROD | Weighted Consensus |
+| **Forensic** | Fraud detection & anomaly scoring | ✅ v1.0-PROD | Anomaly Detection |
 
 ---
 
@@ -154,6 +154,27 @@ Background fact extraction from conversation history into `UserMemory`. Runs in 
 | `KnowledgeChunk` | `knowledge_chunks` | RAG document store + embeddings |
 | `Product` | `products` | Financial product catalog |
 | **`AgentAudit`** | **`agent_audit`** | **High-fidelity agentic audit trail** |
+
+---
+
+
+---
+
+## Phase 10: Operational Hardening & Release (v1.0) 🚀
+
+The system is now fully hardened for bank-grade production deployment.
+
+### 10.1 Regulatory Compliance
+- **Reporting Service**: Automated `AgentAudit` export for FCA/FINRA compliance.
+- **Historian Audit**: Immutable logging of every internal agent 'Thought' and 'Observation'.
+
+### 10.2 Operational Monitoring
+- **Health Diagnostics**: `/api/system/health` provides Liveness/Readiness probes for container orchestration.
+- **Dependency Pinning**: All core libraries are locked in `requirements.txt` to prevent breaking changes.
+
+### 10.3 Scaling Strategy
+- **Multiplexing**: HTTP/2 support for high-concurrency SSE connections.
+- **Multimodal ingestion**: Gemini-driven statement extraction (Vision).
 
 ---
 

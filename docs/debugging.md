@@ -118,5 +118,19 @@ This document is the "bible" for RetireIQ development. It captures every major t
 
 ---
 
+## 🚀 8. Production Operations (v1.0)
+
+### 8.1 Case #13: Regulatory Audit Failures
+- **Issue**: `reporting_service.py` returns an empty manifest.
+- **Root Cause**: The `session_id` provided was not used in the specific agent turn you are trying to audit.
+- **The "Bible" Fix**: Verify the session ID mapping in the `AgentAudit` table. Ensure all agent logic passes the `conversation_id` correctly.
+
+### 8.2 Case #14: Monitoring & Health Probes
+- **Issue**: `/api/system/health` returns a 503.
+- **The Diagnosis**: Check the `infrastructure` JSON block. It will tell you specifically if the DB, Vector search, or LLM provider is down.
+- **Expert Move**: Integrated this route with standard Cloud Monitoring (GCP/Azure) to trigger alerts for AI infrastructure degradation.
+
+---
+
 > [!IMPORTANT]
-> **Final Word**: This bible is a living document. Whenever a new "WTF" moment occurs, document it here. The goal is to ensure that no developer has to solve the same obscure bug twice.
+> **Final Word**: This bible is now **Project v1.0 sealed**. This document captures every technical hurdle and architectural choice from a 10-phase development cycle. It is your ultimate reference for maintaining and scaling the RetireIQ Multi-Agent System.

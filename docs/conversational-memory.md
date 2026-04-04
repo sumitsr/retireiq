@@ -26,6 +26,10 @@ The `llm_service` combines:
 3. **History**: The last few transcript turns (Short-term).
 4. **Current Query**: The user's latest message.
 
+## Status: 🧠 **v1.0 Production-Ready**
+
+RetireIQ uses a background **Summarization-into-Facts** pattern to maintain a persistent user profile without token bloat.
+
 ### 4. Pruning and Summarization
 To manage token costs and latency:
 - **Rolling Window**: Only the most recent $N$ messages are sent.
@@ -33,5 +37,4 @@ To manage token costs and latency:
 
 ---
 
-**In summary:** This dual-layer approach gives RetireIQ the illusion of a lifelong relationship with the user, where the AI remembers both the *details* of the current conversation and the *fundamental facts* of the user's financial life.
 

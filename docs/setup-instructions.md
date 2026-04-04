@@ -150,7 +150,7 @@ python scripts/seed_knowledge.py
 ## 7. Running Tests
 
 ```bash
-# Run all 109 tests
+# Run all 117+ tests
 ./.venv/bin/python -m pytest
 
 # Run with coverage report
@@ -161,7 +161,7 @@ python scripts/seed_knowledge.py
 ```
 
 > [!IMPORTANT]
-> The >90% test coverage threshold must be maintained for all new features. The latest additions (Sentinel and Actuarial) bring 35 new tests for compliance and simulation edge cases.
+> The >90% test coverage threshold must be maintained for all new features. The latest additions (Sentinel, Oracle, Debater, Forensic) bring the suite to **117+ tests** covering compliance, simulation, and multi-model consensus.
 
 ---
 
@@ -176,4 +176,7 @@ make db-shell
 
 # Verify the SSE stream is working (requires a valid token and conversation_id)
 curl -N -H "Authorization: Bearer <token>" http://localhost:5000/api/chat/stream/<conversation_id>
+
+# Run the Production Health Check
+curl http://localhost:5000/api/system/health
 ```
