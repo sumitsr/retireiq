@@ -8,6 +8,9 @@ from app.services.knowledge_service import knowledge_service
 from app.services.sentinel_service import sentinel
 from app.services.actuarial_service import actuarial
 from app.services.guardrails_service import guardrails_service
+from app.services.oracle_service import oracle
+from app.services.debater_service import debater
+from app.services.forensic_service import forensic
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +37,9 @@ class Orchestrator:
        personal info.
     4. RETIREMENT_SIMULATION: Requests for retirement projections, "will I have enough",
        Monte Carlo analysis, or "what if" scenario planning.
-    5. GENERAL: Greetings, thanks, or unrelated chit-chat.
+    5. MARKET_INTELLIGENCE: Questions about current stock prices, market trends,
+       inflation, interest rates, or the economy.
+    6. GENERAL: Greetings, thanks, or unrelated chit-chat.
 
     Output ONLY a JSON object with no extra text:
     {
@@ -60,12 +65,17 @@ class Orchestrator:
 
         self._log_dispatch_start(sanitized_message, history, conversation_id)
 
+        # 1. Market Awareness (The Oracle)
+        # Injects real-time context into the advisor's world view
+        market_data = oracle.get_market_context(conversation_id)
+        
         # 1. Behavioral Analysis (The Empath)
         from app.services.empath_service import empath_agent
         sentiment = empath_agent.analyze(sanitized_message, conversation_id)
         
-        # Add sentiment context for subsequent agents
+        # Add sentiment and market context for subsequent agents
         context_profile = (user_profile or {}).copy()
+        context_profile["market_context"] = market_data.__dict__
         context_profile["behavioral_sentiment"] = {
             "score": sentiment.score,
             "bias": sentiment.bias,
@@ -210,10 +220,29 @@ class Orchestrator:
             logger.info("[Dispatcher] Routing to Actuarial Agent | conv=%s", conversation_id)
             return self._handle_retirement_simulation(user_profile, conversation_id)
 
+        elif intent == "MARKET_INTELLIGENCE":
+            logger.info("[Dispatcher] Routing to Oracle Agent | conv=%s", conversation_id)
+            return self._handle_market_query(message, conversation_id)
+
         else:
             logger.info("[Dispatcher] Intent=%s — falling through to general LLM | conv=%s",
                         intent, conversation_id)
             return None
+
+    def _handle_market_query(self, message, conversation_id):
+        """Oracle Agent: provides current economic and ticker data."""
+        # Check if user mentioned a specific ticker
+        tickers = re.findall(r"\b[A-Z]{3,5}\b", message)
+        if tickers:
+            quote = oracle.get_ticker_quote(tickers[0], conversation_id)
+            return f"The current price for {tickers[0]} is £{quote['price']} ({quote['day_change']})."
+        
+        data = oracle.get_market_context(conversation_id)
+        return (
+            f"Current Market Context: The sentiment is currently {data.sentiment_score > 0.5 and 'Positive' or 'Neutral/Negative'}.\n"
+            f"S&P 500: {data.indices['S&P 500']['price']} ({data.indices['S&P 500']['change']})\n"
+            f"Key Indicator: US Inflation is at {data.economic_indicators['US Inflation (CPI)']}"
+        )
 
     def _handle_agent_call(self, intent_data, user_profile):
         """Delegates transactional or portfolio requests to the external Agent API."""
@@ -284,8 +313,18 @@ class Orchestrator:
         """
         Routes TRANSACTIONAL intents through the Sentinel compliance gate.
         """
-        trade_intent = self._build_trade_intent(intent_data, user_profile)
+        # 1. Forensic Anomaly Check (The Investigator)
+        forensic_report = forensic.analyze_intent(intent_data, user_profile, conversation_id)
         
+        # 2. Debater Gate (Ensemble Reasoning)
+        # Directing high-stakes or anomalous trades to the multi-model ensemble
+        if forensic_report["status"] == "RED" or intent_data.get("trade_value", 0) > 10000:
+            logger.warning("[Dispatcher] High-Stakes Transaction detected -> Routing to Debater Agent | conv=%s", conversation_id)
+            scenario_desc = f"User {user_profile.get('first_name')} wants to execute a {intent_data.get('sub_intent')} of {intent_data.get('asset')} valued at £{intent_data.get('trade_value')}. Forensic flags: {forensic_report['reasons']}"
+            return debater.debate(scenario_desc, user_profile, conversation_id, domain=intent)
+
+        # 3. Sentinel Compliance Check
+        trade_intent = self._build_trade_intent(intent_data, user_profile)
         verdict = sentinel.pre_trade_check(
             trade_intent=trade_intent,
             user_profile=user_profile if user_profile else {},

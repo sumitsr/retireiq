@@ -929,4 +929,43 @@ For browser-to-server security, images are sent as Base64 strings.
 
 ---
 
-*This concludes the Complete Python Engineering Series. RetireIQ is the living laboratory where every module above has a real, running implementation. From basic type hints to HMAC security and Multimodal Vision — every pattern here was chosen because it solves a real problem at production scale.*
+## 🗳️ Module 17: Multi-Model Intelligence (The Expert Ensemble)
+
+In high-stakes financial applications, we don't trust a single AI. We use an **Ensemble Reasoning** layer called the **Debater Agent**.
+
+### 17.1 Why Ensemble?
+Every AI has "blind spots." Gemini is great at policy RAG, while GPT-4 is superior at deterministic logic. By using a **Weighted Consensus**, we ensure the most capable model for a specific task has the highest "Authority Score."
+
+### 17.2 Parallel Execution (`threading`)
+Calling 3 models takes time. To keep RetireIQ responsive, we use **Python Threads** to call all experts at once:
+
+```python
+import threading
+
+def call_model(name, ...):
+    # This specific call happens in its own world
+    print(f"Expert {name} is thinking...")
+
+# Launching 3 experts simultaneously
+threads = []
+for name in ["Gemini", "GPT-4", "Llama"]:
+    t = threading.Thread(target=call_model, args=(name,))
+    t.start()
+    threads.append(t)
+
+# Wait for everyone to finish (max 20s)
+for t in threads:
+    t.join(timeout=20)
+```
+
+### 17.3 The Moderator Pattern
+Once we have 3 viewpoints, we use a **Moderator** (Gemini Flash) to synthesize them. The moderator is explicitly briefed on the **Authority Matrix**: 
+- *If it's a Math/Transactional task, weight GPT-4 at 90%.*
+- *If it's a Policy task, weight Gemini at 90%.*
+
+> [!TIP]
+> **Expert Move**: Our `DebaterAgent` includes a **Consensus Confidence Score**. If the "Authority" model is overruled by the other two, the moderator flags a **"Critical Discrepancy"** for human forensic review.
+
+---
+
+*This concludes the Complete Python Engineering Series. RetireIQ is the living laboratory where every module above has a real, running implementation. From basic type hints to HMAC security, Multimodal Vision, and Weighted Multi-Model Ensembles — every pattern here was chosen because it solves a real problem at bank-grade scale.*

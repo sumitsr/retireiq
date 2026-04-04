@@ -37,6 +37,9 @@ Located in `app/services/`, this is the heart of the Multi-Agent System (MAS).
 | `vision_service.py` | Multimodal document ingestion (PDFs, Images). | **Multimodal Extraction** using Gemini 1.5 Pro. |
 | `actuarial_service.py` | Monte Carlo simulations for retirement projections. | **Probabilistic Simulation** using NumPy and Life Tables. |
 | `empath_service.py` | Real-time sentiment and behavioral analysis. | **Sentimental Analysis** using VADER/LLM sentiment scoring. |
+| `oracle_service.py` | Real-time market data fetcher (S&P 500, inflation, yields). | **Context Injection** for real-time financial awareness. |
+| `debater_service.py` | Expert Ensemble engine. | **Parallel Consensus** using 3 independent models. |
+| `forensic_service.py` | Anomaly detection agent. | **Behavioral Analysis** for risk shift identification. |
 | `memory_service.py` | Long-term user preference summarization. | **Recursive Summarization** for persistent context. |
 | `audit_service.py` | The "Historian": Logs every agentic "Thought/Action". | **Singleton Observer** logging to PostgreSQL. |
 | `sse_service.py` | Real-time server-sent events for transparent agents. | **Pub/Sub Pattern** with `threading.Lock` serialization. |

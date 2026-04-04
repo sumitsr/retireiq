@@ -102,5 +102,21 @@ This document is the "bible" for RetireIQ development. It captures every major t
 
 ---
 
+## 🗳️ 7. Multi-Model Ensemble Reasoning (The Debater)
+
+### 7.1 Case #11: The Outlier Authority (Ensemble Discrepancy)
+- **Issue**: The Debater returns a "Low Consensus Confidence" score or Model B (GPT) disagrees with Model A (Gemini).
+- **Root Cause**: Models have different "Domain Authorities." GPT is superior at logic/math; Gemini is superior at policy RAG.
+- **The "Bible" Fix**: Implement a **Weighted Moderator**. Explicitly brief the Moderator LLM on the `DOMAIN_AUTHORITY` weight matrix. If the "Authority" model is the minority, flag a **"Critical Discrepancy"** for human forensic review.
+- **Prevention**: Always log the Moderator's "Thought" process to see why one expert was prioritized over another.
+
+### 7.2 Case #12: Threading Timeouts (The 20-Second Wall)
+- **Issue**: The Debater returns a partial response or fails to gather all 3 viewpoints.
+- **Root Cause**: One endpoint (usually local Ollama or slow Azure regions) took longer than the 20-second `t.join(timeout=20)` limit.
+- **The "Bible" Fix**: Increase the join timeout or implement a **Streaming Async Debater** that processes whichever results arrive first.
+- **Prevention**: Monitor `[Debater] Model X failed` in the Historian logs to identify slow providers.
+
+---
+
 > [!IMPORTANT]
 > **Final Word**: This bible is a living document. Whenever a new "WTF" moment occurs, document it here. The goal is to ensure that no developer has to solve the same obscure bug twice.

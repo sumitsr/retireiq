@@ -88,7 +88,8 @@ graph TD
     end
 
     subgraph "High-Stakes Safety"
-        Actuarial -->|High Impact?| Debater["🗳 Debater Agent\nEnsemble Reasoning (3× Model)"]
+        Actuarial -->|High Impact?| Forensic["🕵️ Forensic Agent\nAnomaly Detection"]
+        Forensic -->|Anomalous?| Debater["🗳 Debater Agent\nExpert Ensemble (3× Model)"]
     end
 
     subgraph "Historian & Stream"
@@ -136,9 +137,9 @@ Background fact extraction from conversation history into `UserMemory`. Runs in 
 | **Vision** | OCR & document ingestion (Statements) | ✅ Delivered | Multimodal Extraction |
 | **Empath** | Behavioral finance sentiment analysis | ✅ Delivered | Pre-Dispatcher Layer |
 | **Concierge** | Proactive outreach & scheduling | ✅ Delivered | SSE / Task Skeleton |
-| **Oracle** | Real-time market intelligence | 📅 Planned | Market data feeds |
-| **Debater** | Ensemble reasoning (3× Independent Models) | 📅 Planned | Moderator Pattern |
-| **Forensic** | Fraud detection & anomaly scoring | 📅 Planned | Velocity tracking |
+| **Oracle** | Real-time market intelligence | ✅ Delivered | Market data feeds |
+| **Debater** | Expert Ensemble (3× Weighted Models) | ✅ Delivered | Expert Weighting Logic |
+| **Forensic** | Fraud detection & anomaly scoring | ✅ Delivered | Velocity tracking |
 
 ---
 

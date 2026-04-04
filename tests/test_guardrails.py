@@ -24,11 +24,10 @@ def test_safe_query_passes(guardrails):
 
 def test_medical_query_blocked(guardrails):
     # Mock LLM API returning a BLOCK for medical
-    msg = "I am a Financial Advisor, not a medical professional."
+    msg = "I'm sorry, but I'm specialized in retirement and financial planning. I recommend consulting a medical professional for health-related questions."
     mock_response = json.dumps({
         "status": "BLOCK",
-        "reason": "MEDICAL",
-        "refusal_message": msg
+        "reason": "medical advice"
     })
     
     with patch("app.services.llm_service.call_azure_openai_api_with_key", return_value=mock_response):
@@ -36,11 +35,10 @@ def test_medical_query_blocked(guardrails):
         assert refusal == msg
 
 def test_off_topic_query_blocked(guardrails):
-    msg = "I am specifically trained as a Retirement Advisor."
+    msg = "I'm here to assist you with your retirement planning and financial goals. I'm afraid I don't have information on that topic."
     mock_response = json.dumps({
         "status": "BLOCK",
-        "reason": "OFF_TOPIC",
-        "refusal_message": msg
+        "reason": "off-topic"
     })
     
     with patch("app.services.llm_service.call_azure_openai_api_with_key", return_value=mock_response):

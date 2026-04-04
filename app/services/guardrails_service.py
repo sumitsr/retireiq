@@ -133,7 +133,14 @@ class GuardrailsService:
         try:
             match = re.search(r"\{.*\}", raw_response, re.DOTALL)
             if match:
-                return json.loads(match.group())
+                parsed = json.loads(match.group())
+                # Backward compatibility for 'status' instead of 'verdict'
+                if "status" in parsed and "verdict" not in parsed:
+                    parsed["verdict"] = parsed["status"]
+                # Backward compatibility for 'reason' as category
+                if "reason" in parsed and "category" not in parsed:
+                    parsed["category"] = parsed["reason"]
+                return parsed
         except Exception:
             pass
         return {"verdict": "PASS"}
