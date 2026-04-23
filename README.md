@@ -196,7 +196,7 @@ retireiq/
 
 ## 📄 License
 
-This project is proprietary and confidential. Unauthorized copying of this file, via any medium, is strictly prohibited.
+This project is **Proprietary and Confidential**. See the [LICENSE](LICENSE) file for full legal details.
 
 Copyright (c) 2026 Sumit Srivastava.
 
